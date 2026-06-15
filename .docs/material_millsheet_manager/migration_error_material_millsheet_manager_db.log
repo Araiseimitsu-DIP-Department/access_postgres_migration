@@ -1,0 +1,22 @@
+﻿2026-06-15 15:16:34,092 [INFO] 移行開始: t_クロス集計用 -> cross_aggregation
+2026-06-15 15:16:34,122 [INFO] 移行完了: t_クロス集計用 Access=8 PostgreSQL=8
+2026-06-15 15:16:34,123 [INFO] 移行開始: t_コントロール -> app_control
+2026-06-15 15:16:34,137 [INFO] 移行完了: t_コントロール Access=1 PostgreSQL=1
+2026-06-15 15:16:34,138 [INFO] 移行開始: t_備考内容 -> remarks_master
+2026-06-15 15:16:34,152 [INFO] 移行完了: t_備考内容 Access=3 PostgreSQL=3
+2026-06-15 15:16:34,153 [INFO] 移行開始: t_旧検査データ -> legacy_inspection_data
+2026-06-15 15:16:34,626 [INFO] 移行完了: t_旧検査データ Access=7993 PostgreSQL=7993
+2026-06-15 15:16:34,628 [INFO] 移行開始: t_材料納入Tmp -> material_delivery_temp
+2026-06-15 15:16:34,635 [INFO] 移行完了: t_材料納入Tmp Access=0 PostgreSQL=0
+2026-06-15 15:16:34,636 [INFO] 移行開始: t_材料納入履歴 -> material_delivery_history
+2026-06-15 15:16:36,819 [INFO] 移行完了: t_材料納入履歴 Access=14590 PostgreSQL=14590
+2026-06-15 15:16:36,820 [INFO] 移行開始: t_材料納入履歴 変更前 -> material_delivery_history_before_change
+2026-06-15 15:16:37,187 [INFO] 移行完了: t_材料納入履歴 変更前 Access=2677 PostgreSQL=2677
+2026-06-15 15:16:37,188 [INFO] 移行開始: t_材質 -> material_types
+2026-06-15 15:16:37,202 [INFO] 移行完了: t_材質 Access=92 PostgreSQL=92
+2026-06-15 15:16:37,203 [INFO] 移行開始: t_検査データ -> inspection_data
+2026-06-15 15:16:37,348 [INFO] 移行完了: t_検査データ Access=1012 PostgreSQL=1012
+2026-06-15 15:16:37,350 [INFO] 移行開始: t_検査員 -> inspectors
+2026-06-15 15:16:37,367 [INFO] 移行完了: t_検査員 Access=6 PostgreSQL=6
+2026-06-15 15:16:37,367 [INFO] 移行開始: t_納入業者 -> suppliers
+2026-06-15 15:16:37,381 [INFO] 移行完了: t_納入業者 Access=20 PostgreSQL=20
