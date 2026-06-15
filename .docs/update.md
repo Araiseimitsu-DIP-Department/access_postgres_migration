@@ -22,3 +22,6 @@
 - `.docs/secondary_process_record_db` のAccess DBをPostgreSQLへ移行。
 - 社内二次工程記録DB専用スクリプト `.docs/secondary_process_record_db/migrate_access_to_postgres_secondary_process_record_db.py` を追加。
 - 社内二次工程記録DBの移行成果物名に `secondary_process_record_db` を含める命名で生成。
+- `.docs/pingauge_management_db` のAccess DBをPostgreSQLへ移行。
+- ピンゲージ管理DB専用スクリプト `.docs/pingauge_management_db/migrate_access_to_postgres_pingauge_management_db.py` を追加。
+- ピンゲージ管理DBの移行成果物名に `pingauge_management_db` を含める命名で生成。

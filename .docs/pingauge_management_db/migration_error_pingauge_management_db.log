@@ -1,0 +1,4 @@
+﻿2026-06-15 09:33:18,796 [WARNING] ACCESS_DB_PATHが存在しないため、メタJSONのAccess DBパスを使用します
+2026-06-15 09:33:19,638 [INFO] 件数確認: t_PGマスタ Access=2030 PostgreSQL=2030
+2026-06-15 09:33:19,638 [INFO] 件数確認: t_担当者マスタ Access=29 PostgreSQL=29
+2026-06-15 09:33:19,654 [INFO] 件数確認: t_貸出 Access=32229 PostgreSQL=32229
