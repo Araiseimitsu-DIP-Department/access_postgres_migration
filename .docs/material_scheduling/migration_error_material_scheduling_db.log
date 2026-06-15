@@ -1,0 +1,23 @@
+﻿2026-06-15 13:15:29,208 [INFO] 件数確認: t_コントロール Access=1 PostgreSQL=1
+2026-06-15 13:15:29,216 [INFO] 件数確認: t_セット予定 Access=5182 PostgreSQL=5182
+2026-06-15 13:15:29,223 [INFO] 件数確認: t_チャックマスタ Access=467 PostgreSQL=467
+2026-06-15 13:15:29,230 [INFO] 件数確認: t_一時停止 Access=0 PostgreSQL=0
+2026-06-15 13:15:29,239 [INFO] 件数確認: t_受信メールマスタ Access=7 PostgreSQL=7
+2026-06-15 13:15:29,255 [INFO] 件数確認: t_営業担当マスタ Access=4 PostgreSQL=4
+2026-06-15 13:15:29,267 [INFO] 件数確認: t_旧機械ID Access=96 PostgreSQL=96
+2026-06-15 13:15:29,273 [INFO] 件数確認: t_材料管理 Access=115 PostgreSQL=115
+2026-06-15 13:15:29,278 [INFO] 件数確認: t_材料納入履歴 Access=144 PostgreSQL=144
+2026-06-15 13:15:29,284 [INFO] 件数確認: t_材質 Access=85 PostgreSQL=85
+2026-06-15 13:15:29,288 [INFO] 件数確認: t_機械マスタ Access=57 PostgreSQL=57
+2026-06-15 13:15:29,301 [INFO] 件数確認: t_段取り者マスタ Access=15 PostgreSQL=15
+2026-06-15 13:15:29,307 [INFO] 件数確認: t_汎用材料マスタ Access=0 PostgreSQL=0
+2026-06-15 13:15:29,312 [INFO] 件数確認: t_汎用材料発注実績 Access=0 PostgreSQL=0
+2026-06-15 13:15:29,318 [INFO] 件数確認: t_注文書データ Access=2 PostgreSQL=2
+2026-06-15 13:15:29,332 [INFO] 件数確認: t_生産リリース Access=30336 PostgreSQL=30336
+2026-06-15 13:15:29,342 [INFO] 件数確認: t_生産リリース のコピー Access=30193 PostgreSQL=30193
+2026-06-15 13:15:29,348 [INFO] 件数確認: t_生産発注 Access=6329 PostgreSQL=6329
+2026-06-15 13:15:29,354 [INFO] 件数確認: t_発注者マスタ Access=7 PostgreSQL=7
+2026-06-15 13:15:29,364 [INFO] 件数確認: t_管理表マスタ Access=1519 PostgreSQL=1519
+2026-06-15 13:15:29,369 [INFO] 件数確認: t_納入業者 Access=13 PostgreSQL=13
+2026-06-15 13:15:29,375 [INFO] 件数確認: t_送信メールマスタ Access=3 PostgreSQL=3
+2026-06-15 13:15:29,381 [INFO] 件数確認: t_部品別チャックマスタ Access=1469 PostgreSQL=1469
