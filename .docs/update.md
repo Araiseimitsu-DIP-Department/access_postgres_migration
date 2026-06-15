@@ -2,6 +2,8 @@
 
 ## 2026-06-15
 
+- `.docs/qr_scan_history_db` のQR履歴保存DBをPostgreSQL `qr_scan_history_db` へ移行。`qr_scan_history` テーブルのAccess/PostgreSQL件数が346,689件で一致することを確認。
+- `.docs/qr_scan_history_db/migrate_access_to_postgres_qr_scan_history_db.py`、`migration_mapping.md`、`migration_result.md`、`migration_error.log` を追加。
 - `production_progress_sheet` から加工進行表DB（3テーブル）の移行スクリプトを `.docs/production_progress` へコピー。`migrate_access_to_pg.py`、`schema_pg_english_v1.sql`、`apply_pg_schema.ps1`、`migrate_support/`。
 - `.docs/production_progress/migration_mapping_production_progress.md` を追加。Access↔PostgreSQL のテーブル・列・型対応を文書化。
 
