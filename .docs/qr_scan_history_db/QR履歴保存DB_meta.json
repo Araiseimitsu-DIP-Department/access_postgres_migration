@@ -1,0 +1,259 @@
+{
+  "database_path": "\\\\192.168.1.200\\共有\\QRシステム\\Access\\QR履歴保存DB.accdb",
+  "driver_used": "Microsoft Access Driver (*.mdb, *.accdb)",
+  "tables": [
+    {
+      "name": "t_QR履歴保存",
+      "table_type": "TABLE",
+      "row_count": 346689,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "日付時刻",
+          "access_type": "DATETIME",
+          "sql_data_type": 9,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true,
+          "postgres_type_hint": "TIMESTAMP"
+        },
+        {
+          "name": "QRコード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 22,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(22)"
+        },
+        {
+          "name": "生産ロットID",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 7,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(7)"
+        },
+        {
+          "name": "日付",
+          "access_type": "DATETIME",
+          "sql_data_type": 9,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true,
+          "postgres_type_hint": "TIMESTAMP"
+        },
+        {
+          "name": "工程",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 2,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(2)"
+        },
+        {
+          "name": "位置",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 2,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(2)"
+        },
+        {
+          "name": "数量",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true,
+          "postgres_type_hint": "INTEGER"
+        },
+        {
+          "name": "工程コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 2,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(2)"
+        },
+        {
+          "name": "工程名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(30)"
+        },
+        {
+          "name": "更新フラグ",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(1)"
+        }
+      ],
+      "indexes": [],
+      "sample_headers": [
+        "日付時刻",
+        "QRコード",
+        "生産ロットID",
+        "日付",
+        "工程",
+        "位置",
+        "数量",
+        "工程コード",
+        "工程名",
+        "更新フラグ"
+      ],
+      "sample_rows": [
+        [
+          "2021-01-05T08:42:51",
+          "P056222201228012A04740",
+          "P056222",
+          "2021-01-05T00:00:00",
+          "3",
+          "1",
+          0,
+          "90",
+          "磁気ﾊﾞﾚﾙ",
+          "1"
+        ],
+        [
+          "2021-01-05T08:51:07",
+          "P055781201219006A04549",
+          "P055781",
+          "2021-01-05T00:00:00",
+          "1",
+          "1",
+          1399,
+          "01",
+          "洗浄",
+          "1"
+        ],
+        [
+          "2021-01-05T08:58:33",
+          "P055816201220006A04549",
+          "P055816",
+          "2021-01-05T00:00:00",
+          "1",
+          "1",
+          1430,
+          "01",
+          "洗浄",
+          "1"
+        ],
+        [
+          "2021-01-05T09:02:53",
+          "P056082201221006A04549",
+          "P056082",
+          "2021-01-05T00:00:00",
+          "1",
+          "1",
+          639,
+          "01",
+          "洗浄",
+          "1"
+        ],
+        [
+          "2021-01-05T09:09:03",
+          "P056229201228022A04740",
+          "P056229",
+          "2021-01-05T00:00:00",
+          "3",
+          "1",
+          0,
+          "90",
+          "磁気ﾊﾞﾚﾙ",
+          "1"
+        ]
+      ],
+      "column_stats": [
+        {
+          "column": "日付時刻",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "QRコード",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "生産ロットID",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "日付",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "工程",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "位置",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "数量",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "工程コード",
+          "null_count": 55,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "工程名",
+          "null_count": 102,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "更新フラグ",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        }
+      ]
+    }
+  ],
+  "views_and_queries": [],
+  "relationships": [],
+  "vba_modules": [],
+  "warnings": [
+    "FK 取得スキップ: t_QR履歴保存 — ('IM001', '[IM001] [Microsoft][ODBC Driver Manager] ドライバーはこの関数をサポートしていません。 (0) (SQLForeignKeys)')",
+    "VBA 抽出失敗: (-2147352567, '例外が発生しました。', (0, None, '指定した式に、Visible プロパティに対する正しくない参照が含まれます。', 'dao360.chm', 2015567, -2146825833), None)"
+  ]
+}
