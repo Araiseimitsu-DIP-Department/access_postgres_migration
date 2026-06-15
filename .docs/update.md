@@ -1,5 +1,10 @@
 # 更新履歴
 
+## 2026-06-15
+
+- `production_progress_sheet` から加工進行表DB（3テーブル）の移行スクリプトを `.docs/production_progress` へコピー。`migrate_access_to_pg.py`、`schema_pg_english_v1.sql`、`apply_pg_schema.ps1`、`migrate_support/`。
+- `.docs/production_progress/migration_mapping_production_progress.md` を追加。Access↔PostgreSQL のテーブル・列・型対応を文書化。
+
 ## 2026-06-12
 
 - Access → PostgreSQL移行プロジェクトの初期構成を作成。
