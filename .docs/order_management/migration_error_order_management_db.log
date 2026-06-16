@@ -1,0 +1,16 @@
+﻿2026-06-16 09:55:25,827 [INFO] 件数確認: imp管理表 Access=4540 PostgreSQL=4540
+2026-06-16 09:55:25,834 [INFO] 件数確認: t_かんばんマスタ Access=1 PostgreSQL=1
+2026-06-16 09:55:25,842 [INFO] 件数確認: t_コントロール Access=1 PostgreSQL=1
+2026-06-16 09:55:25,849 [INFO] 件数確認: t_プリンタ名 Access=1 PostgreSQL=1
+2026-06-16 09:55:25,859 [INFO] 件数確認: t_受注 Access=38341 PostgreSQL=38341
+2026-06-16 09:55:25,864 [INFO] 件数確認: t_営業マスタ Access=6 PostgreSQL=6
+2026-06-16 09:55:25,870 [INFO] 件数確認: t_客先マスタ Access=117 PostgreSQL=117
+2026-06-16 09:55:25,877 [INFO] 件数確認: t_納品 Access=42523 PostgreSQL=42523
+2026-06-16 09:55:25,882 [INFO] 件数確認: t_納品書 Access=0 PostgreSQL=0
+2026-06-16 09:55:25,887 [INFO] 件数確認: t_納品書データ Access=0 PostgreSQL=0
+2026-06-16 09:55:25,891 [INFO] 件数確認: t_製品マスタ Access=1519 PostgreSQL=1519
+2026-06-16 09:55:25,896 [INFO] 件数確認: t_請求書 Access=229 PostgreSQL=229
+2026-06-16 09:55:25,900 [INFO] 件数確認: t_請求書Tmp Access=0 PostgreSQL=0
+2026-06-16 09:55:25,904 [INFO] 件数確認: t_請求金額 Access=2060 PostgreSQL=2060
+2026-06-16 09:55:25,909 [INFO] 件数確認: t_請求金額決算 Access=44 PostgreSQL=44
+2026-06-16 09:55:25,914 [INFO] 件数確認: t_重複客先 Access=11 PostgreSQL=11
