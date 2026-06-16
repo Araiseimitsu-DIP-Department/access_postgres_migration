@@ -1,0 +1,1073 @@
+{
+  "database_path": "\\\\192.168.1.200\\共有\\生産管理課\\AccessDB\\購入品集計DB.accdb",
+  "driver_used": "Microsoft Access Driver (*.mdb, *.accdb)",
+  "tables": [
+    {
+      "name": "t_クロス集計用",
+      "table_type": "TABLE",
+      "row_count": 25,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "ID",
+          "access_type": "COUNTER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": false,
+          "postgres_type_hint": "BIGSERIAL"
+        },
+        {
+          "name": "費目コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 2,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(2)"
+        },
+        {
+          "name": "費目名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(30)"
+        },
+        {
+          "name": "購入先コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(3)"
+        },
+        {
+          "name": "購入先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(30)"
+        },
+        {
+          "name": "購入月",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 4,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(4)"
+        },
+        {
+          "name": "金額",
+          "access_type": "CURRENCY",
+          "sql_data_type": 2,
+          "column_size": 19,
+          "decimal_digits": 4,
+          "nullable": true,
+          "postgres_type_hint": "NUMERIC(19,4)"
+        }
+      ],
+      "indexes": [],
+      "sample_headers": [
+        "ID",
+        "費目コード",
+        "費目名",
+        "購入先コード",
+        "購入先名",
+        "購入月",
+        "金額"
+      ],
+      "sample_rows": [
+        [
+          10175,
+          "10",
+          "工具費",
+          "101",
+          "棒柘産業 ㈱",
+          "2304",
+          "1827119.0000"
+        ],
+        [
+          10176,
+          "10",
+          "工具費",
+          "102",
+          "㈱ まじま機工",
+          "2304",
+          "338230.0000"
+        ],
+        [
+          10177,
+          "10",
+          "工具費",
+          "106",
+          "岩瀬産業㈱",
+          "2304",
+          "734512.0000"
+        ],
+        [
+          10178,
+          "10",
+          "工具費",
+          "107",
+          "㈱佐藤機工",
+          "2304",
+          "145006.0000"
+        ],
+        [
+          10179,
+          "10",
+          "工具費",
+          "109",
+          "㈱CJVインターナショナル",
+          "2304",
+          "469800.0000"
+        ]
+      ],
+      "column_stats": [
+        {
+          "column": "ID",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "費目コード",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "費目名",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "購入先コード",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "購入先名",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "購入月",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "金額",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        }
+      ]
+    },
+    {
+      "name": "t_コントロール",
+      "table_type": "TABLE",
+      "row_count": 1,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "ID",
+          "access_type": "COUNTER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": false,
+          "postgres_type_hint": "BIGSERIAL"
+        },
+        {
+          "name": "購入月From",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 4,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(4)"
+        },
+        {
+          "name": "購入月To",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 4,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(4)"
+        },
+        {
+          "name": "集計方法",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true,
+          "postgres_type_hint": "INTEGER"
+        }
+      ],
+      "indexes": [],
+      "sample_headers": [
+        "ID",
+        "購入月From",
+        "購入月To",
+        "集計方法"
+      ],
+      "sample_rows": [
+        [
+          1,
+          "2304",
+          "2304",
+          2
+        ]
+      ],
+      "column_stats": [
+        {
+          "column": "ID",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "購入月From",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "購入月To",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "集計方法",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        }
+      ]
+    },
+    {
+      "name": "t_科目名マスタ",
+      "table_type": "TABLE",
+      "row_count": 19,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "科目コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 2,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(2)"
+        },
+        {
+          "name": "科目名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 6,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(6)"
+        }
+      ],
+      "indexes": [],
+      "sample_headers": [
+        "科目コード",
+        "科目名"
+      ],
+      "sample_rows": [
+        [
+          "01",
+          "資産計上"
+        ],
+        [
+          "02",
+          "福利厚生"
+        ],
+        [
+          "03",
+          "相殺"
+        ],
+        [
+          "04",
+          "売上"
+        ],
+        [
+          "05",
+          "修繕"
+        ]
+      ],
+      "column_stats": [
+        {
+          "column": "科目コード",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "科目名",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        }
+      ]
+    },
+    {
+      "name": "t_購入先マスタ",
+      "table_type": "TABLE",
+      "row_count": 84,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "購入先コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(3)"
+        },
+        {
+          "name": "購入先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 20,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(20)"
+        },
+        {
+          "name": "費目コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 2,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(2)"
+        },
+        {
+          "name": "費目名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 10,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(10)"
+        },
+        {
+          "name": "締日",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 2,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(2)"
+        },
+        {
+          "name": "かな",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(1)"
+        },
+        {
+          "name": "表示フラグ",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(1)"
+        }
+      ],
+      "indexes": [],
+      "sample_headers": [
+        "購入先コード",
+        "購入先名",
+        "費目コード",
+        "費目名",
+        "締日",
+        "かな",
+        "表示フラグ"
+      ],
+      "sample_rows": [
+        [
+          "524",
+          "（株）クレバリーワン　食品",
+          "50",
+          "総務関連",
+          "31",
+          "く",
+          "Y"
+        ],
+        [
+          "525",
+          "斉藤商事（株）",
+          "50",
+          "総務関連",
+          "31",
+          "さ",
+          "Y"
+        ],
+        [
+          "526",
+          "ＡＳＫＵＬ食品",
+          "50",
+          "総務関連",
+          "31",
+          "あ",
+          "Y"
+        ],
+        [
+          "527",
+          "カインズホーム",
+          "50",
+          "総務関連",
+          "31",
+          "か",
+          "Y"
+        ],
+        [
+          "528",
+          "カインズホーム　食品",
+          "50",
+          "総務関連",
+          "31",
+          "か",
+          "Y"
+        ]
+      ],
+      "column_stats": [
+        {
+          "column": "購入先コード",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "購入先名",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "費目コード",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "費目名",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "締日",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "かな",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "表示フラグ",
+          "null_count": 34,
+          "null_rate_pct": 40.5,
+          "unique_count": null,
+          "unique_rate_pct": null
+        }
+      ]
+    },
+    {
+      "name": "t_購入品明細",
+      "table_type": "TABLE",
+      "row_count": 45582,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "ID",
+          "access_type": "COUNTER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": false,
+          "postgres_type_hint": "BIGSERIAL"
+        },
+        {
+          "name": "納入日",
+          "access_type": "DATETIME",
+          "sql_data_type": 9,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true,
+          "postgres_type_hint": "TIMESTAMP"
+        },
+        {
+          "name": "購入先コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(3)"
+        },
+        {
+          "name": "購入先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(30)"
+        },
+        {
+          "name": "購入者コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(3)"
+        },
+        {
+          "name": "購入者名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(30)"
+        },
+        {
+          "name": "費目コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 2,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(2)"
+        },
+        {
+          "name": "費目名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 10,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(10)"
+        },
+        {
+          "name": "購入月",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 4,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(4)"
+        },
+        {
+          "name": "納品書番号",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 15,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(15)"
+        },
+        {
+          "name": "品名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 60,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(60)"
+        },
+        {
+          "name": "数量",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true,
+          "postgres_type_hint": "INTEGER"
+        },
+        {
+          "name": "単価",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "DOUBLE PRECISION"
+        },
+        {
+          "name": "金額",
+          "access_type": "CURRENCY",
+          "sql_data_type": 2,
+          "column_size": 19,
+          "decimal_digits": 4,
+          "nullable": true,
+          "postgres_type_hint": "NUMERIC(19,4)"
+        },
+        {
+          "name": "単位",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 5,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(5)"
+        },
+        {
+          "name": "備考",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(30)"
+        },
+        {
+          "name": "入力日",
+          "access_type": "DATETIME",
+          "sql_data_type": 9,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true,
+          "postgres_type_hint": "TIMESTAMP"
+        },
+        {
+          "name": "科目名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 6,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(6)"
+        }
+      ],
+      "indexes": [],
+      "sample_headers": [
+        "ID",
+        "納入日",
+        "購入先コード",
+        "購入先名",
+        "購入者コード",
+        "購入者名",
+        "費目コード",
+        "費目名",
+        "購入月",
+        "納品書番号",
+        "品名",
+        "数量",
+        "単価",
+        "金額",
+        "単位",
+        "備考",
+        "入力日",
+        "科目名"
+      ],
+      "sample_rows": [
+        [
+          1,
+          "2017-09-25T00:00:00",
+          "102",
+          "㈱ まじま機工",
+          "008",
+          "小鹿原",
+          "10",
+          "工具費",
+          "1710",
+          "18730",
+          "ﾎﾞｰﾙﾈｼﾞ　φ20　350-124-1",
+          2,
+          66000.0,
+          "132000.0000",
+          null,
+          null,
+          "2017-09-25T00:00:00",
+          null
+        ],
+        [
+          2,
+          "2017-09-25T00:00:00",
+          "102",
+          "㈱ まじま機工",
+          "008",
+          "小鹿原",
+          "10",
+          "工具費",
+          "1710",
+          "18730",
+          "ﾎﾞｰﾙﾈｼﾞ ｻﾎﾟｰﾄ軸受　212-052",
+          2,
+          9000.0,
+          "18000.0000",
+          null,
+          null,
+          "2017-09-25T00:00:00",
+          null
+        ],
+        [
+          3,
+          "2017-09-25T00:00:00",
+          "102",
+          "㈱ まじま機工",
+          "008",
+          "小鹿原",
+          "10",
+          "工具費",
+          "1710",
+          "18730",
+          "ｼｰﾙ付ｱﾝｷﾞｭﾗ玉軸受　213-052",
+          2,
+          10000.0,
+          "20000.0000",
+          null,
+          null,
+          "2017-09-25T00:00:00",
+          null
+        ],
+        [
+          4,
+          "2017-09-25T00:00:00",
+          "102",
+          "㈱ まじま機工",
+          "008",
+          "小鹿原",
+          "10",
+          "工具費",
+          "1710",
+          "18730",
+          "ｼｰﾙ付ｱﾝｷﾞｭﾗ玉軸受　213-053",
+          2,
+          9000.0,
+          "18000.0000",
+          null,
+          null,
+          "2017-09-25T00:00:00",
+          null
+        ],
+        [
+          5,
+          "2017-09-25T00:00:00",
+          "102",
+          "㈱ まじま機工",
+          "008",
+          "小鹿原",
+          "10",
+          "工具費",
+          "1710",
+          "18730",
+          "5%割引き　",
+          1,
+          -11640.0,
+          "-11640.0000",
+          null,
+          null,
+          "2017-09-25T00:00:00",
+          null
+        ]
+      ],
+      "column_stats": [
+        {
+          "column": "ID",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "納入日",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "購入先コード",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "購入先名",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "購入者コード",
+          "null_count": 155,
+          "null_rate_pct": 0.3,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "購入者名",
+          "null_count": 155,
+          "null_rate_pct": 0.3,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "費目コード",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "費目名",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "購入月",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "納品書番号",
+          "null_count": 58,
+          "null_rate_pct": 0.1,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "品名",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "数量",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "単価",
+          "null_count": 1,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "金額",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "単位",
+          "null_count": 45582,
+          "null_rate_pct": 100.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "備考",
+          "null_count": 5917,
+          "null_rate_pct": 13.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "入力日",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "科目名",
+          "null_count": 29148,
+          "null_rate_pct": 63.9,
+          "unique_count": null,
+          "unique_rate_pct": null
+        }
+      ]
+    },
+    {
+      "name": "t_購入者マスタ",
+      "table_type": "TABLE",
+      "row_count": 44,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "購入者コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(3)"
+        },
+        {
+          "name": "購入者名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 10,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(10)"
+        },
+        {
+          "name": "かな",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(1)"
+        },
+        {
+          "name": "表示フラグ",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true,
+          "postgres_type_hint": "VARCHAR(1)"
+        }
+      ],
+      "indexes": [],
+      "sample_headers": [
+        "購入者コード",
+        "購入者名",
+        "かな",
+        "表示フラグ"
+      ],
+      "sample_rows": [
+        [
+          "001",
+          "新井翔",
+          "あ",
+          "Y"
+        ],
+        [
+          "002",
+          "石島",
+          "い",
+          null
+        ],
+        [
+          "003",
+          "石間戸",
+          "い",
+          "Y"
+        ],
+        [
+          "004",
+          "井出",
+          "い",
+          null
+        ],
+        [
+          "005",
+          "今井",
+          "い",
+          "Y"
+        ]
+      ],
+      "column_stats": [
+        {
+          "column": "購入者コード",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "購入者名",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "かな",
+          "null_count": 0,
+          "null_rate_pct": 0.0,
+          "unique_count": null,
+          "unique_rate_pct": null
+        },
+        {
+          "column": "表示フラグ",
+          "null_count": 7,
+          "null_rate_pct": 15.9,
+          "unique_count": null,
+          "unique_rate_pct": null
+        }
+      ]
+    }
+  ],
+  "views_and_queries": [],
+  "relationships": [],
+  "vba_modules": [],
+  "warnings": [
+    "FK 取得スキップ: t_クロス集計用 — ('IM001', '[IM001] [Microsoft][ODBC Driver Manager] ドライバーはこの関数をサポートしていません。 (0) (SQLForeignKeys)')",
+    "FK 取得スキップ: t_コントロール — ('IM001', '[IM001] [Microsoft][ODBC Driver Manager] ドライバーはこの関数をサポートしていません。 (0) (SQLForeignKeys)')",
+    "FK 取得スキップ: t_科目名マスタ — ('IM001', '[IM001] [Microsoft][ODBC Driver Manager] ドライバーはこの関数をサポートしていません。 (0) (SQLForeignKeys)')",
+    "FK 取得スキップ: t_購入先マスタ — ('IM001', '[IM001] [Microsoft][ODBC Driver Manager] ドライバーはこの関数をサポートしていません。 (0) (SQLForeignKeys)')",
+    "FK 取得スキップ: t_購入品明細 — ('IM001', '[IM001] [Microsoft][ODBC Driver Manager] ドライバーはこの関数をサポートしていません。 (0) (SQLForeignKeys)')",
+    "FK 取得スキップ: t_購入者マスタ — ('IM001', '[IM001] [Microsoft][ODBC Driver Manager] ドライバーはこの関数をサポートしていません。 (0) (SQLForeignKeys)')"
+  ]
+}

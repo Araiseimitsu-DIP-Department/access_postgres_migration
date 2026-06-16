@@ -1,5 +1,10 @@
 # 更新履歴
 
+## 2026-06-16
+
+- `.docs/purchase_summary_db` の購入品集計DBをPostgreSQL `purchase_summary_db` へ移行。6テーブルのAccess/PostgreSQL件数が一致することを確認。
+- `.docs/purchase_summary_db/purchase_summary_migrate.py`、`migration_mapping.md`、`migration_result.md`、`migration_error.log` を追加。
+
 ## 2026-06-15
 
 - `.docs/material_millsheet_manager` に材料入庫管理台帳兼ミルシート管理表DB（11テーブル）の Access → PostgreSQL 完全移行を実施。

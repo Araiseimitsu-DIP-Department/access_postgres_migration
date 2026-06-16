@@ -1,0 +1,16 @@
+2026-06-16 10:05:16,839 [INFO] PostgreSQLテーブル作成確認: purchase_cross_summary
+2026-06-16 10:05:16,878 [INFO] PostgreSQLテーブル作成確認: migration_control
+2026-06-16 10:05:16,896 [INFO] PostgreSQLテーブル作成確認: account_subject_master
+2026-06-16 10:05:16,940 [INFO] PostgreSQLテーブル作成確認: supplier_master
+2026-06-16 10:05:17,022 [INFO] PostgreSQLテーブル作成確認: purchase_detail
+2026-06-16 10:05:17,044 [INFO] PostgreSQLテーブル作成確認: purchaser_master
+2026-06-16 10:05:18,007 [WARNING] PostgreSQL対象テーブルをTRUNCATEしました
+2026-06-16 10:05:18,189 [INFO] データ移行完了: t_クロス集計用 -> purchase_cross_summary (25件)
+2026-06-16 10:05:18,220 [INFO] データ移行完了: t_コントロール -> migration_control (1件)
+2026-06-16 10:05:18,334 [INFO] データ移行完了: t_科目名マスタ -> account_subject_master (19件)
+2026-06-16 10:05:18,827 [INFO] データ移行完了: t_購入先マスタ -> supplier_master (84件)
+2026-06-16 10:09:33,867 [INFO] データ移行完了: t_購入品明細 -> purchase_detail (45582件)
+2026-06-16 10:09:34,116 [INFO] データ移行完了: t_購入者マスタ -> purchaser_master (44件)
+2026-06-16 10:09:34,121 [INFO] identity sequence更新: purchase_cross_summary.id
+2026-06-16 10:09:34,125 [INFO] identity sequence更新: migration_control.id
+2026-06-16 10:09:34,135 [INFO] identity sequence更新: purchase_detail.id
