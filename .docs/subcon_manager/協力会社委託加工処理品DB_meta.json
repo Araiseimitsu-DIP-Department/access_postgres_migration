@@ -1,0 +1,1251 @@
+{
+  "database_path": "C:\\Users\\seizo\\Desktop\\協力会社委託加工処理品DB.accdb",
+  "driver_used": "Microsoft Access Driver (*.mdb, *.accdb)",
+  "extracted_at": "2026-06-16T10:23:15.530959",
+  "tables": [
+    {
+      "name": "t_クロス集計用",
+      "table_type": "TABLE",
+      "row_count": 10,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "ID",
+          "access_type": "COUNTER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "まとめコード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "手配先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "納入月",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 4,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "金額",
+          "access_type": "CURRENCY",
+          "sql_data_type": 2,
+          "column_size": 19,
+          "decimal_digits": 4,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "t_コントロール",
+      "table_type": "TABLE",
+      "row_count": 1,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "ID",
+          "access_type": "COUNTER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "購入月From",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 4,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "購入月To",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 4,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "プリンタ",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "t_内職マスタ",
+      "table_type": "TABLE",
+      "row_count": 71,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "ID",
+          "access_type": "COUNTER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "検査内容",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 50,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "検査治具",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 10,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "単価",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "t_客先",
+      "table_type": "TABLE",
+      "row_count": 94,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "客先",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "かな",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "担当",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 5,
+          "decimal_digits": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "t_手配先マスタ",
+      "table_type": "TABLE",
+      "row_count": 67,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "手配先コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "手配先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "発注区分",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "かな",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "まとめコード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "集計フラグ",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "計算方法",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "表示フラグ",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "t_発注",
+      "table_type": "TABLE",
+      "row_count": 18739,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "発注ID",
+          "access_type": "COUNTER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "発注日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "注文番号",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 10,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "発注区分",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "客先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "表面処理",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 50,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "担当",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 5,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "手配先コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "手配先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "納期",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "発注数",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "単価",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "金額",
+          "access_type": "CURRENCY",
+          "sql_data_type": 2,
+          "column_size": 19,
+          "decimal_digits": 4,
+          "nullable": true
+        },
+        {
+          "name": "納入済数",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "納入残",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "備考",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "加工日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "機番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 5,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "完了フラグ",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "t_発注 Start",
+      "table_type": "TABLE",
+      "row_count": 116,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "発注ID",
+          "access_type": "COUNTER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "発注日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "注文番号",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 10,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "発注区分",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "客先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "表面処理",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 50,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "担当",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 5,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "手配先コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "手配先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "納期",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "発注数",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "単価",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "金額",
+          "access_type": "CURRENCY",
+          "sql_data_type": 2,
+          "column_size": 19,
+          "decimal_digits": 4,
+          "nullable": true
+        },
+        {
+          "name": "納入済数",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "納入残",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "備考",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "加工日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "機番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 5,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "完了フラグ",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "t_発注書",
+      "table_type": "TABLE",
+      "row_count": 0,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "ID",
+          "access_type": "COUNTER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "発注日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "手配先コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "手配先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "注文番号",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 10,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 40,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "発注数",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "単価",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "金額",
+          "access_type": "CURRENCY",
+          "sql_data_type": 2,
+          "column_size": 19,
+          "decimal_digits": 4,
+          "nullable": true
+        },
+        {
+          "name": "納期",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "摘要",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "会社区分",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 2,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "納期担当",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 5,
+          "decimal_digits": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "t_発注書データ",
+      "table_type": "TABLE",
+      "row_count": 0,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "ID",
+          "access_type": "COUNTER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "発注日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "手配先コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "手配先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "注文番号",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 10,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 40,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "発注数",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "単価",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "金額",
+          "access_type": "CURRENCY",
+          "sql_data_type": 2,
+          "column_size": 19,
+          "decimal_digits": 4,
+          "nullable": true
+        },
+        {
+          "name": "納期",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "摘要",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "会社区分",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 2,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "納期担当",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 5,
+          "decimal_digits": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "t_納入",
+      "table_type": "TABLE",
+      "row_count": 24114,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "納入ID",
+          "access_type": "COUNTER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "発注ID",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "発注区分",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "注文番号",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 10,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "客先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "表面処理",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 50,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "担当",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 5,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "手配先コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "手配先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "納入日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "納入月",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 4,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "納入数",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "単価",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "金額",
+          "access_type": "CURRENCY",
+          "sql_data_type": 2,
+          "column_size": 19,
+          "decimal_digits": 4,
+          "nullable": true
+        },
+        {
+          "name": "備考",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "加工日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "機番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 5,
+          "decimal_digits": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "t_納入 Start",
+      "table_type": "TABLE",
+      "row_count": 3298,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "納入ID",
+          "access_type": "COUNTER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "発注ID",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "発注区分",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 1,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "注文番号",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 10,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "客先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "表面処理",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 50,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "担当",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 5,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "手配先コード",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 3,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "手配先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "納入日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "納入月",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 4,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "納入数",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "単価",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "金額",
+          "access_type": "CURRENCY",
+          "sql_data_type": 2,
+          "column_size": 19,
+          "decimal_digits": 4,
+          "nullable": true
+        },
+        {
+          "name": "備考",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "加工日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "機番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 5,
+          "decimal_digits": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "t_製品マスタ",
+      "table_type": "TABLE",
+      "row_count": 1482,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "製品番号",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "製品名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "客先名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "次工程",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 50,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "担当",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 5,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "納期担当",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 5,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "外部委託加工費",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    }
+  ]
+}
