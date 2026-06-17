@@ -1,0 +1,12 @@
+﻿2026-06-16 10:24:15,238 [INFO] 件数確認: t_クロス集計用 Access=10 PostgreSQL=10
+2026-06-16 10:24:15,249 [INFO] 件数確認: t_コントロール Access=1 PostgreSQL=1
+2026-06-16 10:24:15,258 [INFO] 件数確認: t_内職マスタ Access=71 PostgreSQL=71
+2026-06-16 10:24:15,268 [INFO] 件数確認: t_客先 Access=94 PostgreSQL=94
+2026-06-16 10:24:15,278 [INFO] 件数確認: t_手配先マスタ Access=67 PostgreSQL=67
+2026-06-16 10:24:15,291 [INFO] 件数確認: t_発注 Access=18739 PostgreSQL=18739
+2026-06-16 10:24:15,299 [INFO] 件数確認: t_発注 Start Access=116 PostgreSQL=116
+2026-06-16 10:24:15,307 [INFO] 件数確認: t_発注書 Access=0 PostgreSQL=0
+2026-06-16 10:24:15,313 [INFO] 件数確認: t_発注書データ Access=0 PostgreSQL=0
+2026-06-16 10:24:15,326 [INFO] 件数確認: t_納入 Access=24114 PostgreSQL=24114
+2026-06-16 10:24:15,333 [INFO] 件数確認: t_納入 Start Access=3298 PostgreSQL=3298
+2026-06-16 10:24:15,341 [INFO] 件数確認: t_製品マスタ Access=1482 PostgreSQL=1482

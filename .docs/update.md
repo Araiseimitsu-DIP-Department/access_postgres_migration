@@ -2,15 +2,15 @@
 
 ## 2026-06-16
 
-<<<<<<< HEAD
 - `.docs/purchase_summary_db` の購入品集計DBをPostgreSQL `purchase_summary_db` へ移行。6テーブルのAccess/PostgreSQL件数が一致することを確認。
 - `.docs/purchase_summary_db/purchase_summary_migrate.py`、`migration_mapping.md`、`migration_result.md`、`migration_error.log` を追加。
-=======
+- `.docs/subcon_manager` に **協力会社委託加工処理品DB.accdb**（12テーブル）の Access → PostgreSQL 完全移行を実施。
+- 移行スクリプト `migrate_access_to_postgres_subcon_manager_db.py`、英語名マッピング `name_maps.py`、対応表・結果・メタ JSON を追加。
+- 移行先 PostgreSQL DB 名: `subcon_manager`（全12テーブル件数一致を確認。合計47,992行）。
 - `.docs/order_management` に **受注データDB.accdb**（16テーブル）の Access → PostgreSQL 完全移行を実施（当初誤って `受注データApp.accdb` を移行していたため `--replace` で差し替え）。
 - 移行スクリプト `migrate_access_to_postgres_order_management_db.py`、英語名マッピング `name_maps.py`、対応表・結果・メタ JSON を追加/更新。
 - 移行先 PostgreSQL DB 名: `order_management`（全16テーブル件数一致を確認。合計89,393行）。
 - 新規テーブル: `imp管理表` → `import_management_sheet`（4,540行）。誤移行分（`order_records`, `product_master_extended` 等5テーブル）は削除済み。
->>>>>>> 8fa45cfcc1da3652f471bb835e4dc28e7b87f12a
 
 ## 2026-06-15
 
