@@ -1,0 +1,4 @@
+﻿2026-06-18 11:39:26,284 [INFO] 件数確認: t_コントロール Access=1 PostgreSQL=1
+2026-06-18 11:39:26,298 [INFO] 件数確認: t_受注キャンセル Access=602 PostgreSQL=602
+2026-06-18 11:39:26,313 [INFO] 件数確認: t_受注実績 Access=60492 PostgreSQL=60492
+2026-06-18 11:39:26,321 [INFO] 件数確認: t_売月 Access=156 PostgreSQL=156

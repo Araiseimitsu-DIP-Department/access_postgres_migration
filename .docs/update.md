@@ -1,5 +1,12 @@
 # 更新履歴
 
+## 2026-06-18
+
+- `.docs/order_performance_db` に **受注実績データ集計DB.accdb**（4テーブル）の Access → PostgreSQL 完全移行を実施。
+- 移行スクリプト `migrate_access_to_postgres_order_performance_db.py`、英語名マッピング `name_maps.py`、対応表・結果・メタ JSON を追加。
+- 移行先 PostgreSQL DB 名: `order_performance_db`（全4テーブル件数一致を確認。合計61,251行）。
+- 注: ユーザー指定の `.laccdb` はロックファイルのため、本体 `.accdb` を移行元として使用。
+
 ## 2026-06-16
 
 - `.docs/purchase_summary_db` の購入品集計DBをPostgreSQL `purchase_summary_db` へ移行。6テーブルのAccess/PostgreSQL件数が一致することを確認。
