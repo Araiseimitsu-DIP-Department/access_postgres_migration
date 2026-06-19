@@ -1,0 +1,1184 @@
+{
+  "database_path": "C:\\Users\\seika\\Desktop\\出荷検査一覧DB.accdb",
+  "driver_used": "Microsoft Access Driver (*.mdb, *.accdb)",
+  "extracted_at": "2026-06-19T09:49:30.542484",
+  "tables": [
+    {
+      "name": "T_仕掛数",
+      "table_type": "TABLE",
+      "row_count": 415,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "洗浄",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "数値検査",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "外観検査",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "その他",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "仕掛梱包",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "処理済",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "不適合品",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "完了ロット",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "T_先行検査一覧",
+      "table_type": "TABLE",
+      "row_count": 5,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "客先",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "注文ID",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "T_出荷データ",
+      "table_type": "TABLE",
+      "row_count": 13,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "注文ID",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "客先",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "出荷予定日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "着荷予定日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "出荷数",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "在庫数",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "当日洗浄",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "二次処理",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "検査備考",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "出荷備考",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "送り先指定",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "保管場所",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "外検担",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "納期担",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "先行",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "検査",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "計量",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "梱包",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "変更点",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "累計",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "使用ロット",
+          "access_type": "LONGCHAR",
+          "sql_data_type": -10,
+          "column_size": 1073741823,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "データ",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "先行洗浄",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "洗浄備考",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "梱包担",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "確認者",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "T_出荷検査残",
+      "table_type": "TABLE",
+      "row_count": 864,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "注文ID",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "客先",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "出荷予定日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "着荷予定日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "出荷数",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "在庫数",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "当日洗浄",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "二次処理",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "検査備考",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "出荷備考",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "送り先指定",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "保管場所",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "外検担",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "納期担",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "先行",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "検査",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "計量",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "梱包",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "変更点",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "累計",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "使用ロット",
+          "access_type": "LONGCHAR",
+          "sql_data_type": -10,
+          "column_size": 1073741823,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "データ",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "確認",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "先行洗浄",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "洗浄備考",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "梱包担",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "確認者",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "T_出荷検査残（前日）",
+      "table_type": "TABLE",
+      "row_count": 872,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "注文ID",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "客先",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "出荷予定日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "着荷予定日",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "出荷数",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "在庫数",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "当日洗浄",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "二次処理",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "検査備考",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "出荷備考",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "送り先指定",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "保管場所",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "外検担",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "納期担",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "先行",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "検査",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "計量",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "梱包",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "変更点",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "累計",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "使用ロット",
+          "access_type": "LONGCHAR",
+          "sql_data_type": -10,
+          "column_size": 1073741823,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "データ",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "確認",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "先行洗浄",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        },
+        {
+          "name": "洗浄備考",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "梱包担",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "確認者",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "T_品番別検査担当者",
+      "table_type": "TABLE",
+      "row_count": 5,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "品名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "客先",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "検査員名",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "T_外検担",
+      "table_type": "TABLE",
+      "row_count": 11,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "ID",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "外検担",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "区別",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "表示フラグ",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "T_工程別仕掛数",
+      "table_type": "TABLE",
+      "row_count": 158,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 255,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "工程1",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "工程2",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "工程3",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "工程4",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "工程5",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "工程6",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "工程7",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "工程8",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "工程9",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "洗浄",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "数値検査",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "外観検査",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "その他",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "仕掛梱包",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "処理済",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "不適合品",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "完了ロット",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "最終洗浄工程番号",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "T_更新日時",
+      "table_type": "TABLE",
+      "row_count": 1,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "日時",
+          "access_type": "DATETIME",
+          "sql_data_type": 93,
+          "column_size": 19,
+          "decimal_digits": 0,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "T_梱包担",
+      "table_type": "TABLE",
+      "row_count": 9,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "ID",
+          "access_type": "INTEGER",
+          "sql_data_type": 4,
+          "column_size": 10,
+          "decimal_digits": 0,
+          "nullable": true
+        },
+        {
+          "name": "担当者",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 6,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "表示フラグ",
+          "access_type": "BIT",
+          "sql_data_type": -7,
+          "column_size": 1,
+          "decimal_digits": 0,
+          "nullable": false
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    },
+    {
+      "name": "T_検査時間",
+      "table_type": "TABLE",
+      "row_count": 1348,
+      "row_count_error": null,
+      "primary_key": [],
+      "columns": [
+        {
+          "name": "品番",
+          "access_type": "VARCHAR",
+          "sql_data_type": -9,
+          "column_size": 30,
+          "decimal_digits": null,
+          "nullable": true
+        },
+        {
+          "name": "秒",
+          "access_type": "DOUBLE",
+          "sql_data_type": 8,
+          "column_size": 53,
+          "decimal_digits": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "note": ""
+    }
+  ]
+}

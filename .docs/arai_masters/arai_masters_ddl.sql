@@ -1,6 +1,78 @@
--- PostgreSQL DDL（製品マスター Excel 構造を create_product_master.py に準拠して定義）
+-- PostgreSQL DDL（arai_masters データベース）
 -- スキーマ: config.env の POSTGRES_SCHEMA（未指定時は public）
--- 投入スクリプト: .docs/arai_masters/create_product_master.py
+-- 接続先 DB: config.env の POSTGRES_DB（推奨名: arai_masters）
+-- 元データ: 製品マスター.xls（c:\Users\seika\Desktop\cursor\製品マスター.xls）
+--
+-- 本ファイルは既存 DB（2026-06-19 時点）の構造定義を文書化したものです。
+-- 型・制約は PostgreSQL arai_masters の現行スキーマに準拠しています。
+-- DB・データは既に存在するため、通常は再実行不要です。
+--
+-- テーブル一覧（public スキーマ）:
+--   material_category   … 材料識別マスタ（14行）  シート: 材料識別
+--   outsource_master    … 加工業者マスタ（73行）  シート: 加工業者マスター
+--   machine_master      … 機械マスタ（61行）      シート: 機械ﾏｽﾀｰ
+--   product_master      … 製品マスタ（1,563行）   シート: 製品マスター
+--
+-- 投入スクリプト:
+--   create_material_category.py / create_outsource_master.py / create_machine_master.py
+--   create_product_master.py
+
+-- ---------------------------------------------------------------------------
+-- material_category（材料識別）
+-- ---------------------------------------------------------------------------
+
+CREATE TABLE material_category (
+    category_no INTEGER NOT NULL PRIMARY KEY,
+    category_name VARCHAR(10)
+);
+
+COMMENT ON TABLE material_category IS '材料識別マスタ（元: 製品マスター.xls シート「材料識別」）';
+COMMENT ON COLUMN material_category.category_no IS '元Excel列 J / ヘッダ: （1行目未定義・識別番号）。主キー';
+COMMENT ON COLUMN material_category.category_name IS '元Excel列 I / ヘッダ: （1行目未定義・材料識別名）';
+
+-- ---------------------------------------------------------------------------
+-- outsource_master（加工業者マスター）
+-- ---------------------------------------------------------------------------
+
+CREATE TABLE outsource_master (
+    id VARCHAR(5) NOT NULL PRIMARY KEY,
+    mark VARCHAR(5) UNIQUE,
+    name VARCHAR(20)
+);
+
+COMMENT ON TABLE outsource_master IS '加工業者マスタ（元: 製品マスター.xls シート「加工業者マスター」）';
+COMMENT ON COLUMN outsource_master.id IS '元Excel列 A / ヘッダ: 加工業者ID';
+COMMENT ON COLUMN outsource_master.mark IS '元Excel列 B / ヘッダ: 加工業者記号';
+COMMENT ON COLUMN outsource_master.name IS '元Excel列 C / ヘッダ: 加工業者名';
+
+-- ---------------------------------------------------------------------------
+-- machine_master（機械ﾏｽﾀｰ）
+-- ---------------------------------------------------------------------------
+
+CREATE TABLE machine_master (
+    machine_id VARCHAR(3) NOT NULL PRIMARY KEY,
+    machine_sort VARCHAR(4) UNIQUE,
+    machine_no VARCHAR(5) UNIQUE,
+    model VARCHAR(10),
+    spec VARCHAR(10),
+    manufacturer VARCHAR(20),
+    serial_no VARCHAR(10) UNIQUE,
+    machine_operator VARCHAR(10)
+);
+
+COMMENT ON TABLE machine_master IS '機械マスタ（元: 製品マスター.xls シート「機械ﾏｽﾀｰ」）';
+COMMENT ON COLUMN machine_master.machine_id IS '元Excel列 I / ヘッダ: 機械ID';
+COMMENT ON COLUMN machine_master.machine_sort IS '元Excel列 J / ヘッダ: 識別順';
+COMMENT ON COLUMN machine_master.machine_no IS '元Excel列 K / ヘッダ: 新号機';
+COMMENT ON COLUMN machine_master.model IS '元Excel列 L / ヘッダ: 機種';
+COMMENT ON COLUMN machine_master.spec IS '元Excel列 M / ヘッダ: 仕様';
+COMMENT ON COLUMN machine_master.manufacturer IS '元Excel列 N / ヘッダ: ﾒｰｶｰ';
+COMMENT ON COLUMN machine_master.serial_no IS '元Excel列 U / ヘッダ: ｼﾘｱﾙNO';
+COMMENT ON COLUMN machine_master.machine_operator IS '元Excel列 O / ヘッダ: 担当者';
+
+-- ---------------------------------------------------------------------------
+-- product_master（製品マスター）
+-- ---------------------------------------------------------------------------
 
 CREATE TABLE product_master (
     id VARCHAR(7) NOT NULL,
