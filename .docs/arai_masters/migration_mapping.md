@@ -1,9 +1,9 @@
-# 製品マスター → PostgreSQL 移行対応表
+# 製品マスター.xls → PostgreSQL 移行対応表
 
 ## 1. 移行概要
 
-- 対象データ：製品マスター Excel（`config.env` の `PRODUCT_MASTERS_COPY` で指定）
-- 対象シート：`config.env` の `PRODUCT_MASTER_SHEET_NAME` で指定
+- 対象データ：製品マスター Excel（`c:\Users\seika\Desktop\cursor\製品マスター.xls`）
+- 対象シート：製品マスター / 機械ﾏｽﾀｰ / 材料識別 / 加工業者マスター
 - 移行先PostgreSQL DB：`config.env` の `POSTGRES_DB`（推奨名: `arai_masters`）
 - 移行先スキーマ：`config.env` の `POSTGRES_SCHEMA`（未指定時は `public`）
 - 接続情報：
@@ -22,11 +22,45 @@
 
 ## 2. 移行対象テーブル一覧
 
-| No | 元データ（Excel） | PostgreSQLテーブル名 | 種別 | 備考 |
+| No | 元データ（Excel シート） | PostgreSQLテーブル名 | 種別 | 備考 |
 |---:|---|---|---|---|
-| 1 | 製品マスターシート（`PRODUCT_MASTER_SHEET_NAME`） | product_master | TABLE | Excel 2行目以降を投入。`id` が NULL の行はスキップ |
+| 1 | 材料識別 | material_category | TABLE | 列 I/J から識別名・番号を投入。`category_no=99`（マスタ未登録）を既定行として追加 |
+| 2 | 加工業者マスター | outsource_master | TABLE | 列 A〜C を投入 |
+| 3 | 機械ﾏｽﾀｰ | machine_master | TABLE | 列 I,J,K,L,M,N,O,U を投入 |
+| 4 | 製品マスター | product_master | TABLE | Excel 2行目以降を投入。`id` が NULL の行はスキップ |
 
 ## 3. テーブル別カラム対応表
+
+### 元データ：材料識別
+### PostgreSQLテーブル名：material_category
+
+| No | 元カラム名（Excel） | Excel列 | 元型（Excel相当） | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
+|---:|---|:---:|---|---|---|:---:|---|
+| 1 | （1行目未定義・材料識別名） | I | 文字列 | category_name | VARCHAR(10) | 可 |  |
+| 2 | （1行目未定義・識別番号） | J | 整数 | category_no | INTEGER | 不可 | 主キー |
+
+### 元データ：加工業者マスター
+### PostgreSQLテーブル名：outsource_master
+
+| No | 元カラム名（Excelヘッダ） | Excel列 | 元型（Excel相当） | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
+|---:|---|:---:|---|---|---|:---:|---|
+| 1 | 加工業者ID | A | 文字列 | id | VARCHAR(5) | 不可 | 主キー |
+| 2 | 加工業者記号 | B | 文字列 | mark | VARCHAR(5) | 可 | UNIQUE |
+| 3 | 加工業者名 | C | 文字列 | name | VARCHAR(20) | 可 |  |
+
+### 元データ：機械ﾏｽﾀｰ
+### PostgreSQLテーブル名：machine_master
+
+| No | 元カラム名（Excelヘッダ） | Excel列 | 元型（Excel相当） | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
+|---:|---|:---:|---|---|---|:---:|---|
+| 1 | 機械ID | I | 文字列 | machine_id | VARCHAR(3) | 不可 | 主キー |
+| 2 | 識別順 | J | 文字列 | machine_sort | VARCHAR(4) | 可 | UNIQUE |
+| 3 | 新号機 | K | 文字列 | machine_no | VARCHAR(5) | 可 | UNIQUE |
+| 4 | 機種 | L | 文字列 | model | VARCHAR(10) | 可 |  |
+| 5 | 仕様 | M | 文字列 | spec | VARCHAR(10) | 可 |  |
+| 6 | ﾒｰｶｰ | N | 文字列 | manufacturer | VARCHAR(20) | 可 |  |
+| 7 | 担当者 | O | 文字列 | machine_operator | VARCHAR(10) | 可 |  |
+| 8 | ｼﾘｱﾙNO | U | 文字列 | serial_no | VARCHAR(10) | 可 | UNIQUE |
 
 ### 元データ：製品マスター Excel
 ### PostgreSQLテーブル名：product_master
@@ -106,6 +140,9 @@
 
 | 元データ | PostgreSQLテーブル名 | 主キー | インデックス | 備考 |
 |---|---|---|---|---|
+| 材料識別 | material_category | category_no | なし（PKのみ） |  |
+| 加工業者マスター | outsource_master | id | mark（UNIQUE） |  |
+| 機械ﾏｽﾀｰ | machine_master | machine_id | machine_sort, machine_no, serial_no（各 UNIQUE） |  |
 | 製品マスター Excel | product_master | id | なし（PKのみ） | 外部キー制約は未定義 |
 
 ## 5. 型変換ルール
@@ -148,6 +185,9 @@ conn = psycopg.connect("postgresql://user:password@host:5432/arai_masters")
 
 | 用途 | PostgreSQLテーブル名 | 主なキー | 備考 |
 | -- | --------------- | ---- | -- |
+| 材料識別 | material_category | category_no | 元: 材料識別シート |
+| 加工業者 | outsource_master | id / mark | 元: 加工業者マスターシート |
+| 機械 | machine_master | machine_id | 元: 機械ﾏｽﾀｰシート |
 | 製品マスタ（全項目） | product_master | id | 元: 製品マスター Excel。`product_no`（製品番号）でも検索可能 |
 | 品番検索 | product_master | product_no | 他DBの `product_code` / 品番と突合する際に使用 |
 | 呼出コード検索 | product_master | call_code | 元ヘッダ: 呼出ｺｰﾄﾞ |

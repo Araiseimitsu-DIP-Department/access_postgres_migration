@@ -9,6 +9,19 @@
 - 完全切り替え時は、一時移行済みの PostgreSQL データベースにテストデータが含まれる可能性があるため、ユーザー承認のうえで対象 PostgreSQL データベースを削除し、その後 AccessDB の本番データを PostgreSQL へ再移行する。
 - `delivery_label_search_db` は `delivery_label_db.delivery_label_history` に統合したため、`.docs/delivery_label_search_db` を削除。
 
+## 2026-06-19
+
+- `.docs/arai_masters/arai_masters_ddl.sql` に `material_category` / `outsource_master` / `machine_master` の定義を再作成。型・制約は PostgreSQL `arai_masters` 実DB、Excel列対応は `製品マスター.xls` を参照。
+- `.docs/arai_masters/migration_mapping.md` に上記3テーブルの対応表を追記。
+- `.docs/shipping_inspection_db` の移行ファイル消失に伴い、スクリプト・メタJSON・`.env` を再作成し `shipping_inspection_db` を `--replace` で再移行（9テーブル・3,275行一致）。
+
+## 2026-06-18
+
+- `.docs/order_performance_db` に **受注実績データ集計DB.accdb**（4テーブル）の Access → PostgreSQL 完全移行を実施。
+- 移行スクリプト `migrate_access_to_postgres_order_performance_db.py`、英語名マッピング `name_maps.py`、対応表・結果・メタ JSON を追加。
+- 移行先 PostgreSQL DB 名: `order_performance_db`（全4テーブル件数一致を確認。合計61,251行）。
+- 注: ユーザー指定の `.laccdb` はロックファイルのため、本体 `.accdb` を移行元として使用。
+
 ## 2026-06-16
 
 - `.docs/purchase_summary_db` の購入品集計DBをPostgreSQL `purchase_summary_db` へ移行。6テーブルのAccess/PostgreSQL件数が一致することを確認。
