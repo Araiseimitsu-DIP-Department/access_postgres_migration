@@ -1,9 +1,0 @@
-2026-06-12 11:53:01,106 [WARNING] ACCESS_DB_PATHが存在しないため、メタJSONのAccess DBパスを使用します
-2026-06-12 11:53:01,638 [INFO] 移行開始: t_現品票検索用 -> delivery_label_search
-2026-06-12 11:53:07,055 [INFO] 移行完了: t_現品票検索用 Access=169836 PostgreSQL=169836
-2026-06-12 11:53:14,006 [WARNING] ACCESS_DB_PATHが存在しないため、メタJSONのAccess DBパスを使用します
-2026-06-12 11:53:15,737 [INFO] 件数確認: t_現品票検索用 Access=169836 PostgreSQL=169836
-2026-06-12 11:53:45,960 [WARNING] ACCESS_DB_PATHが存在しないため、メタJSONのAccess DBパスを使用します
-2026-06-12 11:53:47,532 [INFO] 件数確認: t_現品票検索用 Access=169836 PostgreSQL=169836
-2026-06-12 11:59:17,972 [WARNING] ACCESS_DB_PATHが存在しないため、メタJSONのAccess DBパスを使用します
-2026-06-12 11:59:19,621 [INFO] 件数確認: t_現品票検索用 Access=169836 PostgreSQL=169836

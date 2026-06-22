@@ -1,5 +1,14 @@
 # 更新履歴
 
+## 2026-06-22
+
+- `.docs/delivery_label_db` の Access DB から PostgreSQL への差分同期を実行し、15テーブルすべてで Access/PostgreSQL 件数一致を確認。
+- `.docs/delivery_label_search_db` の Access DB から PostgreSQL への差分同期を実行し、`delivery_label_search` の Access/PostgreSQL 件数一致を確認。
+- 既存テーブルを削除・初期化せずに同期できるよう、対象スクリプトへ不足行追記用 `--append-missing` と余剰行削除用 `--delete-extra` を整備。
+
+- 完全切り替え時は、一時移行済みの PostgreSQL データベースにテストデータが含まれる可能性があるため、ユーザー承認のうえで対象 PostgreSQL データベースを削除し、その後 AccessDB の本番データを PostgreSQL へ再移行する。
+- `delivery_label_search_db` は `delivery_label_db.delivery_label_history` に統合したため、`.docs/delivery_label_search_db` を削除。
+
 ## 2026-06-16
 
 - `.docs/purchase_summary_db` の購入品集計DBをPostgreSQL `purchase_summary_db` へ移行。6テーブルのAccess/PostgreSQL件数が一致することを確認。

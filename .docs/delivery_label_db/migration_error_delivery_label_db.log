@@ -1,16 +1,16 @@
-﻿2026-06-12 14:32:59,808 [WARNING] ACCESS_DB_PATHが存在しないため、メタJSONのAccess DBパスを使用します
-2026-06-12 14:33:00,764 [INFO] 件数確認: t_ExcelQR履歴 Access=0 PostgreSQL=0
-2026-06-12 14:33:01,081 [INFO] 件数確認: t_Excel現品票履歴 Access=35817 PostgreSQL=35817
-2026-06-12 14:33:01,114 [INFO] 件数確認: t_ID番号 Access=1 PostgreSQL=1
-2026-06-12 14:33:03,300 [INFO] 件数確認: t_QR履歴 Access=112537 PostgreSQL=112537
-2026-06-12 14:33:03,615 [INFO] 件数確認: t_QR履歴(backup_260521) Access=106967 PostgreSQL=106967
-2026-06-12 14:33:04,080 [INFO] 件数確認: t_QR履歴Tmp Access=44873 PostgreSQL=44873
-2026-06-12 14:33:04,223 [INFO] 件数確認: t_エラーログ Access=16564 PostgreSQL=16564
-2026-06-12 14:33:04,253 [INFO] 件数確認: t_ロット完了理由 Access=6 PostgreSQL=6
-2026-06-12 14:33:04,286 [INFO] 件数確認: t_作業履歴 Access=1 PostgreSQL=1
-2026-06-12 14:33:04,366 [INFO] 件数確認: t_修正ログ Access=9927 PostgreSQL=9927
-2026-06-12 14:33:04,453 [INFO] 件数確認: t_分割ロット Access=7595 PostgreSQL=7595
-2026-06-12 14:33:04,479 [INFO] 件数確認: t_工程マスタ Access=5 PostgreSQL=5
-2026-06-12 14:33:04,782 [INFO] 件数確認: t_数量差異 Access=78357 PostgreSQL=78357
-2026-06-12 14:33:04,830 [INFO] 件数確認: t_現品票不具合内容 Access=165 PostgreSQL=165
-2026-06-12 14:33:05,438 [INFO] 件数確認: t_現品票履歴 Access=135843 PostgreSQL=135843
+﻿2026-06-22 15:25:27,888 [WARNING] ACCESS_DB_PATHが存在しないため、メタJSONのAccess DBパスを使用します
+2026-06-22 15:25:28,687 [INFO] 件数確認: t_ExcelQR履歴 Access=0 PostgreSQL=0
+2026-06-22 15:25:28,788 [INFO] 件数確認: t_Excel現品票履歴 Access=35817 PostgreSQL=35817
+2026-06-22 15:25:28,802 [INFO] 件数確認: t_ID番号 Access=1 PostgreSQL=1
+2026-06-22 15:25:30,342 [INFO] 件数確認: t_QR履歴 Access=114876 PostgreSQL=114876
+2026-06-22 15:25:30,746 [INFO] 件数確認: t_QR履歴(backup_260521) Access=106967 PostgreSQL=106967
+2026-06-22 15:25:31,289 [INFO] 件数確認: t_QR履歴Tmp Access=45815 PostgreSQL=45815
+2026-06-22 15:25:31,439 [INFO] 件数確認: t_エラーログ Access=16610 PostgreSQL=16610
+2026-06-22 15:25:31,474 [INFO] 件数確認: t_ロット完了理由 Access=6 PostgreSQL=6
+2026-06-22 15:25:31,508 [INFO] 件数確認: t_作業履歴 Access=1 PostgreSQL=1
+2026-06-22 15:25:31,648 [INFO] 件数確認: t_修正ログ Access=9980 PostgreSQL=9980
+2026-06-22 15:25:31,788 [INFO] 件数確認: t_分割ロット Access=7614 PostgreSQL=7614
+2026-06-22 15:25:31,824 [INFO] 件数確認: t_工程マスタ Access=5 PostgreSQL=5
+2026-06-22 15:25:31,978 [INFO] 件数確認: t_数量差異 Access=78357 PostgreSQL=78357
+2026-06-22 15:25:32,003 [INFO] 件数確認: t_現品票不具合内容 Access=165 PostgreSQL=165
+2026-06-22 15:25:32,291 [INFO] 件数確認: t_現品票履歴 Access=136430 PostgreSQL=136430

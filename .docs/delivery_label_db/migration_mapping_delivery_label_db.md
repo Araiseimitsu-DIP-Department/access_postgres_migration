@@ -6,7 +6,7 @@
 - 移行先PostgreSQL DB：delivery_label_db
 - 接続情報：
   - `.env` の DATABASE_URL を参照
-- 移行日：2026-06-12 14:33:05
+- 移行日：2026-06-22 15:25:32
 - 作成者：Codex
 - 備考：現品票DBの15テーブルを忠実に移行。日本語名はPostgreSQL用に英語/ローマ字のスネークケースへ変換し、元名はコメントと本対応表で追跡可能。
 
@@ -17,18 +17,18 @@
 | 1 | t_ExcelQR履歴 | excel_qr_history | TABLE | 0 | 0 | 成功 |
 | 2 | t_Excel現品票履歴 | excel_delivery_label_history | TABLE | 35817 | 35817 | 成功 |
 | 3 | t_ID番号 | id_number | TABLE | 1 | 1 | 成功 |
-| 4 | t_QR履歴 | qr_history | TABLE | 112537 | 112537 | 成功 |
+| 4 | t_QR履歴 | qr_history | TABLE | 114876 | 114876 | 成功 |
 | 5 | t_QR履歴(backup_260521) | qr_history_backup_260521 | TABLE | 106967 | 106967 | 成功 |
-| 6 | t_QR履歴Tmp | qr_history_tmp | TABLE | 44873 | 44873 | 成功 |
-| 7 | t_エラーログ | error_logs | TABLE | 16564 | 16564 | 成功 |
+| 6 | t_QR履歴Tmp | qr_history_tmp | TABLE | 45815 | 45815 | 成功 |
+| 7 | t_エラーログ | error_logs | TABLE | 16610 | 16610 | 成功 |
 | 8 | t_ロット完了理由 | lot_completion_reasons | TABLE | 6 | 6 | 成功 |
 | 9 | t_作業履歴 | work_history | TABLE | 1 | 1 | 成功 |
-| 10 | t_修正ログ | correction_logs | TABLE | 9927 | 9927 | 成功 |
-| 11 | t_分割ロット | split_lots | TABLE | 7595 | 7595 | 成功 |
+| 10 | t_修正ログ | correction_logs | TABLE | 9980 | 9980 | 成功 |
+| 11 | t_分割ロット | split_lots | TABLE | 7614 | 7614 | 成功 |
 | 12 | t_工程マスタ | process_master | TABLE | 5 | 5 | 成功 |
 | 13 | t_数量差異 | quantity_differences | TABLE | 78357 | 78357 | 成功 |
 | 14 | t_現品票不具合内容 | delivery_label_defect_details | TABLE | 165 | 165 | 成功 |
-| 15 | t_現品票履歴 | delivery_label_history | TABLE | 135843 | 135843 | 成功 |
+| 15 | t_現品票履歴 | delivery_label_history | TABLE | 136430 | 136430 | 成功 |
 
 ## 3. テーブル別カラム対応表
 

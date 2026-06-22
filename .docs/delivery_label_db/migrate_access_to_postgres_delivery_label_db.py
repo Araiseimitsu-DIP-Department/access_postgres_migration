@@ -204,6 +204,8 @@ def main() -> int:
 
         if args.verify_only:
             results = verify_counts(env["DATABASE_URL"], access_db_path, mappings, args.schema)
+        elif args.delete_extra:
+            results = delete_extra_rows(env["DATABASE_URL"], access_db_path, mappings, args.schema, args.batch_size)
         elif args.append_missing:
             results = append_missing_rows(env["DATABASE_URL"], access_db_path, mappings, args.schema, args.batch_size)
         else:
@@ -227,6 +229,7 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="PostgreSQLに存在しないAccess行だけを追加投入",
     )
+    parser.add_argument("--delete-extra", action="store_true", help="Accessに存在しないPostgreSQL行だけを削除")
     return parser.parse_args()
 
 
@@ -473,6 +476,118 @@ def load_postgres_rows(
     columns = ", ".join(quote_identifier(column) for column in column_names)
     cursor.execute(f"SELECT {columns} FROM {qualified_name(schema, table_name)}")
     return [tuple(normalize_value(value) for value in row) for row in cursor.fetchall()]
+
+
+def delete_extra_rows(
+    database_url: str,
+    access_db_path: Path,
+    mappings: list[TableMapping],
+    schema: str,
+    batch_size: int,
+) -> list[MigrationResult]:
+    results = [MigrationResult(table=mapping) for mapping in mappings]
+    access_connection = connect_access(access_db_path)
+    postgres_connection = psycopg2.connect(database_url)
+    try:
+        postgres_connection.autocommit = False
+        for result in results:
+            delete_extra_rows_for_table(access_connection, postgres_connection, schema, result, batch_size)
+        postgres_connection.commit()
+    except Exception:
+        postgres_connection.rollback()
+        raise
+    finally:
+        access_connection.close()
+        postgres_connection.close()
+    return results
+
+
+def delete_extra_rows_for_table(
+    access_connection: pyodbc.Connection,
+    postgres_connection: psycopg2.extensions.connection,
+    schema: str,
+    result: MigrationResult,
+    batch_size: int,
+) -> None:
+    mapping = result.table
+    access_columns = [column.access_name for column in mapping.columns]
+    postgres_columns = [column.postgres_name for column in mapping.columns]
+
+    with postgres_connection.cursor() as postgres_cursor:
+        result.access_row_count = count_access_rows(access_connection, mapping.access_name)
+        result.postgres_row_count = count_postgres_rows(postgres_cursor, schema, mapping.postgres_name)
+        if result.postgres_row_count <= result.access_row_count:
+            result.status = "成功" if result.access_row_count == result.postgres_row_count else "件数差異"
+            logging.info(
+                "余剰行なし: %s Access=%s PostgreSQL=%s",
+                mapping.access_name,
+                result.access_row_count,
+                result.postgres_row_count,
+            )
+            return
+
+        access_rows = load_access_rows(access_connection, mapping.access_name, access_columns)
+        access_row_counter = Counter(access_rows)
+        extra_ctids = find_extra_postgres_ctids(postgres_cursor, schema, mapping.postgres_name, postgres_columns, access_row_counter)
+        for index in range(0, len(extra_ctids), batch_size):
+            delete_postgres_ctids(postgres_cursor, schema, mapping.postgres_name, extra_ctids[index : index + batch_size])
+        result.inserted_row_count = -len(extra_ctids)
+        result.postgres_row_count = count_postgres_rows(postgres_cursor, schema, mapping.postgres_name)
+        result.status = "成功" if result.access_row_count == result.postgres_row_count else "件数差異"
+        logging.info(
+            "余剰行削除: %s Access=%s PostgreSQL=%s deleted=%s",
+            mapping.access_name,
+            result.access_row_count,
+            result.postgres_row_count,
+            len(extra_ctids),
+        )
+
+
+def load_access_rows(
+    connection: pyodbc.Connection,
+    table_name: str,
+    column_names: list[str],
+) -> list[tuple[Any, ...]]:
+    cursor = connection.cursor()
+    cursor.execute(build_access_select_sql(table_name, column_names))
+    rows: list[tuple[Any, ...]] = []
+    while True:
+        batch = cursor.fetchmany(DEFAULT_BATCH_SIZE)
+        if not batch:
+            break
+        rows.extend(tuple(normalize_value(value) for value in row) for row in batch)
+    return rows
+
+
+def find_extra_postgres_ctids(
+    cursor: psycopg2.extensions.cursor,
+    schema: str,
+    table_name: str,
+    column_names: list[str],
+    access_row_counter: Counter[tuple[Any, ...]],
+) -> list[str]:
+    columns = ", ".join(quote_identifier(column) for column in column_names)
+    cursor.execute(f"SELECT ctid::text, {columns} FROM {qualified_name(schema, table_name)}")
+    extra_ctids: list[str] = []
+    for row in cursor.fetchall():
+        ctid = row[0]
+        normalized_row = tuple(normalize_value(value) for value in row[1:])
+        if access_row_counter[normalized_row] > 0:
+            access_row_counter[normalized_row] -= 1
+        else:
+            extra_ctids.append(ctid)
+    return extra_ctids
+
+
+def delete_postgres_ctids(
+    cursor: psycopg2.extensions.cursor,
+    schema: str,
+    table_name: str,
+    ctids: list[str],
+) -> None:
+    if not ctids:
+        return
+    cursor.execute(f"DELETE FROM {qualified_name(schema, table_name)} WHERE ctid = ANY(%s::tid[])", (ctids,))
 
 
 def find_missing_access_rows(
