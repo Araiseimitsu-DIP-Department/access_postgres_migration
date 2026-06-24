@@ -1,5 +1,9 @@
 # 更新履歴
 
+## 2026-06-24
+
+- `.docs/pingauge_management_db/add_primary_keys_pingauge_management_db.py` を追加し、`pin_gauge_lending.id` / `staff_master.staff_id` / `pin_gauge_master.size` に PRIMARY KEY を設定。
+
 ## 2026-06-22
 
 - `.docs/delivery_label_db` の Access DB から PostgreSQL への差分同期を実行し、15テーブルすべてで Access/PostgreSQL 件数一致を確認。
