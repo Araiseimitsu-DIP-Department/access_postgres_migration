@@ -1,0 +1,4 @@
+﻿2026-06-24 16:37:32,430 [INFO] スキップ: pin_gauge_lending には既にPRIMARY KEYがあります
+2026-06-24 16:37:32,431 [INFO] スキップ: staff_master には既にPRIMARY KEYがあります
+2026-06-24 16:37:32,431 [INFO] スキップ: pin_gauge_master には既にPRIMARY KEYがあります
+2026-06-24 16:37:32,447 [INFO] PRIMARY KEY追加をコミットしました

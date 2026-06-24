@@ -1,0 +1,5 @@
+﻿2026-06-24 17:06:59,335 [INFO] 前提条件の検証OK: pin_gauge_lending.id
+2026-06-24 17:06:59,352 [INFO] シーケンス同期: public.pin_gauge_lending_id_seq -> 次の採番値 33795
+2026-06-24 17:06:59,365 [INFO] スキップ: pin_gauge_lending.id には既に IDENTITY があります。次の採番値=33795
+2026-06-24 17:06:59,365 [INFO] シーケンスを MAX(id)=33794 に同期しました
+2026-06-24 17:06:59,366 [INFO] IDENTITY設定をコミットしました
