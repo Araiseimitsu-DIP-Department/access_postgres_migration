@@ -1,5 +1,10 @@
 # 更新履歴
 
+## 2026-06-24
+
+- DDL に BIGSERIAL が定義されている5 DB の移行スクリプトで、Access COUNTER 列を **BIGSERIAL + PRIMARY KEY** 化し、投入後に `setval` でシーケンスを `MAX(id)+1` に同期する共通処理（`src/access_migration/serial_columns.py`）を適用。
+- 対象: `appearance_inspection_db` / `delivery_label_db` / `pingauge_management_db` / `purchase_summary_db` / `secondary_process_record_db`
+
 ## 2026-06-22
 
 - `.docs/delivery_label_db` の Access DB から PostgreSQL への差分同期を実行し、15テーブルすべてで Access/PostgreSQL 件数一致を確認。

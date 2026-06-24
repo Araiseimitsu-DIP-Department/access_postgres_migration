@@ -17,6 +17,15 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
+import sys
+
+_MIGRATION_ROOT = Path(__file__).resolve().parents[2]
+_SRC = _MIGRATION_ROOT / "src"
+if str(_SRC) not in sys.path:
+    sys.path.insert(0, str(_SRC))
+
+from access_migration import serial_columns as serial_columns_support
+
 import pyodbc
 import psycopg2
 from dotenv import dotenv_values
@@ -322,7 +331,7 @@ def to_postgres_type(column: dict[str, Any]) -> str:
     if access_type in {"VARCHAR", "WVARCHAR"}:
         return f"VARCHAR({size})" if size else "TEXT"
     if access_type == "COUNTER":
-        return "BIGINT"
+        return serial_columns_support.counter_postgres_type()
     if access_type == "INTEGER":
         return "INTEGER"
     if access_type in {"DOUBLE", "REAL", "FLOAT"}:
@@ -339,7 +348,7 @@ def to_postgres_type(column: dict[str, Any]) -> str:
 def build_column_note(column: dict[str, Any]) -> str:
     notes = []
     if column["access_type"] == "COUNTER":
-        notes.append("AccessのCOUNTER。値を忠実に移行するためBIGINTで保持")
+        notes.append(serial_columns_support.counter_column_note())
     if column["access_type"] == "BIT":
         notes.append("AccessのYes/Noをbooleanへ変換")
     return " / ".join(notes)
@@ -361,6 +370,7 @@ def migrate(
         create_schema_and_tables(postgres_connection, schema, mappings)
         for result in results:
             migrate_table(access_connection, postgres_connection, schema, result, batch_size)
+            sync_counter_sequences(postgres_connection.cursor(), schema, result.table)
         postgres_connection.commit()
     except Exception:
         postgres_connection.rollback()
@@ -457,6 +467,7 @@ def append_missing_rows_for_table(
             result.inserted_row_count = len(missing_rows)
 
         result.postgres_row_count = count_postgres_rows(postgres_cursor, schema, mapping.postgres_name)
+        sync_counter_sequences(postgres_cursor, schema, mapping)
         result.status = "成功" if result.access_row_count == result.postgres_row_count else "件数差異"
         logging.info(
             "不足行追記: %s Access=%s PostgreSQL=%s appended=%s",
@@ -658,8 +669,17 @@ def create_schema_and_tables(
 
 
 def build_column_sql(column: ColumnMapping) -> str:
-    nullable_sql = "" if column.nullable else " NOT NULL"
-    return f"{quote_identifier(column.postgres_name)} {column.postgres_type}{nullable_sql}"
+    return serial_columns_support.build_column_sql(column, quote_identifier)
+
+
+def sync_counter_sequences(
+    cursor: psycopg2.extensions.cursor,
+    schema: str,
+    mapping: TableMapping,
+) -> None:
+    serial_columns_support.sync_counter_sequences(
+        cursor, schema, mapping, quote_identifier, qualified_name, logging
+    )
 
 
 def migrate_table(
@@ -799,7 +819,7 @@ def write_mapping(
             "| Access型 | PostgreSQL型 | 備考 |",
             "|---|---|---|",
             "| VARCHAR | varchar(n) | Accessのサイズを維持 |",
-            "| COUNTER | bigint | 採番値を忠実に移行するためserial化せず値を保持 |",
+            "| COUNTER | bigserial | " + serial_columns_support.counter_type_mapping_note() + " |",
             "| INTEGER | integer | 整数 |",
             "| DOUBLE | double precision | 浮動小数 |",
             "| DATETIME | timestamp | Accessの日付/時刻を保持 |",
@@ -846,7 +866,7 @@ def write_mapping(
 def build_caution_lines(meta: dict[str, Any], mappings: list[TableMapping]) -> list[str]:
     lines = [
         "- AccessのFKメタデータはODBCドライバが返さなかったため、外部キー制約は作成していません。",
-        "- 主キーはメタデータ上は検出なしです。COUNTER列は値を忠実に保持するためBIGINTで移行しています。",
+        "- " + serial_columns_support.counter_caution_note(),
         "- バックアップテーブル `t_QR履歴(backup_260521)` と一時テーブル `t_QR履歴Tmp` も削除・統合せず個別に移行しています。",
         "- `.env` の `ACCESS_DB_PATH` が実ファイルを指していない場合は、メタJSONの `database_path` を使用しています。",
     ]
