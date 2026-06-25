@@ -12,6 +12,7 @@
 - `README.md` に一括・個別の実行手順を追記。
 - `.docs/arai_masters` に `material_category` / `outsource_master` / `machine_master` 投入スクリプトと `arai_masters_common.py` / `update_arai_masters.py` を追加。4テーブル一括更新に対応し、`db_all_recreate.py` の arai_masters 対象を `update_arai_masters.py` に変更。
 - `delivery_label_db` の移行対象から `t_QR履歴(backup_260521)` / `t_QR履歴Tmp` を除外（バックアップ・一時テーブルのため移行不要）。
+- `delivery_label_defect_details` / `delivery_label_history` に `production_lot_id` の PRIMARY KEY 制約（NOT NULL・重複なし）を追加。
 
 ## 2026-06-24
 

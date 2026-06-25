@@ -52,6 +52,11 @@ SKIP_ACCESS_TABLES: frozenset[str] = frozenset(
     }
 )
 
+TABLE_PRIMARY_KEY_OVERRIDE: dict[str, list[str]] = {
+    "delivery_label_defect_details": ["production_lot_id"],
+    "delivery_label_history": ["production_lot_id"],
+}
+
 TABLE_NAME_MAP = {
     "t_ExcelQR履歴": "excel_qr_history",
     "t_Excel現品票履歴": "excel_delivery_label_history",
@@ -314,14 +319,33 @@ def build_mappings(meta: dict[str, Any]) -> list[TableMapping]:
             )
             for column in table["columns"]
         ]
+        postgres_name = TABLE_NAME_MAP[access_table_name]
+        primary_key = TABLE_PRIMARY_KEY_OVERRIDE.get(postgres_name, table.get("primary_key", []))
+        if primary_key:
+            pk_columns = set(primary_key)
+            columns = [
+                ColumnMapping(
+                    access_name=column.access_name,
+                    postgres_name=column.postgres_name,
+                    access_type=column.access_type,
+                    postgres_type=column.postgres_type,
+                    nullable=False if column.postgres_name in pk_columns else column.nullable,
+                    note=(
+                        f"{column.note} / PRIMARY KEY"
+                        if column.postgres_name in pk_columns and column.note
+                        else ("PRIMARY KEY" if column.postgres_name in pk_columns else column.note)
+                    ),
+                )
+                for column in columns
+            ]
         mappings.append(
             TableMapping(
                 access_name=access_table_name,
-                postgres_name=TABLE_NAME_MAP[access_table_name],
+                postgres_name=postgres_name,
                 table_type=table["table_type"],
                 access_row_count=int(table["row_count"] or 0),
                 columns=columns,
-                primary_key=table.get("primary_key", []),
+                primary_key=primary_key,
                 indexes=table.get("indexes", []),
             )
         )
@@ -656,7 +680,15 @@ def create_schema_and_tables(
     with connection.cursor() as cursor:
         cursor.execute(f"CREATE SCHEMA IF NOT EXISTS {quote_identifier(schema)}")
         for mapping in mappings:
-            column_sql = ",\n    ".join(build_column_sql(column) for column in mapping.columns)
+            column_sql_parts = [
+                build_column_sql(column, mapping.primary_key) for column in mapping.columns
+            ]
+            if mapping.primary_key and not any(
+                serial_columns_support.is_counter_column(column) for column in mapping.columns
+            ):
+                pk_columns = ", ".join(quote_identifier(name) for name in mapping.primary_key)
+                column_sql_parts.append(f"PRIMARY KEY ({pk_columns})")
+            column_sql = ",\n    ".join(column_sql_parts)
             table_name = qualified_name(schema, mapping.postgres_name)
             cursor.execute(f"CREATE TABLE {table_name} (\n    {column_sql}\n)")
             cursor.execute(f"COMMENT ON TABLE {table_name} IS %s", (f"元Accessテーブル: {mapping.access_name}",))
@@ -667,8 +699,12 @@ def create_schema_and_tables(
                 )
 
 
-def build_column_sql(column: ColumnMapping) -> str:
-    return serial_columns_support.build_column_sql(column, quote_identifier)
+def build_column_sql(column: ColumnMapping, primary_key: list[str] | None = None) -> str:
+    if serial_columns_support.is_counter_column(column):
+        return serial_columns_support.build_column_sql(column, quote_identifier)
+    is_primary_key = bool(primary_key) and column.postgres_name in primary_key
+    nullable_sql = "" if is_primary_key or not column.nullable else ""
+    return f"{quote_identifier(column.postgres_name)} {column.postgres_type}{nullable_sql}"
 
 
 def sync_counter_sequences(
@@ -867,6 +903,7 @@ def build_caution_lines(meta: dict[str, Any], mappings: list[TableMapping]) -> l
         "- AccessのFKメタデータはODBCドライバが返さなかったため、外部キー制約は作成していません。",
         "- " + serial_columns_support.counter_caution_note(),
         "- 移行対象外: `t_QR履歴(backup_260521)` / `t_QR履歴Tmp`（バックアップ・一時テーブルのため PostgreSQL へは移行しません）。",
+        "- `delivery_label_defect_details` / `delivery_label_history` は `production_lot_id` を PRIMARY KEY（NOT NULL・重複なし）としています。",
         "- `.env` の `ACCESS_DB_PATH` が実ファイルを指していない場合は、メタJSONの `database_path` を使用しています。",
     ]
     zero_tables = [mapping.access_name for mapping in mappings if mapping.access_row_count == 0]
