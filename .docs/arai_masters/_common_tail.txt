@@ -1,0 +1,10 @@
+﻿python :   File "<string>", line 6
+発生場所 C:\Users\seika\AppData\Local\Temp\ps-script-541a2a78-4761-4e34-91dd-3cde9f5fdba2.ps1:111 文字:1
++ python -c "
++ ~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  File "<string>", line 6:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    if 'arai_masters_common.py' not in line or '" Write\'
+                                               ^
+SyntaxError: unterminated string literal (detected at line 6)

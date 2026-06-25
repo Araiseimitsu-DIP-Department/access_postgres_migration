@@ -59,7 +59,7 @@ TARGETS: tuple[RecreateTarget, ...] = (
         "arai_masters",
         "ARAI_MASTERS",
         "arai_masters",
-        "create_product_master.py",
+        "update_arai_masters.py",
         env_kind="arai_config",
         uses_access_env=False,
         default_db_name="arai_masters",

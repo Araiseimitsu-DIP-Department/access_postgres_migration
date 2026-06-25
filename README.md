@@ -141,8 +141,11 @@ python .docs\appearance_inspection_db\migrate_access_to_postgres_appearance_insp
 # 例: 出荷検査一覧DB（データのみ更新）
 python .docs\shipping_inspection_db\migrate_access_to_postgres_shipping_inspection_db.py --truncate
 
-# 例: 製品マスター（Excel 投入）
-python .docs\arai_masters\create_product_master.py --drop-table
+# 例: 製品マスター（Excel 投入・4テーブル一括）
+python .docs\arai_masters\update_arai_masters.py --drop-table
+
+# 例: 個別テーブルのみ
+python .docs\arai_masters\create_material_category.py --truncate
 ```
 
 差分追記のみ行う場合（既存の `--append-missing` 等）は、更新モードを指定せずに実行できます。

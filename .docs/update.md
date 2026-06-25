@@ -10,6 +10,7 @@
 - 旧 CLI を置換: `--replace` → `--drop-table`、`--truncate-pg` → `--truncate`、`purchase_summary` の `--apply-schema --migrate-data` → 更新モードに統合。
 - `production_progress` は `--drop-table` / `--drop-database` 時に `schema_pg_english_v1.sql` を自動適用するよう修正（一括実行時の `reservations_backup` 未存在エラーを解消）。
 - `README.md` に一括・個別の実行手順を追記。
+- `.docs/arai_masters` に `material_category` / `outsource_master` / `machine_master` 投入スクリプトと `arai_masters_common.py` / `update_arai_masters.py` を追加。4テーブル一括更新に対応し、`db_all_recreate.py` の arai_masters 対象を `update_arai_masters.py` に変更。
 
 ## 2026-06-24
 

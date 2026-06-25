@@ -1,0 +1,7 @@
+2026-06-25 09:27:42,958 [INFO] コピー元: C:/Users/seika/Desktop/収集ファイル/製品マスター.xls
+2026-06-25 09:27:42,958 [INFO] コピー先: C:\Users\seika\Desktop\cursor\access_postgres_migration\.docs\arai_masters\製品マスター_update_copy.xls
+2026-06-25 09:27:44,827 [INFO] Excel 読込: 1563 行 -> 投入対象 1562 行
+2026-06-25 09:27:44,913 [INFO] product_master: テーブルを削除しました。
+2026-06-25 09:27:44,933 [INFO] product_master: テーブルを作成しました。
+2026-06-25 09:27:45,044 [INFO] PostgreSQL: postgres@192.168.1.120:5432/arai_masters schema=public
+2026-06-25 09:27:45,044 [INFO] product_master: 1562 行を投入しました。

@@ -6,7 +6,7 @@
 - 移行先PostgreSQL DB：appearance_inspection_db
 - 接続情報：
   - `.env` の DATABASE_URL を参照
-- 移行日：2026-06-25 08:52:02
+- 移行日：2026-06-25 09:27:45
 - 作成者：Codex
 - 備考：外観検査記録DBの13テーブルを忠実に移行。日本語名はPostgreSQL用に英語/ローマ字のスネークケースへ変換し、元名はコメントと本対応表で追跡可能。
 
@@ -14,19 +14,19 @@
 
 | No | Accessテーブル名 | PostgreSQLテーブル名 | 種別 | Access件数 | PostgreSQL件数 | 備考 |
 |---:|---|---|---|---:|---:|---|
-| 1 | t_Excel現品票履歴 | excel_product_slip_history | TABLE | 33987 | 33987 | 成功 |
-| 2 | t_チェックシートリスト | check_sheet_list | TABLE | 119 | 119 | 成功 |
-| 3 | t_不具合情報 | defect_information | TABLE | 156396 | 156396 | 成功 |
-| 4 | t_外観検査記録 | appearance_inspection_records | TABLE | 70654 | 70654 | 成功 |
-| 5 | t_外観検査記録保存 | appearance_inspection_record_archives | TABLE | 225171 | 225171 | 成功 |
-| 6 | t_外観検査集計 | appearance_inspection_summaries | TABLE | 52885 | 52885 | 成功 |
-| 7 | t_外観検査集計保存 | appearance_inspection_summary_archives | TABLE | 171580 | 171580 | 成功 |
-| 8 | t_工程マスタ | process_master | TABLE | 10 | 10 | 成功 |
-| 9 | t_数値検査員マスタ | numeric_inspector_master | TABLE | 14 | 14 | 成功 |
-| 10 | t_数値検査記録 | numeric_inspection_records | TABLE | 26660 | 26660 | 成功 |
-| 11 | t_検査中 | inspection_in_progress | TABLE | 60 | 60 | 成功 |
-| 12 | t_検査員マスタ | inspector_master | TABLE | 77 | 77 | 成功 |
-| 13 | t_検査者マスタ | inspection_person_master | TABLE | 72 | 72 | 成功 |
+| 1 | t_Excel現品票履歴 | excel_product_slip_history | TABLE | 33987 |  | 移行前 |
+| 2 | t_チェックシートリスト | check_sheet_list | TABLE | 119 |  | 移行前 |
+| 3 | t_不具合情報 | defect_information | TABLE | 155700 |  | 移行前 |
+| 4 | t_外観検査記録 | appearance_inspection_records | TABLE | 68820 |  | 移行前 |
+| 5 | t_外観検査記録保存 | appearance_inspection_record_archives | TABLE | 225171 |  | 移行前 |
+| 6 | t_外観検査集計 | appearance_inspection_summaries | TABLE | 51450 |  | 移行前 |
+| 7 | t_外観検査集計保存 | appearance_inspection_summary_archives | TABLE | 171580 |  | 移行前 |
+| 8 | t_工程マスタ | process_master | TABLE | 10 |  | 移行前 |
+| 9 | t_数値検査員マスタ | numeric_inspector_master | TABLE | 14 |  | 移行前 |
+| 10 | t_数値検査記録 | numeric_inspection_records | TABLE | 25906 |  | 移行前 |
+| 11 | t_検査中 | inspection_in_progress | TABLE | 59 |  | 移行前 |
+| 12 | t_検査員マスタ | inspector_master | TABLE | 76 |  | 移行前 |
+| 13 | t_検査者マスタ | inspection_person_master | TABLE | 72 |  | 移行前 |
 
 ## 3. テーブル別カラム対応表
 

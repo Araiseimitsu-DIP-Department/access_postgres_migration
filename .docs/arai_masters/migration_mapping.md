@@ -9,7 +9,7 @@
 - 接続情報：
   - `config.env` の `POSTGRES_CONNECTION_URL` を優先
   - 未設定時は `POSTGRES_HOST` / `POSTGRES_PORT` / `POSTGRES_USER` / `POSTGRES_PASSWORD` / `POSTGRES_DB` から接続
-- 投入スクリプト：`.docs/arai_masters/create_product_master.py`
+- 投入スクリプト：`.docs/arai_masters/update_arai_masters.py`（4テーブル一括）または各 `create_*.py`
 - DDL：`.docs/arai_masters/arai_masters_ddl.sql`
 - 移行日：2026-06-15
 - 作成者：Codex

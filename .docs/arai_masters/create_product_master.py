@@ -443,23 +443,21 @@ def insert_records(conn: psycopg.Connection, schema: str, records: list[tuple[An
     return len(records)
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    add_refresh_mode_arguments(parser)
-    args = parser.parse_args()
-    setup_migration_logging(ERROR_LOG_FILE)
-    refresh_mode = resolve_refresh_mode(args)
+def run(refresh_mode: RefreshMode, *, skip_database_drop: bool = False) -> int:
     schema = POSTGRES_SCHEMA or "public"
+    table_mode = (
+        RefreshMode.DROP_TABLE if refresh_mode == RefreshMode.DROP_DATABASE else refresh_mode
+    )
 
-    if refresh_mode == RefreshMode.DROP_DATABASE:
+    if refresh_mode == RefreshMode.DROP_DATABASE and not skip_database_drop:
         drop_database(POSTGRES_CONNECTION_URL)
 
     records = read_excel_records()
 
     with _db_connection() as conn:
-        if refresh_mode in (RefreshMode.DROP_DATABASE, RefreshMode.DROP_TABLE):
+        if table_mode == RefreshMode.DROP_TABLE:
             drop_and_create_table(conn, schema)
-        elif refresh_mode == RefreshMode.TRUNCATE:
+        elif table_mode == RefreshMode.TRUNCATE:
             truncate_table(conn, schema)
         count = insert_records(conn, schema, records)
 
@@ -473,6 +471,14 @@ def main() -> int:
     )
     logging.info("%s: %s 行を投入しました。", TABLE_NAME, count)
     return 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    add_refresh_mode_arguments(parser)
+    args = parser.parse_args()
+    setup_migration_logging(ERROR_LOG_FILE)
+    return run(resolve_refresh_mode(args))
 
 
 if __name__ == "__main__":
