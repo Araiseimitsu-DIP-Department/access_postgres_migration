@@ -1,16 +1,16 @@
-2026-06-25 09:36:02,121 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/purchase_summary_db
-2026-06-25 09:36:02,364 [INFO] PostgreSQLテーブル作成確認: purchase_cross_summary
-2026-06-25 09:36:02,380 [INFO] PostgreSQLテーブル作成確認: migration_control
-2026-06-25 09:36:02,394 [INFO] PostgreSQLテーブル作成確認: account_subject_master
-2026-06-25 09:36:02,413 [INFO] PostgreSQLテーブル作成確認: supplier_master
-2026-06-25 09:36:02,475 [INFO] PostgreSQLテーブル作成確認: purchase_detail
-2026-06-25 09:36:02,488 [INFO] PostgreSQLテーブル作成確認: purchaser_master
-2026-06-25 09:36:03,126 [INFO] データ移行完了: t_クロス集計用 -> purchase_cross_summary (25件)
-2026-06-25 09:36:03,135 [INFO] データ移行完了: t_コントロール -> migration_control (1件)
-2026-06-25 09:36:03,427 [INFO] データ移行完了: t_科目名マスタ -> account_subject_master (19件)
-2026-06-25 09:36:04,850 [INFO] データ移行完了: t_購入先マスタ -> supplier_master (84件)
-2026-06-25 09:38:48,133 [INFO] データ移行完了: t_購入品明細 -> purchase_detail (45632件)
-2026-06-25 09:38:48,239 [INFO] データ移行完了: t_購入者マスタ -> purchaser_master (44件)
-2026-06-25 09:38:48,253 [INFO] identity sequence更新: purchase_cross_summary.id
-2026-06-25 09:38:48,257 [INFO] identity sequence更新: migration_control.id
-2026-06-25 09:38:48,260 [INFO] identity sequence更新: purchase_detail.id
+2026-06-25 11:11:19,856 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/purchase_summary_db
+2026-06-25 11:11:20,175 [INFO] PostgreSQLテーブル作成確認: purchase_cross_summary
+2026-06-25 11:11:20,204 [INFO] PostgreSQLテーブル作成確認: migration_control
+2026-06-25 11:11:20,222 [INFO] PostgreSQLテーブル作成確認: account_subject_master
+2026-06-25 11:11:20,256 [INFO] PostgreSQLテーブル作成確認: supplier_master
+2026-06-25 11:11:20,331 [INFO] PostgreSQLテーブル作成確認: purchase_detail
+2026-06-25 11:11:20,356 [INFO] PostgreSQLテーブル作成確認: purchaser_master
+2026-06-25 11:11:20,699 [INFO] データ移行完了: t_クロス集計用 -> purchase_cross_summary (25件)
+2026-06-25 11:11:20,704 [INFO] データ移行完了: t_コントロール -> migration_control (1件)
+2026-06-25 11:11:20,769 [INFO] データ移行完了: t_科目名マスタ -> account_subject_master (19件)
+2026-06-25 11:11:21,072 [INFO] データ移行完了: t_購入先マスタ -> supplier_master (84件)
+2026-06-25 11:14:05,484 [INFO] データ移行完了: t_購入品明細 -> purchase_detail (45632件)
+2026-06-25 11:14:05,674 [INFO] データ移行完了: t_購入者マスタ -> purchaser_master (44件)
+2026-06-25 11:14:05,689 [INFO] identity sequence更新: purchase_cross_summary.id (max=10224)
+2026-06-25 11:14:05,699 [INFO] identity sequence更新: migration_control.id (max=1)
+2026-06-25 11:14:05,703 [INFO] identity sequence更新: purchase_detail.id (max=47620)

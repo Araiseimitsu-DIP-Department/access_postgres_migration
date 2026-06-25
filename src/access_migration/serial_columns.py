@@ -60,15 +60,35 @@ def sync_counter_sequences(
     table_regclass = f"{schema}.{mapping.postgres_name}"
     for column in counter_columns:
         col_quoted = quote_identifier(column.postgres_name)
+        cursor.execute(f"SELECT MAX({col_quoted}) FROM {table_qualified}")
+        max_row = cursor.fetchone()
+        max_id = max_row[0] if max_row else None
+
         cursor.execute(
-            f"""
-            SELECT setval(
-                pg_get_serial_sequence(%s, %s),
-                COALESCE((SELECT MAX({col_quoted}) FROM {table_qualified}), 0),
-                true
-            )
-            """,
+            "SELECT pg_get_serial_sequence(%s, %s)",
             (table_regclass, column.postgres_name),
         )
+        sequence_row = cursor.fetchone()
+        sequence_name = sequence_row[0] if sequence_row else None
+        if not sequence_name:
+            if logger is not None:
+                logger.warning(
+                    "シーケンスが見つかりません（スキップ）: %s.%s",
+                    mapping.postgres_name,
+                    column.postgres_name,
+                )
+            continue
+
+        if max_id is None:
+            # 0件テーブル: setval(0) は不可のため次採番を 1 にリセット
+            cursor.execute("SELECT setval(%s, 1, false)", (sequence_name,))
+        else:
+            cursor.execute("SELECT setval(%s, %s, true)", (sequence_name, max_id))
+
         if logger is not None:
-            logger.info("シーケンス同期: %s.%s", mapping.postgres_name, column.postgres_name)
+            logger.info(
+                "シーケンス同期: %s.%s (max=%s)",
+                mapping.postgres_name,
+                column.postgres_name,
+                max_id if max_id is not None else 0,
+            )

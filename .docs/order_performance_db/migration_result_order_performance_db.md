@@ -1,6 +1,6 @@
 ﻿# Access → PostgreSQL 移行結果（order_performance_db）
 
-- 実行日時: 2026-06-25 09:35:51
+- 実行日時: 2026-06-25 11:11:07
 - Access DB: C:\Users\seika\Desktop\収集ファイル\受注実績データ集計DB.accdb
 
 | Accessオブジェクト名 | PostgreSQLテーブル名 | Access件数 | PostgreSQL件数 | 投入済み件数 | 状態 | エラー |

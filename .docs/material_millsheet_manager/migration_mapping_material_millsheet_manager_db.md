@@ -5,7 +5,7 @@
 - 対象Access DB：`C:\Users\seizo\Desktop\材料入庫管理台帳兼ミルシート管理表DB.accdb`
 - 移行先PostgreSQL DB：`material_millsheet_manager`
 - 接続情報：`.env` の `DATABASE_URL` / `ACCESS_DB_PATH` を参照
-- 移行日：2026-06-25 09:35:37
+- 移行日：2026-06-25 11:10:52
 - 方針：材料入庫管理台帳兼ミルシート管理表DB.accdb の全11テーブル・全カラムを英語スネークケースへ変換し忠実に移行
 
 ## 2. 移行対象テーブル一覧
@@ -30,7 +30,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `納入業者コード` | VARCHAR | `supplier_code` | VARCHAR(2) | 可 |  |
 | 3 | `納入業者名` | VARCHAR | `supplier_name` | VARCHAR(20) | 可 |  |
 | 4 | `購入月` | VARCHAR | `purchase_month` | VARCHAR(4) | 可 |  |
@@ -40,7 +40,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `書込みフォルダ` | VARCHAR | `write_folder` | VARCHAR(255) | 可 |  |
 | 3 | `購入月From` | VARCHAR | `purchase_month_from` | VARCHAR(4) | 可 |  |
 | 4 | `購入月To` | VARCHAR | `purchase_month_to` | VARCHAR(4) | 可 |  |
@@ -56,7 +56,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `購入ID` | INTEGER | `purchase_id` | INTEGER | 可 |  |
 | 3 | `寸法1` | DOUBLE | `dimension_1` | DOUBLE PRECISION | 可 |  |
 | 4 | `寸法2` | DOUBLE | `dimension_2` | DOUBLE PRECISION | 可 |  |
@@ -70,7 +70,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `入荷日` | DATETIME | `receipt_date` | TIMESTAMP | 可 |  |
 | 3 | `伝票日付` | DATETIME | `slip_date` | TIMESTAMP | 可 |  |
 | 4 | `区分` | VARCHAR | `category_code` | VARCHAR(1) | 可 |  |
@@ -95,7 +95,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `入荷日` | DATETIME | `receipt_date` | TIMESTAMP | 可 |  |
 | 3 | `伝票日付` | DATETIME | `slip_date` | TIMESTAMP | 可 |  |
 | 4 | `区分` | VARCHAR | `category_code` | VARCHAR(1) | 可 |  |
@@ -119,7 +119,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `入荷日` | DATETIME | `receipt_date` | TIMESTAMP | 可 |  |
 | 3 | `伝票日付` | DATETIME | `slip_date` | TIMESTAMP | 可 |  |
 | 4 | `区分` | VARCHAR | `category_code` | VARCHAR(1) | 可 |  |
@@ -149,7 +149,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `購入ID` | INTEGER | `purchase_id` | INTEGER | 可 |  |
 | 3 | `寸法1左最大` | DOUBLE | `dim1_left_max` | DOUBLE PRECISION | 可 |  |
 | 4 | `寸法1左最小` | DOUBLE | `dim1_left_min` | DOUBLE PRECISION | 可 |  |
@@ -192,7 +192,7 @@
 | Access型 | PostgreSQL型 | 備考 |
 |---|---|---|
 | VARCHAR | varchar(n) | Accessのサイズを維持 |
-| COUNTER | bigint | 採番値を忠実に移行 |
+| COUNTER | bigserial | AccessのID値を投入後、setvalで次採番をMAX(id)+1に同期。PRIMARY KEY付与 |
 | INTEGER | integer | 整数 |
 | DOUBLE | double precision | 浮動小数 |
 | DATETIME | timestamp | 日付/時刻 |
@@ -203,6 +203,7 @@
 
 - 本移行は `材料入庫管理台帳兼ミルシート管理表DB.accdb` の11テーブルを対象としています。
 - AccessのFKメタデータはODBCで取得できなかったため、外部キー制約は作成していません。
+- COUNTER列はBIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期しています。
 - `t_材料納入履歴 変更前` はスキーマ変更前のバックアップテーブルです。金額列はINTEGER型です。
 - `t_材料納入Tmp` は一時登録用テーブルです（0件でも構造を再現）。
 - `t_旧検査データ` は旧形式の検査データです。現行は `t_検査データ` を使用しています。

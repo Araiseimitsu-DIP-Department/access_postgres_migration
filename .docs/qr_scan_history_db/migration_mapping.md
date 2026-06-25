@@ -6,7 +6,7 @@
 - 移行先PostgreSQL DB：qr_scan_history_db
 - 接続情報：
   - `.env` の DATABASE_URL を参照
-- 移行日：2026-06-25 09:35:34
+- 移行日：2026-06-25 11:10:48
 - 作成者：Codex
 - 備考：Accessの1テーブルを削除・統合せずPostgreSQLへ移行。日本語名は英語スネークケースへ変換し、元名は本対応表とDBコメントで追跡可能。
 

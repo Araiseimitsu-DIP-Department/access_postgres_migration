@@ -1,37 +1,37 @@
-2026-06-25 09:33:34,787 [INFO] === 開始: material_category ===
-2026-06-25 09:33:34,854 [INFO] material_category: テーブルを削除しました。
-2026-06-25 09:33:34,870 [INFO] material_category: テーブルを作成しました。
-2026-06-25 09:33:34,878 [INFO] コピー元: C:/Users/seika/Desktop/収集ファイル/製品マスター.xls
-2026-06-25 09:33:34,893 [INFO] コピー先: C:\Users\seika\Desktop\cursor\access_postgres_migration\.docs\arai_masters\製品マスター_update_copy.xls
-2026-06-25 09:33:36,581 [INFO] Excel 読込: 13 行 -> 投入対象 14 行
-2026-06-25 09:33:36,621 [INFO] PostgreSQL: postgres@192.168.1.120:5432/arai_masters schema=public
-2026-06-25 09:33:36,621 [INFO] material_category: 14 行を投入しました。
-2026-06-25 09:33:36,621 [INFO] 成功: material_category
-2026-06-25 09:33:36,621 [INFO] === 開始: outsource_master ===
-2026-06-25 09:33:36,676 [INFO] outsource_master: テーブルを削除しました。
-2026-06-25 09:33:36,687 [INFO] outsource_master: テーブルを作成しました。
-2026-06-25 09:33:36,690 [INFO] コピー元: C:/Users/seika/Desktop/収集ファイル/製品マスター.xls
-2026-06-25 09:33:36,694 [INFO] コピー先: C:\Users\seika\Desktop\cursor\access_postgres_migration\.docs\arai_masters\製品マスター_update_copy.xls
-2026-06-25 09:33:38,237 [INFO] Excel 読込: 73 行 -> 投入対象 73 行
-2026-06-25 09:33:38,303 [INFO] PostgreSQL: postgres@192.168.1.120:5432/arai_masters schema=public
-2026-06-25 09:33:38,303 [INFO] outsource_master: 73 行を投入しました。
-2026-06-25 09:33:38,303 [INFO] 成功: outsource_master
-2026-06-25 09:33:38,303 [INFO] === 開始: machine_master ===
-2026-06-25 09:33:38,344 [INFO] machine_master: テーブルを削除しました。
-2026-06-25 09:33:38,360 [INFO] machine_master: テーブルを作成しました。
-2026-06-25 09:33:38,361 [INFO] コピー元: C:/Users/seika/Desktop/収集ファイル/製品マスター.xls
-2026-06-25 09:33:38,361 [INFO] コピー先: C:\Users\seika\Desktop\cursor\access_postgres_migration\.docs\arai_masters\製品マスター_update_copy.xls
-2026-06-25 09:33:39,904 [INFO] Excel 読込: 61 行 -> 投入対象 61 行
-2026-06-25 09:33:39,982 [INFO] PostgreSQL: postgres@192.168.1.120:5432/arai_masters schema=public
-2026-06-25 09:33:39,982 [INFO] machine_master: 61 行を投入しました。
-2026-06-25 09:33:39,982 [INFO] 成功: machine_master
-2026-06-25 09:33:39,982 [INFO] === 開始: product_master ===
-2026-06-25 09:33:39,982 [INFO] コピー元: C:/Users/seika/Desktop/収集ファイル/製品マスター.xls
-2026-06-25 09:33:39,987 [INFO] コピー先: C:\Users\seika\Desktop\cursor\access_postgres_migration\.docs\arai_masters\製品マスター_update_copy.xls
-2026-06-25 09:33:41,620 [INFO] Excel 読込: 1563 行 -> 投入対象 1562 行
-2026-06-25 09:33:41,685 [INFO] product_master: テーブルを削除しました。
-2026-06-25 09:33:41,688 [INFO] product_master: テーブルを作成しました。
-2026-06-25 09:33:41,786 [INFO] PostgreSQL: postgres@192.168.1.120:5432/arai_masters schema=public
-2026-06-25 09:33:41,786 [INFO] product_master: 1562 行を投入しました。
-2026-06-25 09:33:41,786 [INFO] 成功: product_master
-2026-06-25 09:33:41,786 [INFO] arai_masters 全4テーブルの更新が完了しました。
+2026-06-25 11:09:07,621 [INFO] === 開始: material_category ===
+2026-06-25 11:09:07,713 [INFO] material_category: テーブルを削除しました。
+2026-06-25 11:09:07,714 [INFO] material_category: テーブルを作成しました。
+2026-06-25 11:09:07,730 [INFO] コピー元: C:/Users/seika/Desktop/収集ファイル/製品マスター.xls
+2026-06-25 11:09:07,734 [INFO] コピー先: C:\Users\seika\Desktop\cursor\access_postgres_migration\.docs\arai_masters\製品マスター_update_copy.xls
+2026-06-25 11:09:09,814 [INFO] Excel 読込: 13 行 -> 投入対象 14 行
+2026-06-25 11:09:09,864 [INFO] PostgreSQL: postgres@192.168.1.120:5432/arai_masters schema=public
+2026-06-25 11:09:09,864 [INFO] material_category: 14 行を投入しました。
+2026-06-25 11:09:09,864 [INFO] 成功: material_category
+2026-06-25 11:09:09,864 [INFO] === 開始: outsource_master ===
+2026-06-25 11:09:09,919 [INFO] outsource_master: テーブルを削除しました。
+2026-06-25 11:09:09,919 [INFO] outsource_master: テーブルを作成しました。
+2026-06-25 11:09:09,931 [INFO] コピー元: C:/Users/seika/Desktop/収集ファイル/製品マスター.xls
+2026-06-25 11:09:09,933 [INFO] コピー先: C:\Users\seika\Desktop\cursor\access_postgres_migration\.docs\arai_masters\製品マスター_update_copy.xls
+2026-06-25 11:09:11,613 [INFO] Excel 読込: 73 行 -> 投入対象 73 行
+2026-06-25 11:09:11,664 [INFO] PostgreSQL: postgres@192.168.1.120:5432/arai_masters schema=public
+2026-06-25 11:09:11,664 [INFO] outsource_master: 73 行を投入しました。
+2026-06-25 11:09:11,664 [INFO] 成功: outsource_master
+2026-06-25 11:09:11,678 [INFO] === 開始: machine_master ===
+2026-06-25 11:09:11,719 [INFO] machine_master: テーブルを削除しました。
+2026-06-25 11:09:11,730 [INFO] machine_master: テーブルを作成しました。
+2026-06-25 11:09:11,737 [INFO] コピー元: C:/Users/seika/Desktop/収集ファイル/製品マスター.xls
+2026-06-25 11:09:11,740 [INFO] コピー先: C:\Users\seika\Desktop\cursor\access_postgres_migration\.docs\arai_masters\製品マスター_update_copy.xls
+2026-06-25 11:09:13,449 [INFO] Excel 読込: 61 行 -> 投入対象 61 行
+2026-06-25 11:09:13,613 [INFO] PostgreSQL: postgres@192.168.1.120:5432/arai_masters schema=public
+2026-06-25 11:09:13,613 [INFO] machine_master: 61 行を投入しました。
+2026-06-25 11:09:13,613 [INFO] 成功: machine_master
+2026-06-25 11:09:13,613 [INFO] === 開始: product_master ===
+2026-06-25 11:09:13,613 [INFO] コピー元: C:/Users/seika/Desktop/収集ファイル/製品マスター.xls
+2026-06-25 11:09:13,613 [INFO] コピー先: C:\Users\seika\Desktop\cursor\access_postgres_migration\.docs\arai_masters\製品マスター_update_copy.xls
+2026-06-25 11:09:15,397 [INFO] Excel 読込: 1563 行 -> 投入対象 1562 行
+2026-06-25 11:09:15,447 [INFO] product_master: テーブルを削除しました。
+2026-06-25 11:09:15,466 [INFO] product_master: テーブルを作成しました。
+2026-06-25 11:09:15,551 [INFO] PostgreSQL: postgres@192.168.1.120:5432/arai_masters schema=public
+2026-06-25 11:09:15,551 [INFO] product_master: 1562 行を投入しました。
+2026-06-25 11:09:15,551 [INFO] 成功: product_master
+2026-06-25 11:09:15,551 [INFO] arai_masters 全4テーブルの更新が完了しました。

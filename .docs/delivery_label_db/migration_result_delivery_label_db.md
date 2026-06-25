@@ -1,6 +1,6 @@
 ﻿# Access → PostgreSQL 移行結果
 
-- 実行日時: 2026-06-25 09:35:10
+- 実行日時: 2026-06-25 11:10:25
 - Access DB: C:\Users\seika\Desktop\収集ファイル\現品票DB.accdb
 
 | Accessテーブル名 | PostgreSQLテーブル名 | Access件数 | PostgreSQL件数 | 投入済み件数 | 状態 | エラー |
@@ -9,8 +9,6 @@
 | t_Excel現品票履歴 | excel_delivery_label_history | 35817 | 35817 | 35817 | 成功 |  |
 | t_ID番号 | id_number | 1 | 1 | 1 | 成功 |  |
 | t_QR履歴 | qr_history | 115803 | 115803 | 115803 | 成功 |  |
-| t_QR履歴(backup_260521) | qr_history_backup_260521 | 106967 | 106967 | 106967 | 成功 |  |
-| t_QR履歴Tmp | qr_history_tmp | 46232 | 46232 | 46232 | 成功 |  |
 | t_エラーログ | error_logs | 16622 | 16622 | 16622 | 成功 |  |
 | t_ロット完了理由 | lot_completion_reasons | 6 | 6 | 6 | 成功 |  |
 | t_作業履歴 | work_history | 1 | 1 | 1 | 成功 |  |

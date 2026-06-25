@@ -13,6 +13,8 @@
 - `.docs/arai_masters` に `material_category` / `outsource_master` / `machine_master` 投入スクリプトと `arai_masters_common.py` / `update_arai_masters.py` を追加。4テーブル一括更新に対応し、`db_all_recreate.py` の arai_masters 対象を `update_arai_masters.py` に変更。
 - `delivery_label_db` の移行対象から `t_QR履歴(backup_260521)` / `t_QR履歴Tmp` を除外（バックアップ・一時テーブルのため移行不要）。
 - `delivery_label_defect_details` / `delivery_label_history` に `production_lot_id` の PRIMARY KEY 制約（NOT NULL・重複なし）を追加。
+- COUNTER 列（BIGSERIAL）の PRIMARY KEY 化を未対応だった5 DB に拡張: `material_scheduling` / `material_millsheet_manager` / `order_management` / `order_performance_db` / `subcon_manager`（`serial_columns.py` 共通処理）。
+- `serial_columns.sync_counter_sequences` を修正。0件テーブルで `setval(0)` となり失敗していた問題を解消（空テーブルは `setval(seq, 1, false)`）。
 
 ## 2026-06-24
 

@@ -1,8 +1,8 @@
-2026-06-25 09:35:13,961 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/pingauge_management_db
-2026-06-25 09:35:14,978 [INFO] 移行開始: t_PGマスタ -> pin_gauge_master
-2026-06-25 09:35:15,030 [INFO] 移行完了: t_PGマスタ Access=2031 PostgreSQL=2031
-2026-06-25 09:35:15,030 [INFO] 移行開始: t_担当者マスタ -> staff_master
-2026-06-25 09:35:15,040 [INFO] 移行完了: t_担当者マスタ Access=29 PostgreSQL=29
-2026-06-25 09:35:15,040 [INFO] 移行開始: t_貸出 -> pin_gauge_lending
-2026-06-25 09:35:15,995 [INFO] 移行完了: t_貸出 Access=32515 PostgreSQL=32515
-2026-06-25 09:35:16,005 [INFO] シーケンス同期: pin_gauge_lending.id
+2026-06-25 11:10:29,439 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/pingauge_management_db
+2026-06-25 11:10:30,058 [INFO] 移行開始: t_PGマスタ -> pin_gauge_master
+2026-06-25 11:10:30,126 [INFO] 移行完了: t_PGマスタ Access=2031 PostgreSQL=2031
+2026-06-25 11:10:30,126 [INFO] 移行開始: t_担当者マスタ -> staff_master
+2026-06-25 11:10:30,126 [INFO] 移行完了: t_担当者マスタ Access=29 PostgreSQL=29
+2026-06-25 11:10:30,141 [INFO] 移行開始: t_貸出 -> pin_gauge_lending
+2026-06-25 11:10:32,325 [INFO] 移行完了: t_貸出 Access=32515 PostgreSQL=32515
+2026-06-25 11:10:32,392 [INFO] シーケンス同期: pin_gauge_lending.id (max=33829)

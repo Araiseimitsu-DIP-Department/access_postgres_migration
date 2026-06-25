@@ -5,7 +5,7 @@
 - 対象Access DB：`C:\Users\seika\Desktop\出荷検査一覧DB.accdb`
 - 移行先PostgreSQL DB：`shipping_inspection_db`
 - 接続情報：`.env` の `DATABASE_URL` / `ACCESS_DB_PATH` を参照
-- 移行日：2026-06-25 09:35:46
+- 移行日：2026-06-25 11:11:01
 - 作成者：Cursor Agent
 - 備考：9テーブルを移行（`T_仕掛数`・`T_外検担` は移行対象外）
 

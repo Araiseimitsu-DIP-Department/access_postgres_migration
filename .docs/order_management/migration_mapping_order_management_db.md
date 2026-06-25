@@ -5,7 +5,7 @@
 - 対象Access DB：`C:\Users\seizo\Desktop\受注データDB.accdb`
 - 移行先PostgreSQL DB：`order_management`
 - 接続情報：`.env` の `DATABASE_URL` / `ACCESS_DB_PATH` を参照
-- 移行日：2026-06-25 09:35:57
+- 移行日：2026-06-25 11:11:14
 - 方針：受注データDB.accdb の全16テーブル・全カラムを英語スネークケースへ変換し忠実に移行
 
 ## 2. 移行対象テーブル一覧
@@ -37,7 +37,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID1` | COUNTER | `id1` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID1` | COUNTER | `id1` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `ID` | VARCHAR | `id` | VARCHAR(255) | 可 |  |
 | 3 | `製品番号` | VARCHAR | `product_no` | VARCHAR(255) | 可 |  |
 | 4 | `別管理番号` | VARCHAR | `alt_management_no` | VARCHAR(255) | 可 |  |
@@ -105,7 +105,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `注文ID年` | VARCHAR | `order_id_year` | VARCHAR(2) | 可 |  |
 | 3 | `注文ID連番` | VARCHAR | `order_id_seq` | VARCHAR(5) | 可 |  |
 | 4 | `メモ` | VARCHAR | `memo` | VARCHAR(50) | 可 |  |
@@ -116,7 +116,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `プリンタ` | VARCHAR | `printer_name` | VARCHAR(255) | 可 |  |
 
 ### `t_受注` → `orders`
@@ -178,7 +178,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `NID` | COUNTER | `delivery_id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `NID` | COUNTER | `delivery_id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `注文ID` | VARCHAR | `order_id` | VARCHAR(8) | 可 |  |
 | 3 | `注文番号` | VARCHAR | `order_no` | VARCHAR(30) | 可 |  |
 | 4 | `品番` | VARCHAR | `product_no` | VARCHAR(30) | 可 |  |
@@ -195,7 +195,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `コード` | VARCHAR | `code` | VARCHAR(3) | 可 |  |
 | 3 | `納入日` | DATETIME | `delivery_date` | TIMESTAMP | 可 |  |
 | 4 | `納品書客名` | VARCHAR | `delivery_note_customer_name` | VARCHAR(30) | 可 |  |
@@ -214,7 +214,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `コード` | VARCHAR | `code` | VARCHAR(3) | 可 |  |
 | 3 | `納入日` | DATETIME | `delivery_date` | TIMESTAMP | 可 |  |
 | 4 | `納品書客名` | VARCHAR | `delivery_note_customer_name` | VARCHAR(30) | 可 |  |
@@ -249,7 +249,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `請求月` | VARCHAR | `billing_month` | VARCHAR(4) | 可 |  |
 | 3 | `コード` | VARCHAR | `code` | VARCHAR(3) | 可 |  |
 | 4 | `納品書客名` | VARCHAR | `delivery_note_customer_name` | VARCHAR(30) | 可 |  |
@@ -271,7 +271,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `請求月` | VARCHAR | `billing_month` | VARCHAR(4) | 可 |  |
 | 3 | `コード` | VARCHAR | `code` | VARCHAR(3) | 可 |  |
 | 4 | `納品書客名` | VARCHAR | `delivery_note_customer_name` | VARCHAR(30) | 可 |  |
@@ -293,7 +293,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `請求月` | VARCHAR | `billing_month` | VARCHAR(4) | 可 |  |
 | 3 | `客先コード` | VARCHAR | `customer_code` | VARCHAR(3) | 可 |  |
 | 4 | `客先` | VARCHAR | `customer` | VARCHAR(10) | 可 |  |
@@ -309,7 +309,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `決算年` | VARCHAR | `settlement_year` | VARCHAR(2) | 可 |  |
 | 3 | `客先コード` | VARCHAR | `customer_code` | VARCHAR(3) | 可 |  |
 | 4 | `客先` | VARCHAR | `customer` | VARCHAR(10) | 可 |  |
@@ -327,7 +327,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | `ID` | COUNTER | `id` | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | `ID` | COUNTER | `id` | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | `客先コード` | VARCHAR | `customer_code` | VARCHAR(3) | 可 |  |
 
 ## 4. 型変換ルール
@@ -335,7 +335,7 @@
 | Access型 | PostgreSQL型 | 備考 |
 |---|---|---|
 | VARCHAR | varchar(n) | Accessのサイズを維持 |
-| COUNTER | bigint | 採番値を忠実に移行 |
+| COUNTER | bigserial | AccessのID値を投入後、setvalで次採番をMAX(id)+1に同期。PRIMARY KEY付与 |
 | INTEGER | integer | 整数 |
 | DOUBLE | double precision | 浮動小数 |
 | DATETIME | timestamp | 日付/時刻 |
@@ -346,6 +346,7 @@
 
 - 本移行は `受注データDB.accdb` の全16テーブルを対象としています。
 - AccessのFKメタデータはODBCで取得できなかったため、外部キー制約は作成していません。
+- COUNTER列はBIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期しています。
 - `imp管理表` はExcel等から取り込んだ管理表データです（49列）。
 - `t_請求書Tmp` / `t_納品書データ` は帳票出力用の一時テーブルです。
 - 誤って移行した `受注データApp.accdb` 由来のテーブルは `--drop-table` 実行時に削除されます。

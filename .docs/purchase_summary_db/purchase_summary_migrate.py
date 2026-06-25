@@ -297,16 +297,29 @@ def reset_identity_sequences(pg_cur: Any, metadata: dict[str, Any], logger: logg
                 continue
             pg_column = COLUMN_NAME_MAP[column["name"]]
             pg_cur.execute(
-                sql.SQL(
-                    "SELECT setval(pg_get_serial_sequence(%s, %s), "
-                    "COALESCE((SELECT MAX({column}) FROM {table}), 0), true)"
-                ).format(
+                sql.SQL("SELECT MAX({column}) FROM {table}").format(
                     column=sql.Identifier(pg_column),
                     table=sql.Identifier(pg_table),
-                ),
+                )
+            )
+            max_row = pg_cur.fetchone()
+            max_id = max_row[0] if max_row else None
+
+            pg_cur.execute(
+                "SELECT pg_get_serial_sequence(%s, %s)",
                 (pg_table, pg_column),
             )
-            logger.info("identity sequence更新: %s.%s", pg_table, pg_column)
+            sequence_row = pg_cur.fetchone()
+            sequence_name = sequence_row[0] if sequence_row else None
+            if not sequence_name:
+                logger.warning("シーケンスが見つかりません（スキップ）: %s.%s", pg_table, pg_column)
+                continue
+
+            if max_id is None:
+                pg_cur.execute("SELECT setval(%s, 1, false)", (sequence_name,))
+            else:
+                pg_cur.execute("SELECT setval(%s, %s, true)", (sequence_name, max_id))
+            logger.info("identity sequence更新: %s.%s (max=%s)", pg_table, pg_column, max_id if max_id is not None else 0)
 
 
 def write_csv(pg_table: str, headers: list[str], rows: list[tuple[Any, ...]]) -> None:

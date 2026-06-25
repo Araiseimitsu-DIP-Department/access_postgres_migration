@@ -1,6 +1,6 @@
 ﻿# Access → PostgreSQL 移行結果（subcon_manager）
 
-- 実行日時: 2026-06-25 09:36:01
+- 実行日時: 2026-06-25 11:11:19
 - Access DB: C:\Users\seika\Desktop\収集ファイル\協力会社委託加工処理品DB.accdb
 
 | Accessオブジェクト名 | PostgreSQLテーブル名 | Access件数 | PostgreSQL件数 | 投入済み件数 | 状態 | エラー |

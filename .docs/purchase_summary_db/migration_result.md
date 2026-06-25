@@ -1,6 +1,6 @@
 # Access → PostgreSQL 移行結果
 
-- 実行日時：2026-06-25 09:38:48 東京 (標準時)
+- 実行日時：2026-06-25 11:14:05 東京 (標準時)
 - 対象Access DB：`\\192.168.1.200\共有\生産管理課\AccessDB\購入品集計DB.accdb`
 - 移行先PostgreSQL DB：`purchase_summary_db`
 - スキーマ作成：実行

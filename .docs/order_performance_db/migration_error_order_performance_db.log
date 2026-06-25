@@ -1,9 +1,12 @@
-2026-06-25 09:35:46,698 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/order_performance_db
-2026-06-25 09:35:47,455 [INFO] 移行開始: t_コントロール (TABLE) -> app_control
-2026-06-25 09:35:47,475 [INFO] 移行完了: t_コントロール Access=1 PostgreSQL=1
-2026-06-25 09:35:47,475 [INFO] 移行開始: t_受注キャンセル (TABLE) -> order_cancellations
-2026-06-25 09:35:47,529 [INFO] 移行完了: t_受注キャンセル Access=602 PostgreSQL=602
-2026-06-25 09:35:47,529 [INFO] 移行開始: t_受注実績 (TABLE) -> order_performance
-2026-06-25 09:35:51,056 [INFO] 移行完了: t_受注実績 Access=60538 PostgreSQL=60538
-2026-06-25 09:35:51,056 [INFO] 移行開始: t_売月 (TABLE) -> sales_months
-2026-06-25 09:35:51,064 [INFO] 移行完了: t_売月 Access=156 PostgreSQL=156
+2026-06-25 11:11:01,598 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/order_performance_db
+2026-06-25 11:11:02,590 [INFO] 移行開始: t_コントロール (TABLE) -> app_control
+2026-06-25 11:11:02,611 [INFO] 移行完了: t_コントロール Access=1 PostgreSQL=1
+2026-06-25 11:11:02,662 [INFO] シーケンス同期: app_control.id (max=1)
+2026-06-25 11:11:02,662 [INFO] 移行開始: t_受注キャンセル (TABLE) -> order_cancellations
+2026-06-25 11:11:02,809 [INFO] 移行完了: t_受注キャンセル Access=602 PostgreSQL=602
+2026-06-25 11:11:02,824 [INFO] シーケンス同期: order_cancellations.id (max=616)
+2026-06-25 11:11:02,824 [INFO] 移行開始: t_受注実績 (TABLE) -> order_performance
+2026-06-25 11:11:07,656 [INFO] 移行完了: t_受注実績 Access=60538 PostgreSQL=60538
+2026-06-25 11:11:07,675 [INFO] シーケンス同期: order_performance.id (max=61190)
+2026-06-25 11:11:07,675 [INFO] 移行開始: t_売月 (TABLE) -> sales_months
+2026-06-25 11:11:07,693 [INFO] 移行完了: t_売月 Access=156 PostgreSQL=156

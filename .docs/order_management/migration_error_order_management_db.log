@@ -1,33 +1,44 @@
-2026-06-25 09:35:51,339 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/order_management
-2026-06-25 09:35:52,395 [INFO] 移行開始: imp管理表 (TABLE) -> import_management_sheet
-2026-06-25 09:35:52,979 [INFO] 移行完了: imp管理表 Access=4540 PostgreSQL=4540
-2026-06-25 09:35:52,979 [INFO] 移行開始: t_かんばんマスタ (TABLE) -> kanban_master
-2026-06-25 09:35:52,989 [INFO] 移行完了: t_かんばんマスタ Access=1 PostgreSQL=1
-2026-06-25 09:35:52,989 [INFO] 移行開始: t_コントロール (TABLE) -> app_control
-2026-06-25 09:35:52,998 [INFO] 移行完了: t_コントロール Access=1 PostgreSQL=1
-2026-06-25 09:35:52,998 [INFO] 移行開始: t_プリンタ名 (TABLE) -> printer_names
-2026-06-25 09:35:53,003 [INFO] 移行完了: t_プリンタ名 Access=1 PostgreSQL=1
-2026-06-25 09:35:53,003 [INFO] 移行開始: t_受注 (TABLE) -> orders
-2026-06-25 09:35:55,244 [INFO] 移行完了: t_受注 Access=38409 PostgreSQL=38409
-2026-06-25 09:35:55,245 [INFO] 移行開始: t_営業マスタ (TABLE) -> sales_rep_master
-2026-06-25 09:35:55,256 [INFO] 移行完了: t_営業マスタ Access=6 PostgreSQL=6
-2026-06-25 09:35:55,256 [INFO] 移行開始: t_客先マスタ (TABLE) -> customer_master
-2026-06-25 09:35:55,268 [INFO] 移行完了: t_客先マスタ Access=117 PostgreSQL=117
-2026-06-25 09:35:55,269 [INFO] 移行開始: t_納品 (TABLE) -> deliveries
-2026-06-25 09:35:57,412 [INFO] 移行完了: t_納品 Access=42630 PostgreSQL=42630
-2026-06-25 09:35:57,414 [INFO] 移行開始: t_納品書 (TABLE) -> delivery_notes
-2026-06-25 09:35:57,418 [INFO] 移行完了: t_納品書 Access=0 PostgreSQL=0
-2026-06-25 09:35:57,418 [INFO] 移行開始: t_納品書データ (TABLE) -> delivery_note_data
-2026-06-25 09:35:57,422 [INFO] 移行完了: t_納品書データ Access=0 PostgreSQL=0
-2026-06-25 09:35:57,423 [INFO] 移行開始: t_製品マスタ (TABLE) -> product_master
-2026-06-25 09:35:57,488 [INFO] 移行完了: t_製品マスタ Access=1525 PostgreSQL=1525
-2026-06-25 09:35:57,488 [INFO] 移行開始: t_請求書 (TABLE) -> invoices
-2026-06-25 09:35:57,509 [INFO] 移行完了: t_請求書 Access=229 PostgreSQL=229
-2026-06-25 09:35:57,509 [INFO] 移行開始: t_請求書Tmp (TABLE) -> invoices_temp
-2026-06-25 09:35:57,515 [INFO] 移行完了: t_請求書Tmp Access=0 PostgreSQL=0
-2026-06-25 09:35:57,515 [INFO] 移行開始: t_請求金額 (TABLE) -> billing_amounts
-2026-06-25 09:35:57,588 [INFO] 移行完了: t_請求金額 Access=2072 PostgreSQL=2072
-2026-06-25 09:35:57,590 [INFO] 移行開始: t_請求金額決算 (TABLE) -> billing_amounts_settlement
-2026-06-25 09:35:57,598 [INFO] 移行完了: t_請求金額決算 Access=44 PostgreSQL=44
-2026-06-25 09:35:57,598 [INFO] 移行開始: t_重複客先 (TABLE) -> duplicate_customers
-2026-06-25 09:35:57,607 [INFO] 移行完了: t_重複客先 Access=11 PostgreSQL=11
+2026-06-25 11:11:07,959 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/order_management
+2026-06-25 11:11:09,371 [INFO] 移行開始: imp管理表 (TABLE) -> import_management_sheet
+2026-06-25 11:11:10,025 [INFO] 移行完了: imp管理表 Access=4540 PostgreSQL=4540
+2026-06-25 11:11:10,047 [INFO] シーケンス同期: import_management_sheet.id1 (max=4540)
+2026-06-25 11:11:10,047 [INFO] 移行開始: t_かんばんマスタ (TABLE) -> kanban_master
+2026-06-25 11:11:10,057 [INFO] 移行完了: t_かんばんマスタ Access=1 PostgreSQL=1
+2026-06-25 11:11:10,057 [INFO] 移行開始: t_コントロール (TABLE) -> app_control
+2026-06-25 11:11:10,077 [INFO] 移行完了: t_コントロール Access=1 PostgreSQL=1
+2026-06-25 11:11:10,091 [INFO] シーケンス同期: app_control.id (max=1)
+2026-06-25 11:11:10,091 [INFO] 移行開始: t_プリンタ名 (TABLE) -> printer_names
+2026-06-25 11:11:10,103 [INFO] 移行完了: t_プリンタ名 Access=1 PostgreSQL=1
+2026-06-25 11:11:10,110 [INFO] シーケンス同期: printer_names.id (max=1)
+2026-06-25 11:11:10,110 [INFO] 移行開始: t_受注 (TABLE) -> orders
+2026-06-25 11:11:12,472 [INFO] 移行完了: t_受注 Access=38409 PostgreSQL=38409
+2026-06-25 11:11:12,472 [INFO] 移行開始: t_営業マスタ (TABLE) -> sales_rep_master
+2026-06-25 11:11:12,473 [INFO] 移行完了: t_営業マスタ Access=6 PostgreSQL=6
+2026-06-25 11:11:12,473 [INFO] 移行開始: t_客先マスタ (TABLE) -> customer_master
+2026-06-25 11:11:12,497 [INFO] 移行完了: t_客先マスタ Access=117 PostgreSQL=117
+2026-06-25 11:11:12,498 [INFO] 移行開始: t_納品 (TABLE) -> deliveries
+2026-06-25 11:11:14,348 [INFO] 移行完了: t_納品 Access=42630 PostgreSQL=42630
+2026-06-25 11:11:14,364 [INFO] シーケンス同期: deliveries.delivery_id (max=42971)
+2026-06-25 11:11:14,365 [INFO] 移行開始: t_納品書 (TABLE) -> delivery_notes
+2026-06-25 11:11:14,373 [INFO] 移行完了: t_納品書 Access=0 PostgreSQL=0
+2026-06-25 11:11:14,383 [INFO] シーケンス同期: delivery_notes.id (max=0)
+2026-06-25 11:11:14,383 [INFO] 移行開始: t_納品書データ (TABLE) -> delivery_note_data
+2026-06-25 11:11:14,387 [INFO] 移行完了: t_納品書データ Access=0 PostgreSQL=0
+2026-06-25 11:11:14,398 [INFO] シーケンス同期: delivery_note_data.id (max=0)
+2026-06-25 11:11:14,398 [INFO] 移行開始: t_製品マスタ (TABLE) -> product_master
+2026-06-25 11:11:14,469 [INFO] 移行完了: t_製品マスタ Access=1525 PostgreSQL=1525
+2026-06-25 11:11:14,469 [INFO] 移行開始: t_請求書 (TABLE) -> invoices
+2026-06-25 11:11:14,496 [INFO] 移行完了: t_請求書 Access=229 PostgreSQL=229
+2026-06-25 11:11:14,507 [INFO] シーケンス同期: invoices.id (max=253)
+2026-06-25 11:11:14,507 [INFO] 移行開始: t_請求書Tmp (TABLE) -> invoices_temp
+2026-06-25 11:11:14,513 [INFO] 移行完了: t_請求書Tmp Access=0 PostgreSQL=0
+2026-06-25 11:11:14,525 [INFO] シーケンス同期: invoices_temp.id (max=0)
+2026-06-25 11:11:14,525 [INFO] 移行開始: t_請求金額 (TABLE) -> billing_amounts
+2026-06-25 11:11:14,618 [INFO] 移行完了: t_請求金額 Access=2072 PostgreSQL=2072
+2026-06-25 11:11:14,631 [INFO] シーケンス同期: billing_amounts.id (max=2072)
+2026-06-25 11:11:14,631 [INFO] 移行開始: t_請求金額決算 (TABLE) -> billing_amounts_settlement
+2026-06-25 11:11:14,640 [INFO] 移行完了: t_請求金額決算 Access=44 PostgreSQL=44
+2026-06-25 11:11:14,652 [INFO] シーケンス同期: billing_amounts_settlement.id (max=44)
+2026-06-25 11:11:14,652 [INFO] 移行開始: t_重複客先 (TABLE) -> duplicate_customers
+2026-06-25 11:11:14,667 [INFO] 移行完了: t_重複客先 Access=11 PostgreSQL=11
+2026-06-25 11:11:14,678 [INFO] シーケンス同期: duplicate_customers.id (max=18)

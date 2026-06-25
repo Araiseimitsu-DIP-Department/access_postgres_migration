@@ -6,7 +6,7 @@
 - 移行先PostgreSQL DB：delivery_label_db
 - 接続情報：
   - `.env` の DATABASE_URL を参照
-- 移行日：2026-06-25 09:35:10
+- 移行日：2026-06-25 11:10:25
 - 作成者：Codex
 - 備考：現品票DBの15テーブルを忠実に移行。日本語名はPostgreSQL用に英語/ローマ字のスネークケースへ変換し、元名はコメントと本対応表で追跡可能。
 
@@ -18,17 +18,15 @@
 | 2 | t_Excel現品票履歴 | excel_delivery_label_history | TABLE | 35817 | 35817 | 成功 |
 | 3 | t_ID番号 | id_number | TABLE | 1 | 1 | 成功 |
 | 4 | t_QR履歴 | qr_history | TABLE | 115803 | 115803 | 成功 |
-| 5 | t_QR履歴(backup_260521) | qr_history_backup_260521 | TABLE | 106967 | 106967 | 成功 |
-| 6 | t_QR履歴Tmp | qr_history_tmp | TABLE | 46232 | 46232 | 成功 |
-| 7 | t_エラーログ | error_logs | TABLE | 16622 | 16622 | 成功 |
-| 8 | t_ロット完了理由 | lot_completion_reasons | TABLE | 6 | 6 | 成功 |
-| 9 | t_作業履歴 | work_history | TABLE | 1 | 1 | 成功 |
-| 10 | t_修正ログ | correction_logs | TABLE | 9992 | 9992 | 成功 |
-| 11 | t_分割ロット | split_lots | TABLE | 7630 | 7630 | 成功 |
-| 12 | t_工程マスタ | process_master | TABLE | 5 | 5 | 成功 |
-| 13 | t_数量差異 | quantity_differences | TABLE | 78357 | 78357 | 成功 |
-| 14 | t_現品票不具合内容 | delivery_label_defect_details | TABLE | 165 | 165 | 成功 |
-| 15 | t_現品票履歴 | delivery_label_history | TABLE | 136615 | 136615 | 成功 |
+| 5 | t_エラーログ | error_logs | TABLE | 16622 | 16622 | 成功 |
+| 6 | t_ロット完了理由 | lot_completion_reasons | TABLE | 6 | 6 | 成功 |
+| 7 | t_作業履歴 | work_history | TABLE | 1 | 1 | 成功 |
+| 8 | t_修正ログ | correction_logs | TABLE | 9992 | 9992 | 成功 |
+| 9 | t_分割ロット | split_lots | TABLE | 7630 | 7630 | 成功 |
+| 10 | t_工程マスタ | process_master | TABLE | 5 | 5 | 成功 |
+| 11 | t_数量差異 | quantity_differences | TABLE | 78357 | 78357 | 成功 |
+| 12 | t_現品票不具合内容 | delivery_label_defect_details | TABLE | 165 | 165 | 成功 |
+| 13 | t_現品票履歴 | delivery_label_history | TABLE | 136615 | 136615 | 成功 |
 
 ## 3. テーブル別カラム対応表
 
@@ -88,37 +86,6 @@
 | 9 | 工程名 | VARCHAR | process_name | VARCHAR(30) | 可 |  |
 | 10 | 更新フラグ | VARCHAR | update_flag | VARCHAR(1) | 可 |  |
 | 11 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
-
-### Accessテーブル名：t_QR履歴(backup_260521)
-### PostgreSQLテーブル名：qr_history_backup_260521
-
-| No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
-|---:|---|---|---|---|---|---|
-| 1 | 日付時刻 | DATETIME | date_time | TIMESTAMP | 可 |  |
-| 2 | QRコード | VARCHAR | qr_code | VARCHAR(22) | 可 |  |
-| 3 | 生産ロットID | VARCHAR | production_lot_id | VARCHAR(7) | 可 |  |
-| 4 | 日付 | DATETIME | date_value | TIMESTAMP | 可 |  |
-| 5 | 工程 | VARCHAR | process | VARCHAR(2) | 可 |  |
-| 6 | 位置 | VARCHAR | position | VARCHAR(2) | 可 |  |
-| 7 | 数量 | INTEGER | quantity | INTEGER | 可 |  |
-| 8 | 工程コード | VARCHAR | process_code | VARCHAR(2) | 可 |  |
-| 9 | 工程名 | VARCHAR | process_name | VARCHAR(30) | 可 |  |
-| 10 | 更新フラグ | VARCHAR | update_flag | VARCHAR(1) | 可 |  |
-
-### Accessテーブル名：t_QR履歴Tmp
-### PostgreSQLテーブル名：qr_history_tmp
-
-| No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
-|---:|---|---|---|---|---|---|
-| 1 | 日付時刻 | DATETIME | date_time | TIMESTAMP | 可 |  |
-| 2 | QRコード | VARCHAR | qr_code | VARCHAR(22) | 可 |  |
-| 3 | 生産ロットID | VARCHAR | production_lot_id | VARCHAR(7) | 可 |  |
-| 4 | 日付 | DATETIME | date_value | TIMESTAMP | 可 |  |
-| 5 | 工程 | VARCHAR | process | VARCHAR(2) | 可 |  |
-| 6 | 位置 | VARCHAR | position | VARCHAR(2) | 可 |  |
-| 7 | 数量 | INTEGER | quantity | INTEGER | 可 |  |
-| 8 | 更新フラグ | VARCHAR | update_flag | VARCHAR(1) | 可 |  |
-| 9 | TNo | VARCHAR | t_no | VARCHAR(1) | 可 |  |
 
 ### Accessテーブル名：t_エラーログ
 ### PostgreSQLテーブル名：error_logs
@@ -213,7 +180,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | 生産ロットID | VARCHAR | production_lot_id | VARCHAR(7) | 可 |  |
+| 1 | 生産ロットID | VARCHAR | production_lot_id | VARCHAR(7) | 不可 | PRIMARY KEY |
 | 2 | 不具合内容 | VARCHAR | defect_detail | VARCHAR(15) | 可 |  |
 | 3 | 処置内容 | VARCHAR | action_detail | VARCHAR(15) | 可 |  |
 | 4 | 処置済 | VARCHAR | action_completed | VARCHAR(1) | 可 |  |
@@ -223,7 +190,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | 生産ロットID | VARCHAR | production_lot_id | VARCHAR(7) | 可 |  |
+| 1 | 生産ロットID | VARCHAR | production_lot_id | VARCHAR(7) | 不可 | PRIMARY KEY |
 | 2 | 号機 | VARCHAR | machine_no | VARCHAR(5) | 可 |  |
 | 3 | 品番 | VARCHAR | product_code | VARCHAR(30) | 可 |  |
 | 4 | 品名 | VARCHAR | product_name | VARCHAR(30) | 可 |  |
@@ -275,8 +242,6 @@
 | t_Excel現品票履歴 | excel_delivery_label_history | 検出なし | 検出なし | FKは未検出 |
 | t_ID番号 | id_number | 検出なし | 検出なし | FKは未検出 |
 | t_QR履歴 | qr_history | 検出なし | 検出なし | FKは未検出 |
-| t_QR履歴(backup_260521) | qr_history_backup_260521 | 検出なし | 検出なし | FKは未検出 |
-| t_QR履歴Tmp | qr_history_tmp | 検出なし | 検出なし | FKは未検出 |
 | t_エラーログ | error_logs | 検出なし | 検出なし | FKは未検出 |
 | t_ロット完了理由 | lot_completion_reasons | 検出なし | 検出なし | FKは未検出 |
 | t_作業履歴 | work_history | 検出なし | 検出なし | FKは未検出 |
@@ -284,8 +249,8 @@
 | t_分割ロット | split_lots | 検出なし | 検出なし | FKは未検出 |
 | t_工程マスタ | process_master | 検出なし | 検出なし | FKは未検出 |
 | t_数量差異 | quantity_differences | 検出なし | 検出なし | FKは未検出 |
-| t_現品票不具合内容 | delivery_label_defect_details | 検出なし | 検出なし | FKは未検出 |
-| t_現品票履歴 | delivery_label_history | 検出なし | 検出なし | FKは未検出 |
+| t_現品票不具合内容 | delivery_label_defect_details | production_lot_id | 検出なし | FKは未検出 |
+| t_現品票履歴 | delivery_label_history | production_lot_id | 検出なし | FKは未検出 |
 
 ## 5. 型変換ルール
 
@@ -314,8 +279,6 @@
 | 現品票履歴 | excel_delivery_label_history | production_lot_id, product_code | 元 t_Excel現品票履歴 |
 | 参照テーブル | id_number | id | 元 t_ID番号 |
 | QR履歴 | qr_history | id, qr_code, production_lot_id, process_code, date_time | 元 t_QR履歴 |
-| QR履歴 | qr_history_backup_260521 | qr_code, production_lot_id, process_code, date_time | 元 t_QR履歴(backup_260521) |
-| QR履歴 | qr_history_tmp | qr_code, production_lot_id, date_time | 元 t_QR履歴Tmp |
 | ログ | error_logs | id, production_lot_id | 元 t_エラーログ |
 | 参照テーブル | lot_completion_reasons | 要確認 | 元 t_ロット完了理由 |
 | 参照テーブル | work_history | id | 元 t_作業履歴 |
@@ -355,22 +318,6 @@
 | 工程コード | qr_history | process_code | 工程コード | Accessの値をそのまま保持 |
 | 工程名 | qr_history | process_name | 工程名 | Accessの値をそのまま保持 |
 | ID | qr_history | id | ID | Accessの値をそのまま保持 |
-| 日時 | qr_history_backup_260521 | date_time | 日付時刻 | Accessの値をそのまま保持 |
-| QRコード | qr_history_backup_260521 | qr_code | QRコード | Accessの値をそのまま保持 |
-| 生産ロット | qr_history_backup_260521 | production_lot_id | 生産ロットID | Accessの値をそのまま保持 |
-| 日付 | qr_history_backup_260521 | date_value | 日付 | Accessの値をそのまま保持 |
-| 工程 | qr_history_backup_260521 | process | 工程 | Accessの値をそのまま保持 |
-| 位置 | qr_history_backup_260521 | position | 位置 | Accessの値をそのまま保持 |
-| 数量 | qr_history_backup_260521 | quantity | 数量 | Accessの値をそのまま保持 |
-| 工程コード | qr_history_backup_260521 | process_code | 工程コード | Accessの値をそのまま保持 |
-| 工程名 | qr_history_backup_260521 | process_name | 工程名 | Accessの値をそのまま保持 |
-| 日時 | qr_history_tmp | date_time | 日付時刻 | Accessの値をそのまま保持 |
-| QRコード | qr_history_tmp | qr_code | QRコード | Accessの値をそのまま保持 |
-| 生産ロット | qr_history_tmp | production_lot_id | 生産ロットID | Accessの値をそのまま保持 |
-| 日付 | qr_history_tmp | date_value | 日付 | Accessの値をそのまま保持 |
-| 工程 | qr_history_tmp | process | 工程 | Accessの値をそのまま保持 |
-| 位置 | qr_history_tmp | position | 位置 | Accessの値をそのまま保持 |
-| 数量 | qr_history_tmp | quantity | 数量 | Accessの値をそのまま保持 |
 | ID | error_logs | id | ID | Accessの値をそのまま保持 |
 | 日付 | error_logs | date_value | 日付 | Accessの値をそのまま保持 |
 | 生産ロット | error_logs | production_lot_id | 生産ロットID | Accessの値をそのまま保持 |
@@ -401,7 +348,8 @@
 
 - AccessのFKメタデータはODBCドライバが返さなかったため、外部キー制約は作成していません。
 - COUNTER列はBIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期しています。
-- バックアップテーブル `t_QR履歴(backup_260521)` と一時テーブル `t_QR履歴Tmp` も削除・統合せず個別に移行しています。
+- 移行対象外: `t_QR履歴(backup_260521)` / `t_QR履歴Tmp`（バックアップ・一時テーブルのため PostgreSQL へは移行しません）。
+- `delivery_label_defect_details` / `delivery_label_history` は `production_lot_id` を PRIMARY KEY（NOT NULL・重複なし）としています。
 - `.env` の `ACCESS_DB_PATH` が実ファイルを指していない場合は、メタJSONの `database_path` を使用しています。
 - 0件テーブルも構造再現のため作成しています: t_ExcelQR履歴
 - メタ抽出警告：FK 取得スキップ: t_ExcelQR履歴 — ('IM001', '[IM001] [Microsoft][ODBC Driver Manager] ドライバーはこの関数をサポートしていません。 (0) (SQLForeignKeys)')

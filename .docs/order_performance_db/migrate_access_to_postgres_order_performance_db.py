@@ -27,6 +27,7 @@ if str(_SRC) not in sys.path:
     sys.path.insert(0, str(_SRC))
 
 from access_migration import migration_common
+from access_migration import serial_columns as serial_columns_support
 from access_migration.migration_common import RefreshMode
 
 import psycopg2
@@ -219,7 +220,7 @@ def to_postgres_type(column: dict[str, Any]) -> str:
     if access_type in {"VARCHAR", "WVARCHAR"}:
         return f"VARCHAR({size})" if size else "TEXT"
     if access_type == "COUNTER":
-        return "BIGINT"
+        return serial_columns_support.counter_postgres_type()
     if access_type in {"INTEGER", "SMALLINT"}:
         return "INTEGER"
     if access_type in {"DOUBLE", "REAL", "FLOAT"}:
@@ -236,7 +237,7 @@ def to_postgres_type(column: dict[str, Any]) -> str:
 def build_column_note(column: dict[str, Any]) -> str:
     notes = []
     if column["access_type"] == "COUNTER":
-        notes.append("AccessのCOUNTER。値を忠実に移行するためBIGINTで保持")
+        notes.append(serial_columns_support.counter_column_note())
     if column["access_type"] == "BIT":
         notes.append("AccessのYes/Noをbooleanへ変換")
     if column["name"] == "金額" and column["access_type"] == "INTEGER":
@@ -264,6 +265,7 @@ def migrate(
             create_schema_and_tables(postgres_connection, schema, mappings)
         for result in results:
             migrate_table(access_connection, postgres_connection, schema, result, batch_size)
+            sync_counter_sequences(postgres_connection.cursor(), schema, result.table)
         postgres_connection.commit()
     except Exception:
         postgres_connection.rollback()
@@ -406,8 +408,17 @@ def build_table_comment(mapping: TableMapping) -> str:
 
 
 def build_column_sql(column: ColumnMapping) -> str:
-    nullable_sql = "" if column.nullable else " NOT NULL"
-    return f"{quote_identifier(column.postgres_name)} {column.postgres_type}{nullable_sql}"
+    return serial_columns_support.build_column_sql(column, quote_identifier)
+
+
+def sync_counter_sequences(
+    cursor: psycopg2.extensions.cursor,
+    schema: str,
+    mapping: TableMapping,
+) -> None:
+    serial_columns_support.sync_counter_sequences(
+        cursor, schema, mapping, quote_identifier, qualified_name, logging
+    )
 
 
 def migrate_table(
@@ -572,7 +583,7 @@ def write_mapping(
             "| Access型 | PostgreSQL型 | 備考 |",
             "|---|---|---|",
             "| VARCHAR | varchar(n) | Accessのサイズを維持 |",
-            "| COUNTER | bigint | 採番値を忠実に移行 |",
+            "| COUNTER | bigserial | " + serial_columns_support.counter_type_mapping_note() + " |",
             "| INTEGER | integer | 整数 |",
             "| DOUBLE | double precision | 浮動小数 |",
             "| DATETIME | timestamp | 日付/時刻 |",
@@ -591,6 +602,7 @@ def build_caution_lines(mappings: list[TableMapping]) -> list[str]:
     lines = [
         "- 本移行は `受注実績データ集計DB.accdb` の全4テーブルを対象としています。",
         "- AccessのFKメタデータはODBCで取得できなかったため、外部キー制約は作成していません。",
+        "- " + serial_columns_support.counter_caution_note(),
         "- `t_コントロール` は集計処理の制御情報（書込みフォルダ・集計期間など）を保持します。",
         "- `t_受注実績` / `t_受注キャンセル` は同一構造の15列テーブルです。",
         "- `.laccdb` はAccessのロックファイルのため、移行元は `.accdb` 本体を使用します。",

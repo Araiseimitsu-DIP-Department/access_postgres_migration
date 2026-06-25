@@ -1,47 +1,60 @@
-2026-06-25 09:35:37,473 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/material_scheduling
-2026-06-25 09:35:38,702 [INFO] 移行開始: t_コントロール -> app_control
-2026-06-25 09:35:38,718 [INFO] 移行完了: t_コントロール Access=1 PostgreSQL=1
-2026-06-25 09:35:38,719 [INFO] 移行開始: t_セット予定 -> set_schedules
-2026-06-25 09:35:38,942 [INFO] 移行完了: t_セット予定 Access=5199 PostgreSQL=5199
-2026-06-25 09:35:38,942 [INFO] 移行開始: t_チャックマスタ -> chuck_master
-2026-06-25 09:35:38,955 [INFO] 移行完了: t_チャックマスタ Access=467 PostgreSQL=467
-2026-06-25 09:35:38,955 [INFO] 移行開始: t_一時停止 -> production_pauses
-2026-06-25 09:35:38,959 [INFO] 移行完了: t_一時停止 Access=0 PostgreSQL=0
-2026-06-25 09:35:38,959 [INFO] 移行開始: t_受信メールマスタ -> inbound_email_master
-2026-06-25 09:35:38,969 [INFO] 移行完了: t_受信メールマスタ Access=7 PostgreSQL=7
-2026-06-25 09:35:38,969 [INFO] 移行開始: t_営業担当マスタ -> sales_rep_master
-2026-06-25 09:35:38,976 [INFO] 移行完了: t_営業担当マスタ Access=4 PostgreSQL=4
-2026-06-25 09:35:38,976 [INFO] 移行開始: t_旧機械ID -> legacy_machine_ids
-2026-06-25 09:35:38,983 [INFO] 移行完了: t_旧機械ID Access=96 PostgreSQL=96
-2026-06-25 09:35:38,984 [INFO] 移行開始: t_材料管理 -> material_orders
-2026-06-25 09:35:38,997 [INFO] 移行完了: t_材料管理 Access=115 PostgreSQL=115
-2026-06-25 09:35:38,997 [INFO] 移行開始: t_材料納入履歴 -> material_delivery_history
-2026-06-25 09:35:39,011 [INFO] 移行完了: t_材料納入履歴 Access=144 PostgreSQL=144
-2026-06-25 09:35:39,013 [INFO] 移行開始: t_材質 -> material_types
-2026-06-25 09:35:39,021 [INFO] 移行完了: t_材質 Access=85 PostgreSQL=85
-2026-06-25 09:35:39,021 [INFO] 移行開始: t_機械マスタ -> machine_master
-2026-06-25 09:35:39,030 [INFO] 移行完了: t_機械マスタ Access=57 PostgreSQL=57
-2026-06-25 09:35:39,032 [INFO] 移行開始: t_段取り者マスタ -> setup_operator_master
-2026-06-25 09:35:39,040 [INFO] 移行完了: t_段取り者マスタ Access=15 PostgreSQL=15
-2026-06-25 09:35:39,040 [INFO] 移行開始: t_汎用材料マスタ -> general_material_master
-2026-06-25 09:35:39,043 [INFO] 移行完了: t_汎用材料マスタ Access=0 PostgreSQL=0
-2026-06-25 09:35:39,045 [INFO] 移行開始: t_汎用材料発注実績 -> general_material_order_results
-2026-06-25 09:35:39,049 [INFO] 移行完了: t_汎用材料発注実績 Access=0 PostgreSQL=0
-2026-06-25 09:35:39,049 [INFO] 移行開始: t_注文書データ -> purchase_order_documents
-2026-06-25 09:35:39,056 [INFO] 移行完了: t_注文書データ Access=2 PostgreSQL=2
-2026-06-25 09:35:39,057 [INFO] 移行開始: t_生産リリース -> production_releases
-2026-06-25 09:35:41,475 [INFO] 移行完了: t_生産リリース Access=30336 PostgreSQL=30336
-2026-06-25 09:35:41,476 [INFO] 移行開始: t_生産リリース のコピー -> production_releases_backup
-2026-06-25 09:35:44,169 [INFO] 移行完了: t_生産リリース のコピー Access=30193 PostgreSQL=30193
-2026-06-25 09:35:44,170 [INFO] 移行開始: t_生産発注 -> production_orders
-2026-06-25 09:35:44,608 [INFO] 移行完了: t_生産発注 Access=6375 PostgreSQL=6375
-2026-06-25 09:35:44,608 [INFO] 移行開始: t_発注者マスタ -> orderer_master
-2026-06-25 09:35:44,617 [INFO] 移行完了: t_発注者マスタ Access=7 PostgreSQL=7
-2026-06-25 09:35:44,617 [INFO] 移行開始: t_管理表マスタ -> management_sheet_master
-2026-06-25 09:35:44,740 [INFO] 移行完了: t_管理表マスタ Access=1525 PostgreSQL=1525
-2026-06-25 09:35:44,741 [INFO] 移行開始: t_納入業者 -> suppliers
-2026-06-25 09:35:44,750 [INFO] 移行完了: t_納入業者 Access=13 PostgreSQL=13
-2026-06-25 09:35:44,750 [INFO] 移行開始: t_送信メールマスタ -> outbound_email_master
-2026-06-25 09:35:44,762 [INFO] 移行完了: t_送信メールマスタ Access=3 PostgreSQL=3
-2026-06-25 09:35:44,763 [INFO] 移行開始: t_部品別チャックマスタ -> part_chuck_master
-2026-06-25 09:35:44,803 [INFO] 移行完了: t_部品別チャックマスタ Access=1469 PostgreSQL=1469
+2026-06-25 11:18:41,334 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/material_scheduling
+2026-06-25 11:18:43,405 [INFO] 移行開始: t_コントロール -> app_control
+2026-06-25 11:18:43,425 [INFO] 移行完了: t_コントロール Access=1 PostgreSQL=1
+2026-06-25 11:18:43,439 [INFO] シーケンス同期: app_control.id (max=1)
+2026-06-25 11:18:43,439 [INFO] 移行開始: t_セット予定 -> set_schedules
+2026-06-25 11:18:43,707 [INFO] 移行完了: t_セット予定 Access=5199 PostgreSQL=5199
+2026-06-25 11:18:43,719 [INFO] シーケンス同期: set_schedules.id (max=5628)
+2026-06-25 11:18:43,719 [INFO] 移行開始: t_チャックマスタ -> chuck_master
+2026-06-25 11:18:43,735 [INFO] 移行完了: t_チャックマスタ Access=467 PostgreSQL=467
+2026-06-25 11:18:43,749 [INFO] シーケンス同期: chuck_master.id (max=469)
+2026-06-25 11:18:43,749 [INFO] 移行開始: t_一時停止 -> production_pauses
+2026-06-25 11:18:43,754 [INFO] 移行完了: t_一時停止 Access=0 PostgreSQL=0
+2026-06-25 11:18:43,754 [INFO] 移行開始: t_受信メールマスタ -> inbound_email_master
+2026-06-25 11:18:43,763 [INFO] 移行完了: t_受信メールマスタ Access=7 PostgreSQL=7
+2026-06-25 11:18:43,763 [INFO] 移行開始: t_営業担当マスタ -> sales_rep_master
+2026-06-25 11:18:43,773 [INFO] 移行完了: t_営業担当マスタ Access=4 PostgreSQL=4
+2026-06-25 11:18:43,773 [INFO] 移行開始: t_旧機械ID -> legacy_machine_ids
+2026-06-25 11:18:43,783 [INFO] 移行完了: t_旧機械ID Access=96 PostgreSQL=96
+2026-06-25 11:18:43,783 [INFO] 移行開始: t_材料管理 -> material_orders
+2026-06-25 11:18:43,806 [INFO] 移行完了: t_材料管理 Access=115 PostgreSQL=115
+2026-06-25 11:18:43,818 [INFO] シーケンス同期: material_orders.id (max=357)
+2026-06-25 11:18:43,818 [INFO] 移行開始: t_材料納入履歴 -> material_delivery_history
+2026-06-25 11:18:43,837 [INFO] 移行完了: t_材料納入履歴 Access=144 PostgreSQL=144
+2026-06-25 11:18:43,849 [INFO] シーケンス同期: material_delivery_history.id (max=215)
+2026-06-25 11:18:43,849 [INFO] 移行開始: t_材質 -> material_types
+2026-06-25 11:18:43,859 [INFO] 移行完了: t_材質 Access=85 PostgreSQL=85
+2026-06-25 11:18:43,859 [INFO] 移行開始: t_機械マスタ -> machine_master
+2026-06-25 11:18:43,869 [INFO] 移行完了: t_機械マスタ Access=57 PostgreSQL=57
+2026-06-25 11:18:43,869 [INFO] 移行開始: t_段取り者マスタ -> setup_operator_master
+2026-06-25 11:18:43,879 [INFO] 移行完了: t_段取り者マスタ Access=15 PostgreSQL=15
+2026-06-25 11:18:43,879 [INFO] 移行開始: t_汎用材料マスタ -> general_material_master
+2026-06-25 11:18:43,884 [INFO] 移行完了: t_汎用材料マスタ Access=0 PostgreSQL=0
+2026-06-25 11:18:43,895 [INFO] シーケンス同期: general_material_master.id (max=0)
+2026-06-25 11:18:43,895 [INFO] 移行開始: t_汎用材料発注実績 -> general_material_order_results
+2026-06-25 11:18:43,902 [INFO] 移行完了: t_汎用材料発注実績 Access=0 PostgreSQL=0
+2026-06-25 11:18:43,914 [INFO] シーケンス同期: general_material_order_results.id (max=0)
+2026-06-25 11:18:43,915 [INFO] 移行開始: t_注文書データ -> purchase_order_documents
+2026-06-25 11:18:43,923 [INFO] 移行完了: t_注文書データ Access=2 PostgreSQL=2
+2026-06-25 11:18:43,933 [INFO] シーケンス同期: purchase_order_documents.id (max=2)
+2026-06-25 11:18:43,933 [INFO] 移行開始: t_生産リリース -> production_releases
+2026-06-25 11:18:46,195 [INFO] 移行完了: t_生産リリース Access=30336 PostgreSQL=30336
+2026-06-25 11:18:46,201 [INFO] シーケンス同期: production_releases.id (max=30677)
+2026-06-25 11:18:46,202 [INFO] 移行開始: t_生産リリース のコピー -> production_releases_backup
+2026-06-25 11:18:48,497 [INFO] 移行完了: t_生産リリース のコピー Access=30193 PostgreSQL=30193
+2026-06-25 11:18:48,505 [INFO] シーケンス同期: production_releases_backup.id (max=30534)
+2026-06-25 11:18:48,505 [INFO] 移行開始: t_生産発注 -> production_orders
+2026-06-25 11:18:48,963 [INFO] 移行完了: t_生産発注 Access=6375 PostgreSQL=6375
+2026-06-25 11:18:48,975 [INFO] シーケンス同期: production_orders.id (max=6532)
+2026-06-25 11:18:48,975 [INFO] 移行開始: t_発注者マスタ -> orderer_master
+2026-06-25 11:18:48,981 [INFO] 移行完了: t_発注者マスタ Access=7 PostgreSQL=7
+2026-06-25 11:18:48,981 [INFO] 移行開始: t_管理表マスタ -> management_sheet_master
+2026-06-25 11:18:49,075 [INFO] 移行完了: t_管理表マスタ Access=1525 PostgreSQL=1525
+2026-06-25 11:18:49,075 [INFO] 移行開始: t_納入業者 -> suppliers
+2026-06-25 11:18:49,082 [INFO] 移行完了: t_納入業者 Access=13 PostgreSQL=13
+2026-06-25 11:18:49,082 [INFO] 移行開始: t_送信メールマスタ -> outbound_email_master
+2026-06-25 11:18:49,092 [INFO] 移行完了: t_送信メールマスタ Access=3 PostgreSQL=3
+2026-06-25 11:18:49,099 [INFO] シーケンス同期: outbound_email_master.id (max=4)
+2026-06-25 11:18:49,099 [INFO] 移行開始: t_部品別チャックマスタ -> part_chuck_master
+2026-06-25 11:18:49,137 [INFO] 移行完了: t_部品別チャックマスタ Access=1469 PostgreSQL=1469
+2026-06-25 11:18:49,142 [INFO] シーケンス同期: part_chuck_master.id (max=1471)

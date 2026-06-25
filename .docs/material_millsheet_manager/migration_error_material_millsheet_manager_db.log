@@ -1,23 +1,30 @@
-2026-06-25 09:35:34,672 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/material_millsheet_manager
-2026-06-25 09:35:35,686 [INFO] 移行開始: t_クロス集計用 -> cross_aggregation
-2026-06-25 09:35:35,705 [INFO] 移行完了: t_クロス集計用 Access=8 PostgreSQL=8
-2026-06-25 09:35:35,706 [INFO] 移行開始: t_コントロール -> app_control
-2026-06-25 09:35:35,713 [INFO] 移行完了: t_コントロール Access=1 PostgreSQL=1
-2026-06-25 09:35:35,713 [INFO] 移行開始: t_備考内容 -> remarks_master
-2026-06-25 09:35:35,734 [INFO] 移行完了: t_備考内容 Access=3 PostgreSQL=3
-2026-06-25 09:35:35,734 [INFO] 移行開始: t_旧検査データ -> legacy_inspection_data
-2026-06-25 09:35:35,999 [INFO] 移行完了: t_旧検査データ Access=7993 PostgreSQL=7993
-2026-06-25 09:35:36,000 [INFO] 移行開始: t_材料納入Tmp -> material_delivery_temp
-2026-06-25 09:35:36,003 [INFO] 移行完了: t_材料納入Tmp Access=0 PostgreSQL=0
-2026-06-25 09:35:36,004 [INFO] 移行開始: t_材料納入履歴 -> material_delivery_history
-2026-06-25 09:35:36,939 [INFO] 移行完了: t_材料納入履歴 Access=14633 PostgreSQL=14633
-2026-06-25 09:35:36,940 [INFO] 移行開始: t_材料納入履歴 変更前 -> material_delivery_history_before_change
-2026-06-25 09:35:37,111 [INFO] 移行完了: t_材料納入履歴 変更前 Access=2677 PostgreSQL=2677
-2026-06-25 09:35:37,112 [INFO] 移行開始: t_材質 -> material_types
-2026-06-25 09:35:37,121 [INFO] 移行完了: t_材質 Access=92 PostgreSQL=92
-2026-06-25 09:35:37,121 [INFO] 移行開始: t_検査データ -> inspection_data
-2026-06-25 09:35:37,189 [INFO] 移行完了: t_検査データ Access=1053 PostgreSQL=1053
-2026-06-25 09:35:37,191 [INFO] 移行開始: t_検査員 -> inspectors
-2026-06-25 09:35:37,198 [INFO] 移行完了: t_検査員 Access=6 PostgreSQL=6
-2026-06-25 09:35:37,198 [INFO] 移行開始: t_納入業者 -> suppliers
-2026-06-25 09:35:37,207 [INFO] 移行完了: t_納入業者 Access=21 PostgreSQL=21
+2026-06-25 11:10:48,660 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/material_millsheet_manager
+2026-06-25 11:10:49,760 [INFO] 移行開始: t_クロス集計用 -> cross_aggregation
+2026-06-25 11:10:49,777 [INFO] 移行完了: t_クロス集計用 Access=8 PostgreSQL=8
+2026-06-25 11:10:49,792 [INFO] シーケンス同期: cross_aggregation.id (max=10738)
+2026-06-25 11:10:49,792 [INFO] 移行開始: t_コントロール -> app_control
+2026-06-25 11:10:49,797 [INFO] 移行完了: t_コントロール Access=1 PostgreSQL=1
+2026-06-25 11:10:49,808 [INFO] シーケンス同期: app_control.id (max=1)
+2026-06-25 11:10:49,808 [INFO] 移行開始: t_備考内容 -> remarks_master
+2026-06-25 11:10:49,823 [INFO] 移行完了: t_備考内容 Access=3 PostgreSQL=3
+2026-06-25 11:10:49,824 [INFO] 移行開始: t_旧検査データ -> legacy_inspection_data
+2026-06-25 11:10:50,046 [INFO] 移行完了: t_旧検査データ Access=7993 PostgreSQL=7993
+2026-06-25 11:10:50,064 [INFO] シーケンス同期: legacy_inspection_data.id (max=8060)
+2026-06-25 11:10:50,064 [INFO] 移行開始: t_材料納入Tmp -> material_delivery_temp
+2026-06-25 11:10:50,073 [INFO] 移行完了: t_材料納入Tmp Access=0 PostgreSQL=0
+2026-06-25 11:10:50,081 [INFO] シーケンス同期: material_delivery_temp.id (max=0)
+2026-06-25 11:10:50,081 [INFO] 移行開始: t_材料納入履歴 -> material_delivery_history
+2026-06-25 11:10:51,106 [INFO] 移行完了: t_材料納入履歴 Access=14633 PostgreSQL=14633
+2026-06-25 11:10:51,132 [INFO] シーケンス同期: material_delivery_history.id (max=14749)
+2026-06-25 11:10:51,132 [INFO] 移行開始: t_材料納入履歴 変更前 -> material_delivery_history_before_change
+2026-06-25 11:10:51,349 [INFO] 移行完了: t_材料納入履歴 変更前 Access=2677 PostgreSQL=2677
+2026-06-25 11:10:51,368 [INFO] シーケンス同期: material_delivery_history_before_change.id (max=2682)
+2026-06-25 11:10:51,370 [INFO] 移行開始: t_材質 -> material_types
+2026-06-25 11:10:51,629 [INFO] 移行完了: t_材質 Access=92 PostgreSQL=92
+2026-06-25 11:10:51,629 [INFO] 移行開始: t_検査データ -> inspection_data
+2026-06-25 11:10:51,957 [INFO] 移行完了: t_検査データ Access=1053 PostgreSQL=1053
+2026-06-25 11:10:51,979 [INFO] シーケンス同期: inspection_data.id (max=1055)
+2026-06-25 11:10:51,979 [INFO] 移行開始: t_検査員 -> inspectors
+2026-06-25 11:10:51,994 [INFO] 移行完了: t_検査員 Access=6 PostgreSQL=6
+2026-06-25 11:10:51,994 [INFO] 移行開始: t_納入業者 -> suppliers
+2026-06-25 11:10:52,006 [INFO] 移行完了: t_納入業者 Access=21 PostgreSQL=21
