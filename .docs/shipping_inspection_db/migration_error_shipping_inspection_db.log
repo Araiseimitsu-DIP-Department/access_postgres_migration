@@ -1,21 +1,21 @@
-﻿2026-06-25 08:53:46,980 [INFO] 移行対象外のためスキップ: T_仕掛数
-2026-06-25 08:53:46,980 [INFO] 移行対象外のためスキップ: T_外検担
-2026-06-25 08:53:47,398 [INFO] 移行先DBは既に存在します: shipping_inspection_db
-2026-06-25 08:53:51,597 [INFO] 移行開始: T_先行検査一覧 (TABLE) -> advance_inspection_list
-2026-06-25 08:53:51,631 [INFO] 移行完了: T_先行検査一覧 Access=10 PostgreSQL=10
-2026-06-25 08:53:51,631 [INFO] 移行開始: T_出荷データ (TABLE) -> shipping_data
-2026-06-25 08:53:51,713 [INFO] 移行完了: T_出荷データ Access=4 PostgreSQL=4
-2026-06-25 08:53:51,713 [INFO] 移行開始: T_出荷検査残 (TABLE) -> shipping_inspection_remaining
-2026-06-25 08:53:51,831 [INFO] 移行完了: T_出荷検査残 Access=843 PostgreSQL=843
-2026-06-25 08:53:51,831 [INFO] 移行開始: T_出荷検査残（前日） (TABLE) -> shipping_inspection_remaining_prev_day
-2026-06-25 08:53:52,015 [INFO] 移行完了: T_出荷検査残（前日） Access=843 PostgreSQL=843
-2026-06-25 08:53:52,015 [INFO] 移行開始: T_品番別検査担当者 (TABLE) -> product_inspection_staff
-2026-06-25 08:53:52,046 [INFO] 移行完了: T_品番別検査担当者 Access=10 PostgreSQL=10
-2026-06-25 08:53:52,047 [INFO] 移行開始: T_工程別仕掛数 (TABLE) -> process_wip_quantities
-2026-06-25 08:53:52,114 [INFO] 移行完了: T_工程別仕掛数 Access=166 PostgreSQL=166
-2026-06-25 08:53:52,114 [INFO] 移行開始: T_更新日時 (TABLE) -> db_updated_at
-2026-06-25 08:53:52,379 [INFO] 移行完了: T_更新日時 Access=1 PostgreSQL=1
-2026-06-25 08:53:52,379 [INFO] 移行開始: T_梱包担 (TABLE) -> packaging_staff
-2026-06-25 08:53:52,413 [INFO] 移行完了: T_梱包担 Access=9 PostgreSQL=9
-2026-06-25 08:53:52,413 [INFO] 移行開始: T_検査時間 (TABLE) -> inspection_duration
-2026-06-25 08:53:52,464 [INFO] 移行完了: T_検査時間 Access=1348 PostgreSQL=1348
+2026-06-25 09:35:45,089 [INFO] 移行対象外のためスキップ: T_仕掛数
+2026-06-25 09:35:45,090 [INFO] 移行対象外のためスキップ: T_外検担
+2026-06-25 09:35:45,091 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/shipping_inspection_db
+2026-06-25 09:35:46,170 [INFO] 移行開始: T_先行検査一覧 (TABLE) -> advance_inspection_list
+2026-06-25 09:35:46,192 [INFO] 移行完了: T_先行検査一覧 Access=10 PostgreSQL=10
+2026-06-25 09:35:46,192 [INFO] 移行開始: T_出荷データ (TABLE) -> shipping_data
+2026-06-25 09:35:46,200 [INFO] 移行完了: T_出荷データ Access=4 PostgreSQL=4
+2026-06-25 09:35:46,200 [INFO] 移行開始: T_出荷検査残 (TABLE) -> shipping_inspection_remaining
+2026-06-25 09:35:46,279 [INFO] 移行完了: T_出荷検査残 Access=843 PostgreSQL=843
+2026-06-25 09:35:46,280 [INFO] 移行開始: T_出荷検査残（前日） (TABLE) -> shipping_inspection_remaining_prev_day
+2026-06-25 09:35:46,343 [INFO] 移行完了: T_出荷検査残（前日） Access=843 PostgreSQL=843
+2026-06-25 09:35:46,343 [INFO] 移行開始: T_品番別検査担当者 (TABLE) -> product_inspection_staff
+2026-06-25 09:35:46,351 [INFO] 移行完了: T_品番別検査担当者 Access=10 PostgreSQL=10
+2026-06-25 09:35:46,351 [INFO] 移行開始: T_工程別仕掛数 (TABLE) -> process_wip_quantities
+2026-06-25 09:35:46,370 [INFO] 移行完了: T_工程別仕掛数 Access=166 PostgreSQL=166
+2026-06-25 09:35:46,370 [INFO] 移行開始: T_更新日時 (TABLE) -> db_updated_at
+2026-06-25 09:35:46,379 [INFO] 移行完了: T_更新日時 Access=1 PostgreSQL=1
+2026-06-25 09:35:46,380 [INFO] 移行開始: T_梱包担 (TABLE) -> packaging_staff
+2026-06-25 09:35:46,388 [INFO] 移行完了: T_梱包担 Access=9 PostgreSQL=9
+2026-06-25 09:35:46,388 [INFO] 移行開始: T_検査時間 (TABLE) -> inspection_duration
+2026-06-25 09:35:46,411 [INFO] 移行完了: T_検査時間 Access=1348 PostgreSQL=1348

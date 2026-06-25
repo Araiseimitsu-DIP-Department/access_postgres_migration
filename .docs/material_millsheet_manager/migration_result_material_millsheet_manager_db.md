@@ -1,6 +1,6 @@
 ﻿# Access → PostgreSQL 移行結果（material_millsheet_manager）
 
-- 実行日時: 2026-06-25 08:53:22
+- 実行日時: 2026-06-25 09:35:37
 - Access DB: C:\Users\seika\Desktop\収集ファイル\材料入庫管理台帳兼ミルシート管理表DB.accdb
 
 | Accessテーブル名 | PostgreSQLテーブル名 | Access件数 | PostgreSQL件数 | 投入済み件数 | 状態 | エラー |

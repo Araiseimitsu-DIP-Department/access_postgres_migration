@@ -1,0 +1,8 @@
+2026-06-25 09:38:48,551 [INFO] Access DB: C:/Users/seika/Desktop/収集ファイル/加工進行表DB.accdb
+2026-06-25 09:38:48,551 [INFO] PostgreSQL target: …@192.168.1.120:5432/production_progress (password not logged)
+2026-06-25 09:38:48,794 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/production_progress
+2026-06-25 09:38:49,347 [INFO] PostgreSQL スキーマを適用しました: schema_pg_english_v1.sql
+2026-06-25 09:38:58,315 [INFO] [t_加工進行表] → progress_entries: 79238 rows
+2026-06-25 09:43:42,664 [INFO] [t_予約] → reservations: 1 rows
+2026-06-25 09:43:42,696 [INFO] [t_予約Backup] → reservations_backup: 48 rows
+2026-06-25 09:43:42,974 [INFO] done

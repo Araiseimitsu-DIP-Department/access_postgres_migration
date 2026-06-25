@@ -5,7 +5,7 @@
 - 対象Access DB：`C:\Users\seizo\Desktop\材料入庫管理台帳兼ミルシート管理表DB.accdb`
 - 移行先PostgreSQL DB：`material_millsheet_manager`
 - 接続情報：`.env` の `DATABASE_URL` / `ACCESS_DB_PATH` を参照
-- 移行日：2026-06-25 08:53:22
+- 移行日：2026-06-25 09:35:37
 - 方針：材料入庫管理台帳兼ミルシート管理表DB.accdb の全11テーブル・全カラムを英語スネークケースへ変換し忠実に移行
 
 ## 2. 移行対象テーブル一覧

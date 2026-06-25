@@ -6,7 +6,7 @@
 - 移行先PostgreSQL DB：secondary_process_record_db
 - 接続情報：
   - `.env` の DATABASE_URL を参照
-- 移行日：2026-06-25 08:52:47
+- 移行日：2026-06-25 09:35:13
 - 作成者：Codex
 - 備考：社内二次工程記録DBの15テーブルを統合・削除せず個別に移行。元Access名は本対応表とPostgreSQLコメントで追跡可能。
 

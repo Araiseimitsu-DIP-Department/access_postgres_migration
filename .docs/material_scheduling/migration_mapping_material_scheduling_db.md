@@ -5,7 +5,7 @@
 - 対象Access DB：`C:\Users\seizo\my_projects\1\access_postgres_migration\.docs\material_scheduling\セット予定材料管理DB.accdb`
 - 移行先PostgreSQL DB：`material_scheduling`
 - 接続情報：`.env` の `DATABASE_URL` / `ACCESS_DB_PATH` を参照
-- 移行日：2026-06-25 08:53:46
+- 移行日：2026-06-25 09:35:44
 - 方針：セット予定材料管理DB.accdb の全23テーブル・全カラムを英語スネークケースへ変換し忠実に移行
 
 ## 2. 移行対象テーブル一覧

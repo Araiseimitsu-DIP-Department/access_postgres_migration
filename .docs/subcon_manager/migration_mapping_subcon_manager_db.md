@@ -5,7 +5,7 @@
 - 対象Access DB：`C:\Users\seizo\Desktop\協力会社委託加工処理品DB.accdb`
 - 移行先PostgreSQL DB：`subcon_manager`
 - 接続情報：`.env` の `DATABASE_URL` / `ACCESS_DB_PATH` を参照
-- 移行日：2026-06-25 08:54:13
+- 移行日：2026-06-25 09:36:01
 - 方針：協力会社委託加工処理品DB.accdb の全12テーブル・全カラムを英語スネークケースへ変換し忠実に移行
 
 ## 2. 移行対象テーブル一覧

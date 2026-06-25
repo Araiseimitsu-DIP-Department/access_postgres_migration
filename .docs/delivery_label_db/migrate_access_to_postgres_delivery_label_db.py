@@ -45,13 +45,18 @@ ERROR_LOG_FILE = "migration_error_delivery_label_db.log"
 DEFAULT_SCHEMA = "public"
 DEFAULT_BATCH_SIZE = 1000
 
+SKIP_ACCESS_TABLES: frozenset[str] = frozenset(
+    {
+        "t_QR履歴(backup_260521)",
+        "t_QR履歴Tmp",
+    }
+)
+
 TABLE_NAME_MAP = {
     "t_ExcelQR履歴": "excel_qr_history",
     "t_Excel現品票履歴": "excel_delivery_label_history",
     "t_ID番号": "id_number",
     "t_QR履歴": "qr_history",
-    "t_QR履歴(backup_260521)": "qr_history_backup_260521",
-    "t_QR履歴Tmp": "qr_history_tmp",
     "t_エラーログ": "error_logs",
     "t_ロット完了理由": "lot_completion_reasons",
     "t_作業履歴": "work_history",
@@ -292,6 +297,9 @@ def build_mappings(meta: dict[str, Any]) -> list[TableMapping]:
     mappings = []
     for table in meta["tables"]:
         access_table_name = table["name"]
+        if access_table_name in SKIP_ACCESS_TABLES:
+            logging.info("移行対象外のためスキップ: %s", access_table_name)
+            continue
         if access_table_name not in TABLE_NAME_MAP:
             raise ValueError(f"未定義のテーブル名があります。推測せず停止します: {access_table_name}")
 
@@ -858,7 +866,7 @@ def build_caution_lines(meta: dict[str, Any], mappings: list[TableMapping]) -> l
     lines = [
         "- AccessのFKメタデータはODBCドライバが返さなかったため、外部キー制約は作成していません。",
         "- " + serial_columns_support.counter_caution_note(),
-        "- バックアップテーブル `t_QR履歴(backup_260521)` と一時テーブル `t_QR履歴Tmp` も削除・統合せず個別に移行しています。",
+        "- 移行対象外: `t_QR履歴(backup_260521)` / `t_QR履歴Tmp`（バックアップ・一時テーブルのため PostgreSQL へは移行しません）。",
         "- `.env` の `ACCESS_DB_PATH` が実ファイルを指していない場合は、メタJSONの `database_path` を使用しています。",
     ]
     zero_tables = [mapping.access_name for mapping in mappings if mapping.access_row_count == 0]

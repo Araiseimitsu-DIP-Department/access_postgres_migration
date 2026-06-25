@@ -1,35 +1,36 @@
-﻿2026-06-25 08:52:45,670 [INFO] 移行開始: t_カゴマスタ -> basket_master
-2026-06-25 08:52:45,684 [INFO] 移行完了: t_カゴマスタ Access=4 PostgreSQL=4
-2026-06-25 08:52:45,685 [INFO] 移行開始: t_バフ記録 -> buffing_records
-2026-06-25 08:52:45,727 [INFO] 移行完了: t_バフ記録 Access=530 PostgreSQL=530
-2026-06-25 08:52:45,730 [INFO] シーケンス同期: buffing_records.id
-2026-06-25 08:52:45,730 [INFO] 移行開始: t_ブラスト記録 -> blasting_records
-2026-06-25 08:52:45,969 [INFO] 移行完了: t_ブラスト記録 Access=4670 PostgreSQL=4670
-2026-06-25 08:52:45,977 [INFO] シーケンス同期: blasting_records.id
-2026-06-25 08:52:45,977 [INFO] 移行開始: t_作業マスタ -> work_master
-2026-06-25 08:52:45,984 [INFO] 移行完了: t_作業マスタ Access=15 PostgreSQL=15
-2026-06-25 08:52:45,984 [INFO] 移行開始: t_作業者マスタ -> worker_master
-2026-06-25 08:52:45,992 [INFO] 移行完了: t_作業者マスタ Access=24 PostgreSQL=24
-2026-06-25 08:52:45,992 [INFO] 移行開始: t_使用ピンマスタ -> pin_master
-2026-06-25 08:52:45,999 [INFO] 移行完了: t_使用ピンマスタ Access=3 PostgreSQL=3
-2026-06-25 08:52:45,999 [INFO] 移行開始: t_回転方向マスタ -> rotation_direction_master
-2026-06-25 08:52:46,024 [INFO] 移行完了: t_回転方向マスタ Access=10 PostgreSQL=10
-2026-06-25 08:52:46,024 [INFO] 移行開始: t_圧力マスタ -> pressure_master
-2026-06-25 08:52:46,034 [INFO] 移行完了: t_圧力マスタ Access=2 PostgreSQL=2
-2026-06-25 08:52:46,035 [INFO] 移行開始: t_機番マスタ -> machine_master
-2026-06-25 08:52:46,088 [INFO] 移行完了: t_機番マスタ Access=94 PostgreSQL=94
-2026-06-25 08:52:46,089 [INFO] 移行開始: t_次工程マスタ -> next_process_master
-2026-06-25 08:52:46,094 [INFO] 移行完了: t_次工程マスタ Access=4 PostgreSQL=4
-2026-06-25 08:52:46,094 [INFO] 移行開始: t_洗浄工程日報 -> washing_process_daily_reports
-2026-06-25 08:52:46,425 [INFO] 移行完了: t_洗浄工程日報 Access=5297 PostgreSQL=5297
-2026-06-25 08:52:46,428 [INFO] シーケンス同期: washing_process_daily_reports.id
-2026-06-25 08:52:46,428 [INFO] 移行開始: t_研磨石マスタ -> polishing_stone_master
-2026-06-25 08:52:46,435 [INFO] 移行完了: t_研磨石マスタ Access=17 PostgreSQL=17
-2026-06-25 08:52:46,435 [INFO] 移行開始: t_磁気バレル記録 -> magnetic_barrel_records
-2026-06-25 08:52:47,329 [INFO] 移行完了: t_磁気バレル記録 Access=16177 PostgreSQL=16177
-2026-06-25 08:52:47,332 [INFO] シーケンス同期: magnetic_barrel_records.id
-2026-06-25 08:52:47,332 [INFO] 移行開始: t_製品マスタ -> product_master
-2026-06-25 08:52:47,424 [INFO] 移行完了: t_製品マスタ Access=4543 PostgreSQL=4543
-2026-06-25 08:52:47,425 [INFO] 移行開始: t_遠心バレル記録 -> centrifugal_barrel_records
-2026-06-25 08:52:47,741 [INFO] 移行完了: t_遠心バレル記録 Access=4473 PostgreSQL=4473
-2026-06-25 08:52:47,744 [INFO] シーケンス同期: centrifugal_barrel_records.id
+2026-06-25 09:35:10,256 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/secondary_process_record_db
+2026-06-25 09:35:11,473 [INFO] 移行開始: t_カゴマスタ -> basket_master
+2026-06-25 09:35:11,498 [INFO] 移行完了: t_カゴマスタ Access=4 PostgreSQL=4
+2026-06-25 09:35:11,498 [INFO] 移行開始: t_バフ記録 -> buffing_records
+2026-06-25 09:35:11,538 [INFO] 移行完了: t_バフ記録 Access=530 PostgreSQL=530
+2026-06-25 09:35:11,550 [INFO] シーケンス同期: buffing_records.id
+2026-06-25 09:35:11,550 [INFO] 移行開始: t_ブラスト記録 -> blasting_records
+2026-06-25 09:35:11,786 [INFO] 移行完了: t_ブラスト記録 Access=4670 PostgreSQL=4670
+2026-06-25 09:35:11,790 [INFO] シーケンス同期: blasting_records.id
+2026-06-25 09:35:11,791 [INFO] 移行開始: t_作業マスタ -> work_master
+2026-06-25 09:35:11,799 [INFO] 移行完了: t_作業マスタ Access=15 PostgreSQL=15
+2026-06-25 09:35:11,799 [INFO] 移行開始: t_作業者マスタ -> worker_master
+2026-06-25 09:35:11,812 [INFO] 移行完了: t_作業者マスタ Access=24 PostgreSQL=24
+2026-06-25 09:35:11,813 [INFO] 移行開始: t_使用ピンマスタ -> pin_master
+2026-06-25 09:35:11,821 [INFO] 移行完了: t_使用ピンマスタ Access=3 PostgreSQL=3
+2026-06-25 09:35:11,822 [INFO] 移行開始: t_回転方向マスタ -> rotation_direction_master
+2026-06-25 09:35:11,834 [INFO] 移行完了: t_回転方向マスタ Access=10 PostgreSQL=10
+2026-06-25 09:35:11,834 [INFO] 移行開始: t_圧力マスタ -> pressure_master
+2026-06-25 09:35:11,843 [INFO] 移行完了: t_圧力マスタ Access=2 PostgreSQL=2
+2026-06-25 09:35:11,843 [INFO] 移行開始: t_機番マスタ -> machine_master
+2026-06-25 09:35:11,855 [INFO] 移行完了: t_機番マスタ Access=94 PostgreSQL=94
+2026-06-25 09:35:11,855 [INFO] 移行開始: t_次工程マスタ -> next_process_master
+2026-06-25 09:35:11,867 [INFO] 移行完了: t_次工程マスタ Access=4 PostgreSQL=4
+2026-06-25 09:35:11,867 [INFO] 移行開始: t_洗浄工程日報 -> washing_process_daily_reports
+2026-06-25 09:35:12,181 [INFO] 移行完了: t_洗浄工程日報 Access=5297 PostgreSQL=5297
+2026-06-25 09:35:12,186 [INFO] シーケンス同期: washing_process_daily_reports.id
+2026-06-25 09:35:12,186 [INFO] 移行開始: t_研磨石マスタ -> polishing_stone_master
+2026-06-25 09:35:12,198 [INFO] 移行完了: t_研磨石マスタ Access=17 PostgreSQL=17
+2026-06-25 09:35:12,198 [INFO] 移行開始: t_磁気バレル記録 -> magnetic_barrel_records
+2026-06-25 09:35:13,153 [INFO] 移行完了: t_磁気バレル記録 Access=16177 PostgreSQL=16177
+2026-06-25 09:35:13,156 [INFO] シーケンス同期: magnetic_barrel_records.id
+2026-06-25 09:35:13,160 [INFO] 移行開始: t_製品マスタ -> product_master
+2026-06-25 09:35:13,296 [INFO] 移行完了: t_製品マスタ Access=4543 PostgreSQL=4543
+2026-06-25 09:35:13,297 [INFO] 移行開始: t_遠心バレル記録 -> centrifugal_barrel_records
+2026-06-25 09:35:13,663 [INFO] 移行完了: t_遠心バレル記録 Access=4473 PostgreSQL=4473
+2026-06-25 09:35:13,669 [INFO] シーケンス同期: centrifugal_barrel_records.id

@@ -1,6 +1,6 @@
 ﻿# Access → PostgreSQL 移行結果
 
-- 実行日時: 2026-06-25 08:52:47
+- 実行日時: 2026-06-25 09:35:13
 - Access DB: C:\Users\seika\Desktop\収集ファイル\社内二次工程記録DB.accdb
 
 | Accessテーブル名 | PostgreSQLテーブル名 | Access件数 | PostgreSQL件数 | 投入済み件数 | 状態 | エラー |

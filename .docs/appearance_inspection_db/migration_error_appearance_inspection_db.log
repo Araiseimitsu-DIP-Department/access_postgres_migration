@@ -1,6 +1,34 @@
-2026-06-25 09:27:45,491 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/appearance_inspection_db
-2026-06-25 09:27:46,875 [INFO] 移行開始: t_Excel現品票履歴 -> excel_product_slip_history
-2026-06-25 09:27:48,200 [INFO] 移行完了: t_Excel現品票履歴 Access=33987 PostgreSQL=33987
-2026-06-25 09:27:48,200 [INFO] 移行開始: t_チェックシートリスト -> check_sheet_list
-2026-06-25 09:27:48,212 [INFO] 移行完了: t_チェックシートリスト Access=119 PostgreSQL=119
-2026-06-25 09:27:48,213 [INFO] 移行開始: t_不具合情報 -> defect_information
+2026-06-25 09:33:42,230 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/appearance_inspection_db
+2026-06-25 09:33:43,140 [INFO] 移行開始: t_Excel現品票履歴 -> excel_product_slip_history
+2026-06-25 09:33:44,319 [INFO] 移行完了: t_Excel現品票履歴 Access=33987 PostgreSQL=33987
+2026-06-25 09:33:44,320 [INFO] 移行開始: t_チェックシートリスト -> check_sheet_list
+2026-06-25 09:33:44,320 [INFO] 移行完了: t_チェックシートリスト Access=119 PostgreSQL=119
+2026-06-25 09:33:44,320 [INFO] 移行開始: t_不具合情報 -> defect_information
+2026-06-25 09:34:03,260 [INFO] 移行完了: t_不具合情報 Access=156396 PostgreSQL=156396
+2026-06-25 09:34:03,267 [INFO] シーケンス同期: defect_information.id
+2026-06-25 09:34:03,268 [INFO] 移行開始: t_外観検査記録 -> appearance_inspection_records
+2026-06-25 09:34:07,274 [INFO] 移行完了: t_外観検査記録 Access=70654 PostgreSQL=70654
+2026-06-25 09:34:07,283 [INFO] シーケンス同期: appearance_inspection_records.id
+2026-06-25 09:34:07,283 [INFO] 移行開始: t_外観検査記録保存 -> appearance_inspection_record_archives
+2026-06-25 09:34:19,329 [INFO] 移行完了: t_外観検査記録保存 Access=225171 PostgreSQL=225171
+2026-06-25 09:34:19,336 [INFO] シーケンス同期: appearance_inspection_record_archives.id
+2026-06-25 09:34:19,336 [INFO] 移行開始: t_外観検査集計 -> appearance_inspection_summaries
+2026-06-25 09:34:21,586 [INFO] 移行完了: t_外観検査集計 Access=52885 PostgreSQL=52885
+2026-06-25 09:34:21,596 [INFO] シーケンス同期: appearance_inspection_summaries.id
+2026-06-25 09:34:21,596 [INFO] 移行開始: t_外観検査集計保存 -> appearance_inspection_summary_archives
+2026-06-25 09:34:29,809 [INFO] 移行完了: t_外観検査集計保存 Access=171580 PostgreSQL=171580
+2026-06-25 09:34:29,814 [INFO] シーケンス同期: appearance_inspection_summary_archives.id
+2026-06-25 09:34:29,815 [INFO] 移行開始: t_工程マスタ -> process_master
+2026-06-25 09:34:29,827 [INFO] 移行完了: t_工程マスタ Access=10 PostgreSQL=10
+2026-06-25 09:34:29,827 [INFO] 移行開始: t_数値検査員マスタ -> numeric_inspector_master
+2026-06-25 09:34:29,835 [INFO] 移行完了: t_数値検査員マスタ Access=14 PostgreSQL=14
+2026-06-25 09:34:29,836 [INFO] 移行開始: t_数値検査記録 -> numeric_inspection_records
+2026-06-25 09:34:30,624 [INFO] 移行完了: t_数値検査記録 Access=26660 PostgreSQL=26660
+2026-06-25 09:34:30,629 [INFO] シーケンス同期: numeric_inspection_records.id
+2026-06-25 09:34:30,630 [INFO] 移行開始: t_検査中 -> inspection_in_progress
+2026-06-25 09:34:30,639 [INFO] 移行完了: t_検査中 Access=60 PostgreSQL=60
+2026-06-25 09:34:30,640 [INFO] 移行開始: t_検査員マスタ -> inspector_master
+2026-06-25 09:34:30,652 [INFO] 移行完了: t_検査員マスタ Access=77 PostgreSQL=77
+2026-06-25 09:34:30,653 [INFO] 移行開始: t_検査者マスタ -> inspection_person_master
+2026-06-25 09:34:30,661 [INFO] 移行完了: t_検査者マスタ Access=72 PostgreSQL=72
+2026-06-25 09:34:30,665 [INFO] シーケンス同期: inspection_person_master.id
