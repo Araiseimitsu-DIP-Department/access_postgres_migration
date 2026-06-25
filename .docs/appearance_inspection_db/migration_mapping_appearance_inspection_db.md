@@ -6,7 +6,7 @@
 - 移行先PostgreSQL DB：appearance_inspection_db
 - 接続情報：
   - `.env` の DATABASE_URL を参照
-- 移行日：2026-06-12 12:02:41
+- 移行日：2026-06-25 08:52:02
 - 作成者：Codex
 - 備考：外観検査記録DBの13テーブルを忠実に移行。日本語名はPostgreSQL用に英語/ローマ字のスネークケースへ変換し、元名はコメントと本対応表で追跡可能。
 
@@ -16,16 +16,16 @@
 |---:|---|---|---|---:|---:|---|
 | 1 | t_Excel現品票履歴 | excel_product_slip_history | TABLE | 33987 | 33987 | 成功 |
 | 2 | t_チェックシートリスト | check_sheet_list | TABLE | 119 | 119 | 成功 |
-| 3 | t_不具合情報 | defect_information | TABLE | 155725 | 155706 | 件数差異 |
-| 4 | t_外観検査記録 | appearance_inspection_records | TABLE | 68864 | 68838 | 件数差異 |
+| 3 | t_不具合情報 | defect_information | TABLE | 156396 | 156396 | 成功 |
+| 4 | t_外観検査記録 | appearance_inspection_records | TABLE | 70654 | 70654 | 成功 |
 | 5 | t_外観検査記録保存 | appearance_inspection_record_archives | TABLE | 225171 | 225171 | 成功 |
-| 6 | t_外観検査集計 | appearance_inspection_summaries | TABLE | 51493 | 51467 | 件数差異 |
+| 6 | t_外観検査集計 | appearance_inspection_summaries | TABLE | 52885 | 52885 | 成功 |
 | 7 | t_外観検査集計保存 | appearance_inspection_summary_archives | TABLE | 171580 | 171580 | 成功 |
 | 8 | t_工程マスタ | process_master | TABLE | 10 | 10 | 成功 |
 | 9 | t_数値検査員マスタ | numeric_inspector_master | TABLE | 14 | 14 | 成功 |
-| 10 | t_数値検査記録 | numeric_inspection_records | TABLE | 25906 | 25906 | 成功 |
-| 11 | t_検査中 | inspection_in_progress | TABLE | 59 | 59 | 成功 |
-| 12 | t_検査員マスタ | inspector_master | TABLE | 76 | 76 | 成功 |
+| 10 | t_数値検査記録 | numeric_inspection_records | TABLE | 26660 | 26660 | 成功 |
+| 11 | t_検査中 | inspection_in_progress | TABLE | 60 | 60 | 成功 |
+| 12 | t_検査員マスタ | inspector_master | TABLE | 77 | 77 | 成功 |
 | 13 | t_検査者マスタ | inspection_person_master | TABLE | 72 | 72 | 成功 |
 
 ## 3. テーブル別カラム対応表
@@ -61,7 +61,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 生産ロットID | VARCHAR | production_lot_id | VARCHAR(7) | 可 |  |
 | 3 | 品番 | VARCHAR | product_code | VARCHAR(30) | 可 |  |
 | 4 | 指示日 | DATETIME | instruction_date | TIMESTAMP | 可 |  |
@@ -113,7 +113,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 検査員ID | VARCHAR | inspector_id | VARCHAR(4) | 可 |  |
 | 3 | 生産ロットID | VARCHAR | production_lot_id | VARCHAR(7) | 可 |  |
 | 4 | 工程NO | VARCHAR | process_no | VARCHAR(2) | 可 |  |
@@ -131,7 +131,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 検査員ID | VARCHAR | inspector_id | VARCHAR(4) | 可 |  |
 | 3 | 生産ロットID | VARCHAR | production_lot_id | VARCHAR(7) | 可 |  |
 | 4 | 工程NO | VARCHAR | process_no | VARCHAR(2) | 可 |  |
@@ -149,7 +149,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 検査員ID | VARCHAR | inspector_id | VARCHAR(4) | 可 |  |
 | 3 | 日付 | DATETIME | inspection_date | TIMESTAMP | 可 |  |
 | 4 | 生産ロットID | VARCHAR | production_lot_id | VARCHAR(7) | 可 |  |
@@ -165,7 +165,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 検査員ID | VARCHAR | inspector_id | VARCHAR(4) | 可 |  |
 | 3 | 日付 | DATETIME | inspection_date | TIMESTAMP | 可 |  |
 | 4 | 生産ロットID | VARCHAR | production_lot_id | VARCHAR(7) | 可 |  |
@@ -199,7 +199,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 日付時刻 | DATETIME | inspected_at | TIMESTAMP | 可 |  |
 | 3 | 生産ロットID | VARCHAR | production_lot_id | VARCHAR(7) | 可 |  |
 | 4 | 検査員ID | VARCHAR | inspector_id | VARCHAR(4) | 可 |  |
@@ -232,7 +232,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 検査者 | VARCHAR | inspector_name | VARCHAR(6) | 可 |  |
 | 3 | ふりがな | VARCHAR | furigana | VARCHAR(1) | 可 |  |
 
@@ -259,7 +259,7 @@
 | Access型 | PostgreSQL型 | 備考 |
 |---|---|---|
 | VARCHAR | varchar(n) | Accessのサイズを維持 |
-| COUNTER | bigint | 採番値を忠実に移行するためserial化せず値を保持 |
+| COUNTER | bigserial | AccessのID値を投入後、setvalで次採番をMAX(id)+1に同期。PRIMARY KEY付与 |
 | INTEGER | integer | 整数 |
 | DOUBLE | double precision | 浮動小数 |
 | DATETIME | timestamp | Accessの日付/時刻を保持 |
@@ -361,7 +361,7 @@
 ## 7. 注意事項・要確認事項
 
 - AccessのFKメタデータはODBCドライバが返さなかったため、外部キー制約は作成していません。
-- 主キーはメタデータ上は検出なしです。COUNTER列は値を忠実に保持するためBIGINTで移行しています。
+- COUNTER列はBIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期しています。
 - `時刻` はAccess上で `1899-12-30 HH:MM:SS` のtimestampとして保持されている場合、そのままtimestampで移行します。
 - `.env` の `ACCESS_DB_PATH` が実ファイルを指していない場合は、メタJSONの `database_path` を使用しています。
 - メタ抽出警告：FK 取得スキップ: t_Excel現品票履歴 — ('IM001', '[IM001] [Microsoft][ODBC Driver Manager] ドライバーはこの関数をサポートしていません。 (0) (SQLForeignKeys)')

@@ -1,8 +1,11 @@
 """受注実績データ集計DB.accdb を Access から PostgreSQL へ忠実に移行する対象専用スクリプト。
 
 このファイルは .docs/order_performance_db 専用です。
-Access側は読み取りのみ、PostgreSQL側は既存の移行先テーブルがある場合に停止します。
-削除・TRUNCATE・既存行の更新は行いません。
+接続設定は同フォルダ内の `.env` を使用します。
+Access側は読み取りのみ。移行時は更新モードを指定してください:
+  --drop-database  DB削除後に再作成
+  --drop-table     テーブル削除後に再作成
+  --truncate       データのみ更新（TRUNCATE）
 """
 
 from __future__ import annotations
@@ -10,12 +13,21 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import sys
 from collections import Counter
 from dataclasses import dataclass
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
+
+_MIGRATION_ROOT = Path(__file__).resolve().parents[2]
+_SRC = _MIGRATION_ROOT / "src"
+if str(_SRC) not in sys.path:
+    sys.path.insert(0, str(_SRC))
+
+from access_migration import migration_common
+from access_migration.migration_common import RefreshMode
 
 import psycopg2
 import pyodbc
@@ -33,7 +45,6 @@ ERROR_LOG_FILE = "migration_error_order_performance_db.log"
 DEFAULT_SCHEMA = "public"
 DEFAULT_BATCH_SIZE = 1000
 TARGET_OBJECT_COUNT = 4
-LEGACY_POSTGRES_TABLES: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -85,13 +96,15 @@ def main() -> int:
         elif args.append_missing:
             results = append_missing_rows(env["DATABASE_URL"], access_db_path, mappings, args.schema, args.batch_size)
         else:
+            refresh_mode = migration_common.resolve_refresh_mode(args)
+            migration_common.run_pre_migration_refresh(env["DATABASE_URL"], refresh_mode, args.schema)
             results = migrate(
                 env["DATABASE_URL"],
                 access_db_path,
                 mappings,
                 args.schema,
                 args.batch_size,
-                replace_existing=args.replace,
+                refresh_mode,
             )
 
         write_mapping(TARGET_DIR / MAPPING_FILE, env, meta, mappings, results)
@@ -108,23 +121,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=DEFAULT_BATCH_SIZE, help="一括投入件数")
     parser.add_argument("--verify-only", action="store_true", help="投入せずAccess/PostgreSQL件数だけ再確認")
     parser.add_argument("--append-missing", action="store_true", help="PostgreSQLに存在しないAccess行だけを追加投入")
-    parser.add_argument(
-        "--replace",
-        action="store_true",
-        help="移行先の既存テーブルを削除してから再移行（誤移行データの差し替え用）",
-    )
+    migration_common.add_refresh_mode_arguments(parser, required=False)
     return parser.parse_args()
 
 
 def setup_logging(error_log_path: Path) -> None:
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(message)s",
-        handlers=[
-            logging.FileHandler(error_log_path, mode="w", encoding="utf-8-sig"),
-            logging.StreamHandler(),
-        ],
-    )
+    migration_common.setup_migration_logging(error_log_path)
 
 
 def load_env(env_path: Path) -> dict[str, str]:
@@ -248,18 +250,18 @@ def migrate(
     mappings: list[TableMapping],
     schema: str,
     batch_size: int,
-    replace_existing: bool = False,
+    refresh_mode: RefreshMode,
 ) -> list[MigrationResult]:
     results = [MigrationResult(table=mapping) for mapping in mappings]
+    table_names = [mapping.postgres_name for mapping in mappings]
     access_connection = connect_access(access_db_path)
     postgres_connection = psycopg2.connect(database_url)
     try:
         postgres_connection.autocommit = False
-        if replace_existing:
-            drop_existing_tables(postgres_connection, schema, mappings)
+        if refresh_mode == RefreshMode.TRUNCATE:
+            migration_common.truncate_tables(postgres_connection, schema, table_names)
         else:
-            ensure_no_existing_tables(postgres_connection, schema, mappings)
-        create_schema_and_tables(postgres_connection, schema, mappings)
+            create_schema_and_tables(postgres_connection, schema, mappings)
         for result in results:
             migrate_table(access_connection, postgres_connection, schema, result, batch_size)
         postgres_connection.commit()
@@ -371,49 +373,6 @@ def append_missing_rows_for_table(
 def connect_access(access_db_path: Path) -> pyodbc.Connection:
     connection_string = r"DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};" f"DBQ={access_db_path};ReadOnly=1;"
     return pyodbc.connect(connection_string, autocommit=True)
-
-
-def ensure_no_existing_tables(
-    connection: psycopg2.extensions.connection,
-    schema: str,
-    mappings: list[TableMapping],
-) -> None:
-    table_names = [mapping.postgres_name for mapping in mappings]
-    with connection.cursor() as cursor:
-        cursor.execute(
-            """
-            SELECT table_name
-            FROM information_schema.tables
-            WHERE table_schema = %s
-              AND table_name = ANY(%s)
-            """,
-            (schema, table_names),
-        )
-        existing_tables = [row[0] for row in cursor.fetchall()]
-    if existing_tables:
-        raise RuntimeError(f"移行先テーブルが既に存在するため停止しました: {', '.join(existing_tables)}")
-
-
-def drop_existing_tables(
-    connection: psycopg2.extensions.connection,
-    schema: str,
-    mappings: list[TableMapping],
-) -> None:
-    table_names = sorted({mapping.postgres_name for mapping in mappings} | set(LEGACY_POSTGRES_TABLES))
-    with connection.cursor() as cursor:
-        for table_name in table_names:
-            cursor.execute(
-                """
-                SELECT 1
-                FROM information_schema.tables
-                WHERE table_schema = %s
-                  AND table_name = %s
-                """,
-                (schema, table_name),
-            )
-            if cursor.fetchone():
-                cursor.execute(f"DROP TABLE {qualified_name(schema, table_name)} CASCADE")
-                logging.info("既存テーブルを削除: %s", table_name)
 
 
 def create_schema_and_tables(

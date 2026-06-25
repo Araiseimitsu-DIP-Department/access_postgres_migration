@@ -5,7 +5,7 @@
 - 対象Access DB：`C:\Users\seizo\my_projects\1\access_postgres_migration\.docs\material_scheduling\セット予定材料管理DB.accdb`
 - 移行先PostgreSQL DB：`material_scheduling`
 - 接続情報：`.env` の `DATABASE_URL` / `ACCESS_DB_PATH` を参照
-- 移行日：2026-06-15 13:15:29
+- 移行日：2026-06-25 08:53:46
 - 方針：セット予定材料管理DB.accdb の全23テーブル・全カラムを英語スネークケースへ変換し忠実に移行
 
 ## 2. 移行対象テーブル一覧
@@ -13,7 +13,7 @@
 | No | Accessテーブル名 | PostgreSQLテーブル名 | 種別 | Access件数 | PostgreSQL件数 | 備考 |
 |---:|---|---|---|---:|---:|---|
 | 1 | `t_コントロール` | `app_control` | TABLE | 1 | 1 | 成功 |
-| 2 | `t_セット予定` | `set_schedules` | TABLE | 5182 | 5182 | 成功 |
+| 2 | `t_セット予定` | `set_schedules` | TABLE | 5199 | 5199 | 成功 |
 | 3 | `t_チャックマスタ` | `chuck_master` | TABLE | 467 | 467 | 成功 |
 | 4 | `t_一時停止` | `production_pauses` | TABLE | 0 | 0 | 成功 |
 | 5 | `t_受信メールマスタ` | `inbound_email_master` | TABLE | 7 | 7 | 成功 |
@@ -29,9 +29,9 @@
 | 15 | `t_注文書データ` | `purchase_order_documents` | TABLE | 2 | 2 | 成功 |
 | 16 | `t_生産リリース` | `production_releases` | TABLE | 30336 | 30336 | 成功 |
 | 17 | `t_生産リリース のコピー` | `production_releases_backup` | TABLE | 30193 | 30193 | 成功 |
-| 18 | `t_生産発注` | `production_orders` | TABLE | 6329 | 6329 | 成功 |
+| 18 | `t_生産発注` | `production_orders` | TABLE | 6375 | 6375 | 成功 |
 | 19 | `t_発注者マスタ` | `orderer_master` | TABLE | 7 | 7 | 成功 |
-| 20 | `t_管理表マスタ` | `management_sheet_master` | TABLE | 1519 | 1519 | 成功 |
+| 20 | `t_管理表マスタ` | `management_sheet_master` | TABLE | 1525 | 1525 | 成功 |
 | 21 | `t_納入業者` | `suppliers` | TABLE | 13 | 13 | 成功 |
 | 22 | `t_送信メールマスタ` | `outbound_email_master` | TABLE | 3 | 3 | 成功 |
 | 23 | `t_部品別チャックマスタ` | `part_chuck_master` | TABLE | 1469 | 1469 | 成功 |

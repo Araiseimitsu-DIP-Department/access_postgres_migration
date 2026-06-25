@@ -6,7 +6,7 @@
 - 移行先PostgreSQL DB：pingauge_management_db
 - 接続情報：
   - `.env` の DATABASE_URL を参照
-- 移行日：2026-06-15 09:33:19
+- 移行日：2026-06-25 08:52:49
 - 作成者：Codex
 - 備考：ピンゲージ管理DBの3テーブルを統合・削除せず個別に移行。元Access名は本対応表とPostgreSQLコメントで追跡可能。
 
@@ -14,9 +14,9 @@
 
 | No | Accessテーブル名 | PostgreSQLテーブル名 | 種別 | Access件数 | PostgreSQL件数 | 備考 |
 |---:|---|---|---|---:|---:|---|
-| 1 | t_PGマスタ | pin_gauge_master | TABLE | 2030 | 2030 | 成功 |
+| 1 | t_PGマスタ | pin_gauge_master | TABLE | 2031 | 2031 | 成功 |
 | 2 | t_担当者マスタ | staff_master | TABLE | 29 | 29 | 成功 |
-| 3 | t_貸出 | pin_gauge_lending | TABLE | 32229 | 32229 | 成功 |
+| 3 | t_貸出 | pin_gauge_lending | TABLE | 32515 | 32515 | 成功 |
 
 ## 3. テーブル別カラム対応表
 
@@ -45,7 +45,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | サイズ | VARCHAR | size | VARCHAR(20) | 可 |  |
 | 3 | 担当者ID | VARCHAR | staff_id | VARCHAR(2) | 可 |  |
 | 4 | 機番 | VARCHAR | machine_no | VARCHAR(4) | 可 |  |
@@ -66,7 +66,7 @@
 | Access型 | PostgreSQL型 | 備考 |
 |---|---|---|
 | VARCHAR | varchar(n) | Accessのサイズを維持 |
-| COUNTER | bigint | 採番値を忠実に移行するためserial化せず値を保持 |
+| COUNTER | bigserial | AccessのID値を投入後、setvalで次採番をMAX(id)+1に同期。PRIMARY KEY付与 |
 | INTEGER | integer | 整数 |
 | DATETIME | timestamp | Accessの日付/時刻を保持 |
 | BIT | boolean | Yes/No型 |
@@ -109,7 +109,7 @@
 ## 7. 注意事項・要確認事項
 
 - AccessのFKメタデータはODBCドライバが返さなかったため、外部キー制約は作成していません。要確認。
-- 主キーはメタデータ上では検出なしです。COUNTER列は値を忠実に保持するためBIGINTで移行しています。
+- COUNTER列はBIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期しています。
 - `完了フラグ` はAccess上で文字列型のため、booleanへ変換せずVARCHAR(1)で保持しています。
 - `.env` の `ACCESS_DB_PATH` が実ファイルを指していない場合は、メタJSONの `database_path` を使用します。
 - メタ抽出警告：FK 取得スキップ: t_PGマスタ — ('IM001', '[IM001] [Microsoft][ODBC Driver Manager] ドライバーはこの関数をサポートしていません。 (0) (SQLForeignKeys)')

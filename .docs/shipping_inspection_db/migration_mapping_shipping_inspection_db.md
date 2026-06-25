@@ -5,7 +5,7 @@
 - 対象Access DB：`C:\Users\seika\Desktop\出荷検査一覧DB.accdb`
 - 移行先PostgreSQL DB：`shipping_inspection_db`
 - 接続情報：`.env` の `DATABASE_URL` / `ACCESS_DB_PATH` を参照
-- 移行日：2026-06-19 09:49:41
+- 移行日：2026-06-25 08:53:52
 - 作成者：Cursor Agent
 - 備考：9テーブルを移行（`T_仕掛数`・`T_外検担` は移行対象外）
 
@@ -13,12 +13,12 @@
 
 | No | Accessテーブル名 | PostgreSQLテーブル名 | 種別 | Access件数 | PostgreSQL件数 | 備考 |
 |---:|---|---|---|---:|---:|---|
-| 1 | `T_先行検査一覧` | `advance_inspection_list` | TABLE | 5 | 5 | 成功 |
-| 2 | `T_出荷データ` | `shipping_data` | TABLE | 13 | 13 | 成功 |
-| 3 | `T_出荷検査残` | `shipping_inspection_remaining` | TABLE | 864 | 864 | 成功 |
-| 4 | `T_出荷検査残（前日）` | `shipping_inspection_remaining_prev_day` | TABLE | 872 | 872 | 成功 |
-| 5 | `T_品番別検査担当者` | `product_inspection_staff` | TABLE | 5 | 5 | 成功 |
-| 6 | `T_工程別仕掛数` | `process_wip_quantities` | TABLE | 158 | 158 | 成功 |
+| 1 | `T_先行検査一覧` | `advance_inspection_list` | TABLE | 10 | 10 | 成功 |
+| 2 | `T_出荷データ` | `shipping_data` | TABLE | 4 | 4 | 成功 |
+| 3 | `T_出荷検査残` | `shipping_inspection_remaining` | TABLE | 843 | 843 | 成功 |
+| 4 | `T_出荷検査残（前日）` | `shipping_inspection_remaining_prev_day` | TABLE | 843 | 843 | 成功 |
+| 5 | `T_品番別検査担当者` | `product_inspection_staff` | TABLE | 10 | 10 | 成功 |
+| 6 | `T_工程別仕掛数` | `process_wip_quantities` | TABLE | 166 | 166 | 成功 |
 | 7 | `T_更新日時` | `db_updated_at` | TABLE | 1 | 1 | 成功 |
 | 8 | `T_梱包担` | `packaging_staff` | TABLE | 9 | 9 | 成功 |
 | 9 | `T_検査時間` | `inspection_duration` | TABLE | 1348 | 1348 | 成功 |

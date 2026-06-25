@@ -1,6 +1,6 @@
 # Access → PostgreSQL 移行結果
 
-- 実行日時：2026-06-16 10:09:34 東京 (標準時)
+- 実行日時：2026-06-25 08:57:02 東京 (標準時)
 - 対象Access DB：`\\192.168.1.200\共有\生産管理課\AccessDB\購入品集計DB.accdb`
 - 移行先PostgreSQL DB：`purchase_summary_db`
 - スキーマ作成：実行
@@ -14,7 +14,7 @@
 | `t_コントロール` | `migration_control` | 1 | 1 | 0 |
 | `t_科目名マスタ` | `account_subject_master` | 19 | 19 | 0 |
 | `t_購入先マスタ` | `supplier_master` | 84 | 84 | 0 |
-| `t_購入品明細` | `purchase_detail` | 45,582 | 45,582 | 0 |
+| `t_購入品明細` | `purchase_detail` | 45,582 | 45,632 | 50 |
 | `t_購入者マスタ` | `purchaser_master` | 44 | 44 | 0 |
 
 ## エラー

@@ -10,10 +10,10 @@
   - t_予約Backup   → reservations_backup
 
 前提:
-  - 移行先: 既定 PostgreSQL DSN、または環境変数 PRODUCTION_PROGRESS_DB /
-      PRODUCTION_PROGRESS_PG_DSN に postgresql://... の URI
+  - 移行先: `.docs/production_progress/.env` の `PRODUCTION_PROGRESS_DB` /
+      `PRODUCTION_PROGRESS_PG_DSN`、または環境変数・既定 DSN
   - 移行元: 環境変数 PRODUCTION_PROGRESS_ACCESS_DB（省略時は既定 UNC）
-  - PostgreSQL に既存行がある場合は `--truncate-pg` か `--allow-nonempty-pg` が必要
+  - 更新モード（いずれか1つ必須）: --drop-database / --drop-table / --truncate
 
 テーブル有無判定は ODBC の catalogs を使わず、実際に SELECT できるかで判断する。
 """
@@ -29,12 +29,24 @@ from pathlib import Path
 import psycopg2
 import pyodbc
 
+import sys
+
 _SCRIPT_DIR = Path(__file__).resolve().parent
 _PROJECT_ROOT = _SCRIPT_DIR.parent.parent
+_SRC = _PROJECT_ROOT / "src"
+if str(_SRC) not in sys.path:
+    sys.path.insert(0, str(_SRC))
 if str(_SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(_SCRIPT_DIR))
 
-from migrate_support.access_connection import (
+from access_migration.migration_common import (  # noqa: E402
+    RefreshMode,
+    add_refresh_mode_arguments,
+    resolve_refresh_mode,
+    run_pre_migration_refresh,
+    setup_migration_logging,
+)
+from migrate_support.access_connection import (  # noqa: E402
     DEFAULT_ACCESS_DB_UNC,
     DEFAULT_PG_DSN,
     build_conn_str,
@@ -62,6 +74,8 @@ _PG_TABLES = (
 _ENV_PG = "PRODUCTION_PROGRESS_DB"
 _ENV_PG_DSN = "PRODUCTION_PROGRESS_PG_DSN"
 _ENV_ACCESS = "PRODUCTION_PROGRESS_ACCESS_DB"
+_SCHEMA_SQL_FILE = _SCRIPT_DIR / "schema_pg_english_v1.sql"
+_ERROR_LOG_FILE = _SCRIPT_DIR / "migration_error_production_progress.log"
 
 AF_PROGRESS = "[t_加工進行表]"
 AF_RESERVE = "[t_予約]"
@@ -84,8 +98,33 @@ def resolve_access_from(
 
 
 def _configure_logging(verbose: bool) -> None:
-    level = logging.DEBUG if verbose else logging.INFO
-    logging.basicConfig(level=level, format="%(levelname)s %(message)s")
+    setup_migration_logging(_ERROR_LOG_FILE, verbose=verbose)
+
+
+def load_production_progress_dotenv() -> None:
+    """production_progress フォルダ内 .env を読み込む（既存の環境変数は上書きしない）。"""
+    env_path = _SCRIPT_DIR / ".env"
+    if env_path.is_file():
+        text = env_path.read_text(encoding="utf-8")
+        for key, value in _parse_dotenv_lines(text):
+            if key not in os.environ:
+                os.environ[key] = value
+    load_project_dotenv(_PROJECT_ROOT)
+
+
+def _parse_dotenv_lines(text: str) -> list[tuple[str, str]]:
+    pairs: list[tuple[str, str]] = []
+    for raw in text.splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip()
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in ('"', "'"):
+            value = value[1:-1]
+        pairs.append((key, value))
+    return pairs
 
 
 def connect_access(accdb_path: str) -> pyodbc.Connection:
@@ -112,18 +151,15 @@ def pg_count(cur, table: str) -> int:
     return int(row[0]) if row else 0
 
 
-def ensure_pg_targets_empty(pg, allow_nonempty: bool) -> None:
-    if allow_nonempty:
-        return
+def apply_pg_schema(pg, sql_path: Path) -> None:
+    if not sql_path.is_file():
+        logger.error("スキーマ SQL が見つかりません: %s", sql_path)
+        raise SystemExit(2)
+    sql_text = sql_path.read_text(encoding="utf-8")
     with pg.cursor() as cur:
-        for tab in _PG_TABLES:
-            if pg_count(cur, tab) > 0:
-                logger.error(
-                    "PostgreSQL の %s に既存行があります。--truncate-pg で空にするか "
-                    "--allow-nonempty-pg で続行してください。",
-                    tab,
-                )
-                raise SystemExit(2)
+        cur.execute(sql_text)
+    pg.commit()
+    logger.info("PostgreSQL スキーマを適用しました: %s", sql_path.name)
 
 
 def truncate_pg_targets(pg) -> None:
@@ -288,16 +324,7 @@ def main() -> None:
         "--access-path",
         help="加工進行表 .accdb（PRODUCTION_PROGRESS_ACCESS_DB / 既定 UNC）",
     )
-    parser.add_argument(
-        "--truncate-pg",
-        action="store_true",
-        help="PostgreSQL 側の対象テーブルを空にしてから投入（取り消し不可）",
-    )
-    parser.add_argument(
-        "--allow-nonempty-pg",
-        action="store_true",
-        help="PostgreSQL に既存行があっても続行（主キー衝突のリスクあり）",
-    )
+    add_refresh_mode_arguments(parser)
     parser.add_argument(
         "--dry-run",
         action="store_true",
@@ -307,7 +334,8 @@ def main() -> None:
     args = parser.parse_args()
     _configure_logging(args.verbose)
 
-    load_project_dotenv(_PROJECT_ROOT)
+    load_production_progress_dotenv()
+    refresh_mode = resolve_refresh_mode(args)
 
     dsn = (
         os.environ.get(_ENV_PG, "").strip()
@@ -345,6 +373,8 @@ def main() -> None:
     if args.dry_run:
         pg = None
     else:
+        if refresh_mode in (RefreshMode.DROP_DATABASE, RefreshMode.DROP_TABLE):
+            run_pre_migration_refresh(dsn, refresh_mode)
         try:
             pg = psycopg2.connect(dsn)
             pg.autocommit = False
@@ -356,10 +386,10 @@ def main() -> None:
     try:
         if not args.dry_run:
             assert pg is not None
-            if args.truncate_pg:
+            if refresh_mode in (RefreshMode.DROP_DATABASE, RefreshMode.DROP_TABLE):
+                apply_pg_schema(pg, _SCHEMA_SQL_FILE)
+            elif refresh_mode == RefreshMode.TRUNCATE:
                 truncate_pg_targets(pg)
-            else:
-                ensure_pg_targets_empty(pg, allow_nonempty=args.allow_nonempty_pg)
 
         migrate_progress(acc, pg, args.dry_run)
         _migrate_reservations_like(

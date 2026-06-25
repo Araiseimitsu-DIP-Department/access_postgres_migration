@@ -5,7 +5,7 @@
 - 対象Access DB：`C:\Users\seizo\Desktop\受注データDB.accdb`
 - 移行先PostgreSQL DB：`order_management`
 - 接続情報：`.env` の `DATABASE_URL` / `ACCESS_DB_PATH` を参照
-- 移行日：2026-06-16 09:55:26
+- 移行日：2026-06-25 08:54:08
 - 方針：受注データDB.accdb の全16テーブル・全カラムを英語スネークケースへ変換し忠実に移行
 
 ## 2. 移行対象テーブル一覧
@@ -16,16 +16,16 @@
 | 2 | `t_かんばんマスタ` | `kanban_master` | TABLE | 1 | 1 | 成功 |
 | 3 | `t_コントロール` | `app_control` | TABLE | 1 | 1 | 成功 |
 | 4 | `t_プリンタ名` | `printer_names` | TABLE | 1 | 1 | 成功 |
-| 5 | `t_受注` | `orders` | TABLE | 38341 | 38341 | 成功 |
+| 5 | `t_受注` | `orders` | TABLE | 38409 | 38409 | 成功 |
 | 6 | `t_営業マスタ` | `sales_rep_master` | TABLE | 6 | 6 | 成功 |
 | 7 | `t_客先マスタ` | `customer_master` | TABLE | 117 | 117 | 成功 |
-| 8 | `t_納品` | `deliveries` | TABLE | 42523 | 42523 | 成功 |
+| 8 | `t_納品` | `deliveries` | TABLE | 42630 | 42630 | 成功 |
 | 9 | `t_納品書` | `delivery_notes` | TABLE | 0 | 0 | 成功 |
 | 10 | `t_納品書データ` | `delivery_note_data` | TABLE | 0 | 0 | 成功 |
-| 11 | `t_製品マスタ` | `product_master` | TABLE | 1519 | 1519 | 成功 |
+| 11 | `t_製品マスタ` | `product_master` | TABLE | 1525 | 1525 | 成功 |
 | 12 | `t_請求書` | `invoices` | TABLE | 229 | 229 | 成功 |
 | 13 | `t_請求書Tmp` | `invoices_temp` | TABLE | 0 | 0 | 成功 |
-| 14 | `t_請求金額` | `billing_amounts` | TABLE | 2060 | 2060 | 成功 |
+| 14 | `t_請求金額` | `billing_amounts` | TABLE | 2072 | 2072 | 成功 |
 | 15 | `t_請求金額決算` | `billing_amounts_settlement` | TABLE | 44 | 44 | 成功 |
 | 16 | `t_重複客先` | `duplicate_customers` | TABLE | 11 | 11 | 成功 |
 

@@ -1,4 +1,8 @@
-﻿2026-06-18 11:39:26,284 [INFO] 件数確認: t_コントロール Access=1 PostgreSQL=1
-2026-06-18 11:39:26,298 [INFO] 件数確認: t_受注キャンセル Access=602 PostgreSQL=602
-2026-06-18 11:39:26,313 [INFO] 件数確認: t_受注実績 Access=60492 PostgreSQL=60492
-2026-06-18 11:39:26,321 [INFO] 件数確認: t_売月 Access=156 PostgreSQL=156
+﻿2026-06-25 08:53:54,931 [INFO] 移行開始: t_コントロール (TABLE) -> app_control
+2026-06-25 08:53:55,115 [INFO] 移行完了: t_コントロール Access=1 PostgreSQL=1
+2026-06-25 08:53:55,115 [INFO] 移行開始: t_受注キャンセル (TABLE) -> order_cancellations
+2026-06-25 08:53:55,515 [INFO] 移行完了: t_受注キャンセル Access=602 PostgreSQL=602
+2026-06-25 08:53:55,515 [INFO] 移行開始: t_受注実績 (TABLE) -> order_performance
+2026-06-25 08:54:01,695 [INFO] 移行完了: t_受注実績 Access=60538 PostgreSQL=60538
+2026-06-25 08:54:01,696 [INFO] 移行開始: t_売月 (TABLE) -> sales_months
+2026-06-25 08:54:01,696 [INFO] 移行完了: t_売月 Access=156 PostgreSQL=156

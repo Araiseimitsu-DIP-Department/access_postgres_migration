@@ -6,7 +6,7 @@
 - 移行先PostgreSQL DB：delivery_label_db
 - 接続情報：
   - `.env` の DATABASE_URL を参照
-- 移行日：2026-06-22 15:25:32
+- 移行日：2026-06-25 08:52:44
 - 作成者：Codex
 - 備考：現品票DBの15テーブルを忠実に移行。日本語名はPostgreSQL用に英語/ローマ字のスネークケースへ変換し、元名はコメントと本対応表で追跡可能。
 
@@ -17,18 +17,18 @@
 | 1 | t_ExcelQR履歴 | excel_qr_history | TABLE | 0 | 0 | 成功 |
 | 2 | t_Excel現品票履歴 | excel_delivery_label_history | TABLE | 35817 | 35817 | 成功 |
 | 3 | t_ID番号 | id_number | TABLE | 1 | 1 | 成功 |
-| 4 | t_QR履歴 | qr_history | TABLE | 114876 | 114876 | 成功 |
+| 4 | t_QR履歴 | qr_history | TABLE | 115803 | 115803 | 成功 |
 | 5 | t_QR履歴(backup_260521) | qr_history_backup_260521 | TABLE | 106967 | 106967 | 成功 |
-| 6 | t_QR履歴Tmp | qr_history_tmp | TABLE | 45815 | 45815 | 成功 |
-| 7 | t_エラーログ | error_logs | TABLE | 16610 | 16610 | 成功 |
+| 6 | t_QR履歴Tmp | qr_history_tmp | TABLE | 46232 | 46232 | 成功 |
+| 7 | t_エラーログ | error_logs | TABLE | 16622 | 16622 | 成功 |
 | 8 | t_ロット完了理由 | lot_completion_reasons | TABLE | 6 | 6 | 成功 |
 | 9 | t_作業履歴 | work_history | TABLE | 1 | 1 | 成功 |
-| 10 | t_修正ログ | correction_logs | TABLE | 9980 | 9980 | 成功 |
-| 11 | t_分割ロット | split_lots | TABLE | 7614 | 7614 | 成功 |
+| 10 | t_修正ログ | correction_logs | TABLE | 9992 | 9992 | 成功 |
+| 11 | t_分割ロット | split_lots | TABLE | 7630 | 7630 | 成功 |
 | 12 | t_工程マスタ | process_master | TABLE | 5 | 5 | 成功 |
 | 13 | t_数量差異 | quantity_differences | TABLE | 78357 | 78357 | 成功 |
 | 14 | t_現品票不具合内容 | delivery_label_defect_details | TABLE | 165 | 165 | 成功 |
-| 15 | t_現品票履歴 | delivery_label_history | TABLE | 136430 | 136430 | 成功 |
+| 15 | t_現品票履歴 | delivery_label_history | TABLE | 136615 | 136615 | 成功 |
 
 ## 3. テーブル別カラム対応表
 
@@ -68,7 +68,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | P番号 | INTEGER | p_number | INTEGER | 可 |  |
 | 3 | E番号 | INTEGER | e_number | INTEGER | 可 |  |
 
@@ -87,7 +87,7 @@
 | 8 | 工程コード | VARCHAR | process_code | VARCHAR(2) | 可 |  |
 | 9 | 工程名 | VARCHAR | process_name | VARCHAR(30) | 可 |  |
 | 10 | 更新フラグ | VARCHAR | update_flag | VARCHAR(1) | 可 |  |
-| 11 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 11 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 
 ### Accessテーブル名：t_QR履歴(backup_260521)
 ### PostgreSQLテーブル名：qr_history_backup_260521
@@ -125,7 +125,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 日付 | DATETIME | date_value | TIMESTAMP | 可 |  |
 | 3 | 生産ロットID | VARCHAR | production_lot_id | VARCHAR(7) | 可 |  |
 | 4 | エラー内容 | VARCHAR | error_detail | VARCHAR(20) | 可 |  |
@@ -143,7 +143,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | ロット数数値検査 | INTEGER | lot_count_numeric_inspection | INTEGER | 可 |  |
 | 3 | ロット数外観検査 | INTEGER | lot_count_appearance_inspection | INTEGER | 可 |  |
 | 4 | ロット数梱包 | INTEGER | lot_count_packaging | INTEGER | 可 |  |
@@ -166,7 +166,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 日付 | DATETIME | date_value | TIMESTAMP | 可 |  |
 | 3 | 生産ロットID | VARCHAR | production_lot_id | VARCHAR(7) | 可 |  |
 | 4 | 項目 | VARCHAR | item | VARCHAR(5) | 可 |  |
@@ -177,7 +177,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 元ロットID | VARCHAR | source_lot_id | VARCHAR(7) | 可 |  |
 | 3 | 新ロットID | VARCHAR | new_lot_id | VARCHAR(7) | 可 |  |
 | 4 | 元数量 | INTEGER | source_quantity | INTEGER | 可 |  |
@@ -197,7 +197,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 計量日 | DATETIME | weighing_date | TIMESTAMP | 可 |  |
 | 3 | 出荷日 | DATETIME | shipping_date | TIMESTAMP | 可 |  |
 | 4 | 号機 | VARCHAR | machine_no | VARCHAR(4) | 可 |  |
@@ -292,7 +292,7 @@
 | Access型 | PostgreSQL型 | 備考 |
 |---|---|---|
 | VARCHAR | varchar(n) | Accessのサイズを維持 |
-| COUNTER | bigint | 採番値を忠実に移行するためserial化せず値を保持 |
+| COUNTER | bigserial | AccessのID値を投入後、setvalで次採番をMAX(id)+1に同期。PRIMARY KEY付与 |
 | INTEGER | integer | 整数 |
 | DOUBLE | double precision | 浮動小数 |
 | DATETIME | timestamp | Accessの日付/時刻を保持 |
@@ -400,7 +400,7 @@
 ## 7. 注意事項・要確認事項
 
 - AccessのFKメタデータはODBCドライバが返さなかったため、外部キー制約は作成していません。
-- 主キーはメタデータ上は検出なしです。COUNTER列は値を忠実に保持するためBIGINTで移行しています。
+- COUNTER列はBIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期しています。
 - バックアップテーブル `t_QR履歴(backup_260521)` と一時テーブル `t_QR履歴Tmp` も削除・統合せず個別に移行しています。
 - `.env` の `ACCESS_DB_PATH` が実ファイルを指していない場合は、メタJSONの `database_path` を使用しています。
 - 0件テーブルも構造再現のため作成しています: t_ExcelQR履歴

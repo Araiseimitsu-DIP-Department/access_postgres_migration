@@ -1,8 +1,11 @@
 """材料入庫管理台帳兼ミルシート管理表DBをAccessからPostgreSQLへ忠実に移行する対象専用スクリプト。
 
 このファイルは .docs/material_millsheet_manager 専用です。
-Access側は読み取りのみ、PostgreSQL側は既存の移行先テーブルがある場合に停止します。
-削除・TRUNCATE・既存行の更新は行いません。
+接続設定は同フォルダ内の `.env` を使用します。
+Access側は読み取りのみ。移行時は更新モードを指定してください:
+  --drop-database  DB削除後に再作成
+  --drop-table     テーブル削除後に再作成
+  --truncate       データのみ更新（TRUNCATE）
 """
 
 from __future__ import annotations
@@ -16,6 +19,16 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
+
+import sys
+
+_MIGRATION_ROOT = Path(__file__).resolve().parents[2]
+_SRC = _MIGRATION_ROOT / "src"
+if str(_SRC) not in sys.path:
+    sys.path.insert(0, str(_SRC))
+
+from access_migration import migration_common
+from access_migration.migration_common import RefreshMode
 
 import psycopg2
 import pyodbc
@@ -82,7 +95,9 @@ def main() -> int:
         elif args.append_missing:
             results = append_missing_rows(env["DATABASE_URL"], access_db_path, mappings, args.schema, args.batch_size)
         else:
-            results = migrate(env["DATABASE_URL"], access_db_path, mappings, args.schema, args.batch_size)
+            refresh_mode = migration_common.resolve_refresh_mode(args)
+            migration_common.run_pre_migration_refresh(env["DATABASE_URL"], refresh_mode, args.schema)
+            results = migrate(env["DATABASE_URL"], access_db_path, mappings, args.schema, args.batch_size, refresh_mode)
 
         write_mapping(TARGET_DIR / MAPPING_FILE, env, meta, mappings, results)
         write_result(TARGET_DIR / RESULT_FILE, access_db_path, results)
@@ -98,18 +113,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=DEFAULT_BATCH_SIZE, help="一括投入件数")
     parser.add_argument("--verify-only", action="store_true", help="投入せずAccess/PostgreSQL件数だけ再確認")
     parser.add_argument("--append-missing", action="store_true", help="PostgreSQLに存在しないAccess行だけを追加投入")
+    migration_common.add_refresh_mode_arguments(parser, required=False)
     return parser.parse_args()
 
 
 def setup_logging(error_log_path: Path) -> None:
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(message)s",
-        handlers=[
-            logging.FileHandler(error_log_path, mode="w", encoding="utf-8-sig"),
-            logging.StreamHandler(),
-        ],
-    )
+    migration_common.setup_migration_logging(error_log_path)
 
 
 def load_env(env_path: Path) -> dict[str, str]:
@@ -226,14 +235,18 @@ def migrate(
     mappings: list[TableMapping],
     schema: str,
     batch_size: int,
+    refresh_mode: RefreshMode,
 ) -> list[MigrationResult]:
     results = [MigrationResult(table=mapping) for mapping in mappings]
+    table_names = [mapping.postgres_name for mapping in mappings]
     access_connection = connect_access(access_db_path)
     postgres_connection = psycopg2.connect(database_url)
     try:
         postgres_connection.autocommit = False
-        ensure_no_existing_tables(postgres_connection, schema, mappings)
-        create_schema_and_tables(postgres_connection, schema, mappings)
+        if refresh_mode == RefreshMode.TRUNCATE:
+            migration_common.truncate_tables(postgres_connection, schema, table_names)
+        else:
+            create_schema_and_tables(postgres_connection, schema, mappings)
         for result in results:
             migrate_table(access_connection, postgres_connection, schema, result, batch_size)
         postgres_connection.commit()

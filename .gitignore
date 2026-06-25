@@ -20,6 +20,8 @@ htmlcov/
 .env
 .env.*
 !.env.example
+db_all_recreate.env
+db_all_recreate_arai_masters.env
 
 # Access database files
 *.accdb

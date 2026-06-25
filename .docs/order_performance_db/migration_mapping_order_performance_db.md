@@ -5,7 +5,7 @@
 - 対象Access DB：`C:\Users\seizo\Desktop\受注実績データ集計DB.accdb`
 - 移行先PostgreSQL DB：`order_performance_db`
 - 接続情報：`.env` の `DATABASE_URL` / `ACCESS_DB_PATH` を参照
-- 移行日：2026-06-18 11:39:26
+- 移行日：2026-06-25 08:54:01
 - 方針：受注実績データ集計DB.accdb の全4テーブル・全カラムを英語スネークケースへ変換し忠実に移行
 
 ## 2. 移行対象テーブル一覧
@@ -14,7 +14,7 @@
 |---:|---|---|---|---:|---:|---|
 | 1 | `t_コントロール` | `app_control` | TABLE | 1 | 1 | 成功 |
 | 2 | `t_受注キャンセル` | `order_cancellations` | TABLE | 602 | 602 | 成功 |
-| 3 | `t_受注実績` | `order_performance` | TABLE | 60492 | 60492 | 成功 |
+| 3 | `t_受注実績` | `order_performance` | TABLE | 60538 | 60538 | 成功 |
 | 4 | `t_売月` | `sales_months` | TABLE | 156 | 156 | 成功 |
 
 ## 3. テーブル別カラム対応表

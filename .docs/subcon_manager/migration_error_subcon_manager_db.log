@@ -1,12 +1,24 @@
-﻿2026-06-16 10:24:15,238 [INFO] 件数確認: t_クロス集計用 Access=10 PostgreSQL=10
-2026-06-16 10:24:15,249 [INFO] 件数確認: t_コントロール Access=1 PostgreSQL=1
-2026-06-16 10:24:15,258 [INFO] 件数確認: t_内職マスタ Access=71 PostgreSQL=71
-2026-06-16 10:24:15,268 [INFO] 件数確認: t_客先 Access=94 PostgreSQL=94
-2026-06-16 10:24:15,278 [INFO] 件数確認: t_手配先マスタ Access=67 PostgreSQL=67
-2026-06-16 10:24:15,291 [INFO] 件数確認: t_発注 Access=18739 PostgreSQL=18739
-2026-06-16 10:24:15,299 [INFO] 件数確認: t_発注 Start Access=116 PostgreSQL=116
-2026-06-16 10:24:15,307 [INFO] 件数確認: t_発注書 Access=0 PostgreSQL=0
-2026-06-16 10:24:15,313 [INFO] 件数確認: t_発注書データ Access=0 PostgreSQL=0
-2026-06-16 10:24:15,326 [INFO] 件数確認: t_納入 Access=24114 PostgreSQL=24114
-2026-06-16 10:24:15,333 [INFO] 件数確認: t_納入 Start Access=3298 PostgreSQL=3298
-2026-06-16 10:24:15,341 [INFO] 件数確認: t_製品マスタ Access=1482 PostgreSQL=1482
+﻿2026-06-25 08:54:09,873 [INFO] 移行開始: t_クロス集計用 (TABLE) -> cross_tab_summary
+2026-06-25 08:54:09,897 [INFO] 移行完了: t_クロス集計用 Access=10 PostgreSQL=10
+2026-06-25 08:54:09,898 [INFO] 移行開始: t_コントロール (TABLE) -> app_control
+2026-06-25 08:54:09,901 [INFO] 移行完了: t_コントロール Access=1 PostgreSQL=1
+2026-06-25 08:54:09,901 [INFO] 移行開始: t_内職マスタ (TABLE) -> home_work_master
+2026-06-25 08:54:09,914 [INFO] 移行完了: t_内職マスタ Access=71 PostgreSQL=71
+2026-06-25 08:54:09,914 [INFO] 移行開始: t_客先 (TABLE) -> customers
+2026-06-25 08:54:09,923 [INFO] 移行完了: t_客先 Access=94 PostgreSQL=94
+2026-06-25 08:54:09,923 [INFO] 移行開始: t_手配先マスタ (TABLE) -> supplier_master
+2026-06-25 08:54:09,938 [INFO] 移行完了: t_手配先マスタ Access=67 PostgreSQL=67
+2026-06-25 08:54:09,938 [INFO] 移行開始: t_発注 (TABLE) -> purchase_orders
+2026-06-25 08:54:11,078 [INFO] 移行完了: t_発注 Access=18758 PostgreSQL=18758
+2026-06-25 08:54:11,078 [INFO] 移行開始: t_発注 Start (TABLE) -> purchase_orders_start
+2026-06-25 08:54:11,095 [INFO] 移行完了: t_発注 Start Access=116 PostgreSQL=116
+2026-06-25 08:54:11,095 [INFO] 移行開始: t_発注書 (TABLE) -> purchase_order_forms
+2026-06-25 08:54:11,101 [INFO] 移行完了: t_発注書 Access=0 PostgreSQL=0
+2026-06-25 08:54:11,101 [INFO] 移行開始: t_発注書データ (TABLE) -> purchase_order_form_data
+2026-06-25 08:54:11,106 [INFO] 移行完了: t_発注書データ Access=0 PostgreSQL=0
+2026-06-25 08:54:11,107 [INFO] 移行開始: t_納入 (TABLE) -> deliveries
+2026-06-25 08:54:13,067 [INFO] 移行完了: t_納入 Access=24130 PostgreSQL=24130
+2026-06-25 08:54:13,067 [INFO] 移行開始: t_納入 Start (TABLE) -> deliveries_start
+2026-06-25 08:54:13,379 [INFO] 移行完了: t_納入 Start Access=3298 PostgreSQL=3298
+2026-06-25 08:54:13,380 [INFO] 移行開始: t_製品マスタ (TABLE) -> product_master
+2026-06-25 08:54:13,446 [INFO] 移行完了: t_製品マスタ Access=1520 PostgreSQL=1520

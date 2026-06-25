@@ -1,4 +1,7 @@
-﻿2026-06-15 09:33:18,796 [WARNING] ACCESS_DB_PATHが存在しないため、メタJSONのAccess DBパスを使用します
-2026-06-15 09:33:19,638 [INFO] 件数確認: t_PGマスタ Access=2030 PostgreSQL=2030
-2026-06-15 09:33:19,638 [INFO] 件数確認: t_担当者マスタ Access=29 PostgreSQL=29
-2026-06-15 09:33:19,654 [INFO] 件数確認: t_貸出 Access=32229 PostgreSQL=32229
+﻿2026-06-25 08:52:48,681 [INFO] 移行開始: t_PGマスタ -> pin_gauge_master
+2026-06-25 08:52:48,719 [INFO] 移行完了: t_PGマスタ Access=2031 PostgreSQL=2031
+2026-06-25 08:52:48,719 [INFO] 移行開始: t_担当者マスタ -> staff_master
+2026-06-25 08:52:48,723 [INFO] 移行完了: t_担当者マスタ Access=29 PostgreSQL=29
+2026-06-25 08:52:48,724 [INFO] 移行開始: t_貸出 -> pin_gauge_lending
+2026-06-25 08:52:49,535 [INFO] 移行完了: t_貸出 Access=32515 PostgreSQL=32515
+2026-06-25 08:52:49,541 [INFO] シーケンス同期: pin_gauge_lending.id

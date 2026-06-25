@@ -6,7 +6,7 @@ import logging
 from pathlib import Path
 
 
-LOG_FORMAT = "%(asctime)s [%(levelname)s] %(name)s - %(message)s"
+LOG_FORMAT = "%(asctime)s [%(levelname)s] %(message)s"
 
 
 def setup_logger(name: str = "access_migration", level: str = "INFO") -> logging.Logger:

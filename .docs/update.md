@@ -1,9 +1,21 @@
 # 更新履歴
 
+## 2026-06-25
+
+- 移行スクリプトの実行方法・CLI・ログ形式を統一。共通モジュール `src/access_migration/migration_common.py` を追加。
+- 更新モードを全スクリプトで共通化: `--drop-database`（DB 削除後に再作成）/ `--drop-table`（テーブル削除後に再作成）/ `--truncate`（データのみ更新）。
+- **一括更新**: プロジェクトルートで `python db_all_recreate.py` を実行し、`db_all_recreate.env` を参照。省略時は `--drop-table`。
+- **個別更新**: 各 `.docs/<target>/` 内の移行スクリプトを実行し、同フォルダ内 `.env` を参照。
+- ログ形式を `%(asctime)s [%(levelname)s] %(message)s` に統一（`db_all_recreate.py`・各移行スクリプト・`logger.py`）。
+- 旧 CLI を置換: `--replace` → `--drop-table`、`--truncate-pg` → `--truncate`、`purchase_summary` の `--apply-schema --migrate-data` → 更新モードに統合。
+- `production_progress` は `--drop-table` / `--drop-database` 時に `schema_pg_english_v1.sql` を自動適用するよう修正（一括実行時の `reservations_backup` 未存在エラーを解消）。
+- `README.md` に一括・個別の実行手順を追記。
+
 ## 2026-06-24
 
 - DDL に BIGSERIAL が定義されている5 DB の移行スクリプトで、Access COUNTER 列を **BIGSERIAL + PRIMARY KEY** 化し、投入後に `setval` でシーケンスを `MAX(id)+1` に同期する共通処理（`src/access_migration/serial_columns.py`）を適用。
 - 対象: `appearance_inspection_db` / `delivery_label_db` / `pingauge_management_db` / `purchase_summary_db` / `secondary_process_record_db`
+- プロジェクトルートに `db_all_recreate.py` / `db_all_recreate.env.example` を追加。`.docs` 内の移行スクリプトを一括実行し、各 DB の public スキーマを DROP 後に再作成できる。
 
 ## 2026-06-22
 

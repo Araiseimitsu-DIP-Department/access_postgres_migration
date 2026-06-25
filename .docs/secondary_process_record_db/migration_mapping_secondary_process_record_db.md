@@ -6,7 +6,7 @@
 - 移行先PostgreSQL DB：secondary_process_record_db
 - 接続情報：
   - `.env` の DATABASE_URL を参照
-- 移行日：2026-06-12 14:47:59
+- 移行日：2026-06-25 08:52:47
 - 作成者：Codex
 - 備考：社内二次工程記録DBの15テーブルを統合・削除せず個別に移行。元Access名は本対応表とPostgreSQLコメントで追跡可能。
 
@@ -16,7 +16,7 @@
 |---:|---|---|---|---:|---:|---|
 | 1 | t_カゴマスタ | basket_master | TABLE | 4 | 4 | 成功 |
 | 2 | t_バフ記録 | buffing_records | TABLE | 530 | 530 | 成功 |
-| 3 | t_ブラスト記録 | blasting_records | TABLE | 4664 | 4664 | 成功 |
+| 3 | t_ブラスト記録 | blasting_records | TABLE | 4670 | 4670 | 成功 |
 | 4 | t_作業マスタ | work_master | TABLE | 15 | 15 | 成功 |
 | 5 | t_作業者マスタ | worker_master | TABLE | 24 | 24 | 成功 |
 | 6 | t_使用ピンマスタ | pin_master | TABLE | 3 | 3 | 成功 |
@@ -26,9 +26,9 @@
 | 10 | t_次工程マスタ | next_process_master | TABLE | 4 | 4 | 成功 |
 | 11 | t_洗浄工程日報 | washing_process_daily_reports | TABLE | 5297 | 5297 | 成功 |
 | 12 | t_研磨石マスタ | polishing_stone_master | TABLE | 17 | 17 | 成功 |
-| 13 | t_磁気バレル記録 | magnetic_barrel_records | TABLE | 16111 | 16111 | 成功 |
+| 13 | t_磁気バレル記録 | magnetic_barrel_records | TABLE | 16177 | 16177 | 成功 |
 | 14 | t_製品マスタ | product_master | TABLE | 4543 | 4543 | 成功 |
-| 15 | t_遠心バレル記録 | centrifugal_barrel_records | TABLE | 4454 | 4454 | 成功 |
+| 15 | t_遠心バレル記録 | centrifugal_barrel_records | TABLE | 4473 | 4473 | 成功 |
 
 ## 3. テーブル別カラム対応表
 
@@ -45,7 +45,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 作業日 | DATETIME | work_date | TIMESTAMP | 可 |  |
 | 3 | 品番 | VARCHAR | product_code | VARCHAR(30) | 可 |  |
 | 4 | 品名 | VARCHAR | product_name | VARCHAR(30) | 可 |  |
@@ -66,7 +66,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 作業日 | DATETIME | work_date | TIMESTAMP | 可 |  |
 | 3 | 品番 | VARCHAR | product_code | VARCHAR(30) | 可 |  |
 | 4 | 品名 | VARCHAR | product_name | VARCHAR(30) | 可 |  |
@@ -145,7 +145,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 日付 | DATETIME | date_value | TIMESTAMP | 可 |  |
 | 3 | 曜日 | VARCHAR | day_of_week | VARCHAR(1) | 可 |  |
 | 4 | 作業者コード | VARCHAR | worker_code | VARCHAR(2) | 可 |  |
@@ -181,7 +181,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 作業日 | DATETIME | work_date | TIMESTAMP | 可 |  |
 | 3 | 品番 | VARCHAR | product_code | VARCHAR(30) | 可 |  |
 | 4 | 品名 | VARCHAR | product_name | VARCHAR(30) | 可 |  |
@@ -215,7 +215,7 @@
 
 | No | Accessカラム名 | Access型 | PostgreSQLカラム名 | PostgreSQL型 | NULL許可 | 備考 |
 |---:|---|---|---|---|---|---|
-| 1 | ID | COUNTER | id | BIGINT | 不可 | AccessのCOUNTER。値を忠実に移行するためBIGINTで保持 |
+| 1 | ID | COUNTER | id | BIGSERIAL | 不可 | AccessのCOUNTER。BIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期 |
 | 2 | 作業日 | DATETIME | work_date | TIMESTAMP | 可 |  |
 | 3 | 品番 | VARCHAR | product_code | VARCHAR(30) | 可 |  |
 | 4 | 品名 | VARCHAR | product_name | VARCHAR(30) | 可 |  |
@@ -257,7 +257,7 @@
 | Access型 | PostgreSQL型 | 備考 |
 |---|---|---|
 | VARCHAR | varchar(n) | Accessのサイズを維持 |
-| COUNTER | bigint | 採番値を忠実に移行するためserial化せず値を保持 |
+| COUNTER | bigserial | AccessのID値を投入後、setvalで次採番をMAX(id)+1に同期。PRIMARY KEY付与 |
 | INTEGER | integer | 整数 |
 | DOUBLE | double precision | 浮動小数 |
 | DATETIME | timestamp | Accessの日付/時刻を保持 |
@@ -358,7 +358,7 @@
 ## 7. 注意事項・要確認事項
 
 - AccessのFKメタデータはODBCドライバが返さなかったため、外部キー制約は作成していません。要確認。
-- 主キーはメタデータ上では検出なしです。COUNTER列は値を忠実に保持するためBIGINTで移行しています。
+- COUNTER列はBIGSERIAL化しPRIMARY KEYを付与。移行後にMAX(id)でシーケンスを同期しています。
 - `.env` の `ACCESS_DB_PATH` が実ファイルを指していない場合は、メタJSONの `database_path` を使用します。
 - メタ抽出警告：FK 取得スキップ: t_カゴマスタ — ('IM001', '[IM001] [Microsoft][ODBC Driver Manager] ドライバーはこの関数をサポートしていません。 (0) (SQLForeignKeys)')
 - メタ抽出警告：FK 取得スキップ: t_バフ記録 — ('IM001', '[IM001] [Microsoft][ODBC Driver Manager] ドライバーはこの関数をサポートしていません。 (0) (SQLForeignKeys)')

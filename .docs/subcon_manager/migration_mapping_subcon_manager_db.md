@@ -5,7 +5,7 @@
 - 対象Access DB：`C:\Users\seizo\Desktop\協力会社委託加工処理品DB.accdb`
 - 移行先PostgreSQL DB：`subcon_manager`
 - 接続情報：`.env` の `DATABASE_URL` / `ACCESS_DB_PATH` を参照
-- 移行日：2026-06-16 10:24:15
+- 移行日：2026-06-25 08:54:13
 - 方針：協力会社委託加工処理品DB.accdb の全12テーブル・全カラムを英語スネークケースへ変換し忠実に移行
 
 ## 2. 移行対象テーブル一覧
@@ -17,13 +17,13 @@
 | 3 | `t_内職マスタ` | `home_work_master` | TABLE | 71 | 71 | 成功 |
 | 4 | `t_客先` | `customers` | TABLE | 94 | 94 | 成功 |
 | 5 | `t_手配先マスタ` | `supplier_master` | TABLE | 67 | 67 | 成功 |
-| 6 | `t_発注` | `purchase_orders` | TABLE | 18739 | 18739 | 成功 |
+| 6 | `t_発注` | `purchase_orders` | TABLE | 18758 | 18758 | 成功 |
 | 7 | `t_発注 Start` | `purchase_orders_start` | TABLE | 116 | 116 | 成功 |
 | 8 | `t_発注書` | `purchase_order_forms` | TABLE | 0 | 0 | 成功 |
 | 9 | `t_発注書データ` | `purchase_order_form_data` | TABLE | 0 | 0 | 成功 |
-| 10 | `t_納入` | `deliveries` | TABLE | 24114 | 24114 | 成功 |
+| 10 | `t_納入` | `deliveries` | TABLE | 24130 | 24130 | 成功 |
 | 11 | `t_納入 Start` | `deliveries_start` | TABLE | 3298 | 3298 | 成功 |
-| 12 | `t_製品マスタ` | `product_master` | TABLE | 1482 | 1482 | 成功 |
+| 12 | `t_製品マスタ` | `product_master` | TABLE | 1520 | 1520 | 成功 |
 
 ## 3. テーブル別カラム対応表
 

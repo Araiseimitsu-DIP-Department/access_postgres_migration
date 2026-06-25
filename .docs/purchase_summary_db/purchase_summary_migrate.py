@@ -18,7 +18,16 @@ _SRC = _MIGRATION_ROOT / "src"
 if str(_SRC) not in sys.path:
     sys.path.insert(0, str(_SRC))
 
-from access_migration import serial_columns as serial_columns_support
+from access_migration.migration_common import (  # noqa: E402
+    REFRESH_MODE_HELP,
+    RefreshMode,
+    add_refresh_mode_arguments,
+    mask_database_url,
+    resolve_refresh_mode,
+    run_pre_migration_refresh,
+    setup_migration_logging,
+)
+from access_migration import serial_columns as serial_columns_support  # noqa: E402
 
 import psycopg2
 import pyodbc
@@ -33,7 +42,6 @@ MAPPING_FILE = TARGET_DIR / "migration_mapping.md"
 RESULT_FILE = TARGET_DIR / "migration_result.md"
 ERROR_LOG_FILE = TARGET_DIR / "migration_error.log"
 CSV_DUMP_DIR = TARGET_DIR / "csv_exports"
-LOG_FORMAT = "%(asctime)s [%(levelname)s] %(message)s"
 
 
 TABLE_NAME_MAP = {
@@ -79,14 +87,17 @@ def main() -> int:
     """コマンドライン引数に従って移行処理を実行する。"""
 
     parser = argparse.ArgumentParser(description="購入品集計DB Access -> PostgreSQL migration")
-    parser.add_argument("--apply-schema", action="store_true", help="PostgreSQLへCREATE TABLE IF NOT EXISTSを実行")
-    parser.add_argument("--migrate-data", action="store_true", help="AccessからPostgreSQLへデータを投入")
-    parser.add_argument("--truncate", action="store_true", help="投入前に対象PostgreSQLテーブルをTRUNCATEする")
+    add_refresh_mode_arguments(parser, required=False)
     parser.add_argument("--dump-csv", action="store_true", help="Accessから読み取ったデータをCSVにも保存")
     parser.add_argument("--reset-sequences", action="store_true", help="COUNTER列のidentity sequenceだけを補正")
     args = parser.parse_args()
 
-    logger = setup_logger()
+    has_refresh_mode = args.drop_database or args.drop_table or args.truncate
+    if not has_refresh_mode and not args.reset_sequences:
+        parser.error(REFRESH_MODE_HELP)
+
+    setup_migration_logging(ERROR_LOG_FILE)
+    logger = logging.getLogger("purchase_summary_migration")
     config = load_env()
     metadata = load_metadata()
     access_db_path = resolve_access_db_path(config["ACCESS_DB_PATH"], metadata)
@@ -103,15 +114,32 @@ def main() -> int:
     }
 
     try:
+        refresh_mode = resolve_refresh_mode(args) if has_refresh_mode else None
+        if refresh_mode in (RefreshMode.DROP_DATABASE, RefreshMode.DROP_TABLE):
+            run_pre_migration_refresh(config["DATABASE_URL"], refresh_mode)
+
         with closing(psycopg2.connect(config["DATABASE_URL"])) as pg_conn:
-            if args.apply_schema:
+            if refresh_mode in (RefreshMode.DROP_DATABASE, RefreshMode.DROP_TABLE):
                 apply_schema(pg_conn, metadata, logger)
                 result["schema_applied"] = True
 
-            if args.migrate_data:
-                migrate_data(pg_conn, access_db_path, metadata, args.truncate, args.dump_csv, logger, result)
+            if refresh_mode is not None:
+                truncate_before_load = refresh_mode == RefreshMode.TRUNCATE
+                migrate_data(
+                    pg_conn,
+                    access_db_path,
+                    metadata,
+                    truncate_before_load,
+                    args.dump_csv,
+                    logger,
+                    result,
+                )
                 result["data_migrated"] = not result["errors"]
             elif args.reset_sequences:
+                with pg_conn.cursor() as pg_cur:
+                    reset_identity_sequences(pg_cur, metadata, logger)
+
+            if args.reset_sequences and refresh_mode is not None:
                 with pg_conn.cursor() as pg_cur:
                     reset_identity_sequences(pg_cur, metadata, logger)
 
@@ -124,25 +152,6 @@ def main() -> int:
     write_mapping(metadata, result)
     write_result(metadata, result)
     return 1 if result["errors"] else 0
-
-
-def setup_logger() -> logging.Logger:
-    """移行エラーログを初期化する。"""
-
-    logger = logging.getLogger("purchase_summary_migration")
-    logger.setLevel(logging.INFO)
-    logger.handlers.clear()
-    logger.propagate = False
-
-    formatter = logging.Formatter(LOG_FORMAT)
-    file_handler = logging.FileHandler(ERROR_LOG_FILE, mode="w", encoding="utf-8")
-    file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
-
-    stream_handler = logging.StreamHandler()
-    stream_handler.setFormatter(formatter)
-    logger.addHandler(stream_handler)
-    return logger
 
 
 def load_env() -> dict[str, str]:
@@ -543,17 +552,6 @@ def build_notes(metadata: dict[str, Any], result: dict[str, Any]) -> list[str]:
     if metadata.get("warnings"):
         notes.append(f"- Access解析時警告が{len(metadata['warnings'])}件あります。主に外部キー取得スキップです。")
     return notes
-
-
-def mask_database_url(database_url: str) -> str:
-    """パスワードを伏せたDB URLを返す。"""
-
-    if "://" not in database_url or "@" not in database_url:
-        return database_url
-    scheme, rest = database_url.split("://", 1)
-    credentials, host_part = rest.split("@", 1)
-    user_name = credentials.split(":", 1)[0]
-    return f"{scheme}://{user_name}:***@{host_part}"
 
 
 def database_name_from_url(masked_url: str) -> str:

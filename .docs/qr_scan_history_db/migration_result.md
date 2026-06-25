@@ -1,7 +1,7 @@
 ﻿# Access → PostgreSQL 移行結果
 
-- 実行日時：2026-06-15 13:15:52
-- Access DB：\\192.168.1.200\共有\QRシステム\Access\QR履歴保存DB.accdb
+- 実行日時：2026-06-25 08:53:17
+- Access DB：C:\Users\seika\Desktop\収集ファイル\QR履歴保存DB.accdb
 
 | Accessテーブル名 | PostgreSQLテーブル名 | Access件数 | PostgreSQL件数 | 投入済み件数 | 状態 | エラー |
 |---|---|---:|---:|---:|---|---|

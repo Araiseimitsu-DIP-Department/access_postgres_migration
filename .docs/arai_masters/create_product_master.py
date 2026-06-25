@@ -1,6 +1,8 @@
 """product_master テーブルの作成と初回データ投入（手動実行用）。"""
 from __future__ import annotations
 
+import argparse
+import logging
 import math
 import os
 import shutil
@@ -15,6 +17,22 @@ from urllib.parse import quote_plus
 import psycopg
 import xlwings as xw
 from psycopg import sql
+
+_SCRIPT_DIR = Path(__file__).resolve().parent
+_MIGRATION_ROOT = _SCRIPT_DIR.parents[1]
+_SRC = _MIGRATION_ROOT / "src"
+if str(_SRC) not in sys.path:
+    sys.path.insert(0, str(_SRC))
+
+from access_migration.migration_common import (  # noqa: E402
+    RefreshMode,
+    add_refresh_mode_arguments,
+    drop_database,
+    resolve_refresh_mode,
+    setup_migration_logging,
+)
+
+ERROR_LOG_FILE = _SCRIPT_DIR / "migration_error_arai_masters.log"
 
 TABLE_NAME = "product_master"
 DATA_START_ROW = 2
@@ -103,14 +121,14 @@ COLUMN_DEFS: tuple[ColumnDef, ...] = (
 )
 
 
-_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_SCRIPT_DIR_STR = os.path.dirname(os.path.abspath(__file__))
 
 
 def _config_env_path() -> Path:
     override = os.environ.get("UPDATE_MASTERS_CONFIG_ENV", "").strip()
     if override:
         return Path(override)
-    return Path(_SCRIPT_DIR).parent / "config.env"
+    return Path(_SCRIPT_DIR_STR).parent / "config.env"
 
 
 def _parse_env_file(path: Path) -> dict[str, str]:
@@ -280,40 +298,50 @@ def _db_connection() -> Iterator[psycopg.Connection]:
         conn.close()
 
 
-if __name__ == "__main__":
-    schema = POSTGRES_SCHEMA or "public"
+def drop_and_create_table(conn: psycopg.Connection, schema: str) -> None:
+    cur = conn.cursor()
+    cur.execute(
+        sql.SQL("DROP TABLE IF EXISTS {}.{}").format(
+            sql.Identifier(schema),
+            sql.Identifier(TABLE_NAME),
+        )
+    )
+    logging.info("%s: テーブルを削除しました。", TABLE_NAME)
+    column_parts: list[sql.Composed] = []
+    pk_cols: list[str] = []
+    for col in COLUMN_DEFS:
+        part = sql.SQL("{} {}").format(sql.Identifier(col.pg_col), _pg_type_sql(col))
+        column_parts.append(part)
+        if col.primary_key:
+            pk_cols.append(col.pg_col)
+    if pk_cols:
+        column_parts.append(
+            sql.SQL("PRIMARY KEY ({})").format(
+                sql.SQL(", ").join(sql.Identifier(c) for c in pk_cols)
+            )
+        )
+    cur.execute(
+        sql.SQL("CREATE TABLE {}.{} ({})").format(
+            sql.Identifier(schema),
+            sql.Identifier(TABLE_NAME),
+            sql.SQL(", ").join(column_parts),
+        )
+    )
+    logging.info("%s: テーブルを作成しました。", TABLE_NAME)
 
-    with _db_connection() as conn:
-        cur = conn.cursor()
+
+def truncate_table(conn: psycopg.Connection, schema: str) -> None:
+    with conn.cursor() as cur:
         cur.execute(
-            sql.SQL("DROP TABLE IF EXISTS {}.{}").format(
+            sql.SQL("TRUNCATE TABLE {}.{} RESTART IDENTITY").format(
                 sql.Identifier(schema),
                 sql.Identifier(TABLE_NAME),
             )
         )
-        print(f"{TABLE_NAME}: テーブルを削除しました。")
-        column_parts: list[sql.Composed] = []
-        pk_cols: list[str] = []
-        for col in COLUMN_DEFS:
-            part = sql.SQL("{} {}").format(sql.Identifier(col.pg_col), _pg_type_sql(col))
-            column_parts.append(part)
-            if col.primary_key:
-                pk_cols.append(col.pg_col)
-        if pk_cols:
-            column_parts.append(
-                sql.SQL("PRIMARY KEY ({})").format(
-                    sql.SQL(", ").join(sql.Identifier(c) for c in pk_cols)
-                )
-            )
-        cur.execute(
-            sql.SQL("CREATE TABLE {}.{} ({})").format(
-                sql.Identifier(schema),
-                sql.Identifier(TABLE_NAME),
-                sql.SQL(", ").join(column_parts),
-            )
-        )
-    print(f"{TABLE_NAME}: テーブルを作成しました。")
+    logging.info("%s: テーブルを TRUNCATE しました。", TABLE_NAME)
 
+
+def read_excel_records() -> list[tuple[Any, ...]]:
     source_path = PRODUCT_MASTERS_COPY.strip()
     sheet_name = PRODUCT_MASTER_SHEET_NAME.strip()
 
@@ -322,11 +350,11 @@ if __name__ == "__main__":
 
     base_name = os.path.basename(source_path)
     name, ext = os.path.splitext(base_name)
-    local_path = os.path.join(_SCRIPT_DIR, f"{name}_update_copy{ext}")
+    local_path = os.path.join(_SCRIPT_DIR_STR, f"{name}_update_copy{ext}")
 
-    print(f"コピー元: {source_path}")
+    logging.info("コピー元: %s", source_path)
     shutil.copy2(source_path, local_path)
-    print(f"コピー先: {local_path}")
+    logging.info("コピー先: %s", local_path)
 
     xw_app: xw.App | None = None
     xw_book: xw.Book | None = None
@@ -369,11 +397,17 @@ if __name__ == "__main__":
     for col in COLUMN_DEFS:
         idx = _excel_col_to_index(col.excel_col)
         if idx >= len(header_row):
-            print(f"  警告: {col.excel_col} 列: ヘッダ行に列が存在しません（期待: {col.header_name!r}）")
+            logging.warning(
+                "%s 列: ヘッダ行に列が存在しません（期待: %r）",
+                col.excel_col,
+                col.header_name,
+            )
         elif header_row[idx] != col.header_name:
-            print(
-                f"  警告: {col.excel_col} 列: ヘッダ不一致 "
-                f"(期待: {col.header_name!r}, 実際: {header_row[idx]!r})"
+            logging.warning(
+                "%s 列: ヘッダ不一致 (期待: %r, 実際: %r)",
+                col.excel_col,
+                col.header_name,
+                header_row[idx],
             )
 
     col_indices = [_excel_col_to_index(col.excel_col) for col in COLUMN_DEFS]
@@ -390,20 +424,56 @@ if __name__ == "__main__":
             continue
         records.append(tuple(values))
 
-    print(f"Excel 読込: {len(data_rows)} 行 -> 投入対象 {len(records)} 行")
+    logging.info("Excel 読込: %s 行 -> 投入対象 %s 行", len(data_rows), len(records))
+    return records
+
+
+def insert_records(conn: psycopg.Connection, schema: str, records: list[tuple[Any, ...]]) -> int:
+    if not records:
+        return 0
+    cur = conn.cursor()
+    pg_cols = [col.pg_col for col in COLUMN_DEFS]
+    insert_sql = sql.SQL("INSERT INTO {}.{} ({}) VALUES ({})").format(
+        sql.Identifier(schema),
+        sql.Identifier(TABLE_NAME),
+        sql.SQL(", ").join(sql.Identifier(c) for c in pg_cols),
+        sql.SQL(", ").join(_insert_placeholder(col) for col in COLUMN_DEFS),
+    )
+    cur.executemany(insert_sql, records)
+    return len(records)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    add_refresh_mode_arguments(parser)
+    args = parser.parse_args()
+    setup_migration_logging(ERROR_LOG_FILE)
+    refresh_mode = resolve_refresh_mode(args)
+    schema = POSTGRES_SCHEMA or "public"
+
+    if refresh_mode == RefreshMode.DROP_DATABASE:
+        drop_database(POSTGRES_CONNECTION_URL)
+
+    records = read_excel_records()
 
     with _db_connection() as conn:
-        cur = conn.cursor()
-        if records:
-            pg_cols = [col.pg_col for col in COLUMN_DEFS]
-            insert_sql = sql.SQL("INSERT INTO {}.{} ({}) VALUES ({})").format(
-                sql.Identifier(schema),
-                sql.Identifier(TABLE_NAME),
-                sql.SQL(", ").join(sql.Identifier(c) for c in pg_cols),
-                sql.SQL(", ").join(_insert_placeholder(col) for col in COLUMN_DEFS),
-            )
-            cur.executemany(insert_sql, records)
-        count = len(records)
+        if refresh_mode in (RefreshMode.DROP_DATABASE, RefreshMode.DROP_TABLE):
+            drop_and_create_table(conn, schema)
+        elif refresh_mode == RefreshMode.TRUNCATE:
+            truncate_table(conn, schema)
+        count = insert_records(conn, schema, records)
 
-    print(f"PostgreSQL: {POSTGRES_USER}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB} schema={schema}")
-    print(f"{TABLE_NAME}: {count} 行を投入しました。")
+    logging.info(
+        "PostgreSQL: %s@%s:%s/%s schema=%s",
+        POSTGRES_USER,
+        POSTGRES_HOST,
+        POSTGRES_PORT,
+        POSTGRES_DB,
+        schema,
+    )
+    logging.info("%s: %s 行を投入しました。", TABLE_NAME, count)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

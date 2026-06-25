@@ -5,7 +5,7 @@
 - 対象Access DB：`C:\Users\seizo\Desktop\材料入庫管理台帳兼ミルシート管理表DB.accdb`
 - 移行先PostgreSQL DB：`material_millsheet_manager`
 - 接続情報：`.env` の `DATABASE_URL` / `ACCESS_DB_PATH` を参照
-- 移行日：2026-06-15 15:16:37
+- 移行日：2026-06-25 08:53:22
 - 方針：材料入庫管理台帳兼ミルシート管理表DB.accdb の全11テーブル・全カラムを英語スネークケースへ変換し忠実に移行
 
 ## 2. 移行対象テーブル一覧
@@ -17,12 +17,12 @@
 | 3 | `t_備考内容` | `remarks_master` | TABLE | 3 | 3 | 成功 |
 | 4 | `t_旧検査データ` | `legacy_inspection_data` | TABLE | 7993 | 7993 | 成功 |
 | 5 | `t_材料納入Tmp` | `material_delivery_temp` | TABLE | 0 | 0 | 成功 |
-| 6 | `t_材料納入履歴` | `material_delivery_history` | TABLE | 14590 | 14590 | 成功 |
+| 6 | `t_材料納入履歴` | `material_delivery_history` | TABLE | 14633 | 14633 | 成功 |
 | 7 | `t_材料納入履歴 変更前` | `material_delivery_history_before_change` | TABLE | 2677 | 2677 | 成功 |
 | 8 | `t_材質` | `material_types` | TABLE | 92 | 92 | 成功 |
-| 9 | `t_検査データ` | `inspection_data` | TABLE | 1012 | 1012 | 成功 |
+| 9 | `t_検査データ` | `inspection_data` | TABLE | 1053 | 1053 | 成功 |
 | 10 | `t_検査員` | `inspectors` | TABLE | 6 | 6 | 成功 |
-| 11 | `t_納入業者` | `suppliers` | TABLE | 20 | 20 | 成功 |
+| 11 | `t_納入業者` | `suppliers` | TABLE | 21 | 21 | 成功 |
 
 ## 3. テーブル別カラム対応表
 
