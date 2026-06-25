@@ -202,7 +202,12 @@ def main() -> int:
             results = verify_counts(env["DATABASE_URL"], access_db_path, mappings, args.schema)
         else:
             refresh_mode = migration_common.resolve_refresh_mode(args)
-            migration_common.run_pre_migration_refresh(env["DATABASE_URL"], refresh_mode, args.schema)
+            migration_common.run_pre_migration_refresh(
+                env["DATABASE_URL"],
+                refresh_mode,
+                args.schema,
+                [mapping.postgres_name for mapping in mappings],
+            )
             results = migrate(
                 database_url=env["DATABASE_URL"],
                 access_db_path=access_db_path,

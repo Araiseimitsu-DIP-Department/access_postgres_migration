@@ -374,7 +374,7 @@ def main() -> None:
         pg = None
     else:
         if refresh_mode in (RefreshMode.DROP_DATABASE, RefreshMode.DROP_TABLE):
-            run_pre_migration_refresh(dsn, refresh_mode)
+            run_pre_migration_refresh(dsn, refresh_mode, table_names=list(_PG_TABLES))
         try:
             pg = psycopg2.connect(dsn)
             pg.autocommit = False

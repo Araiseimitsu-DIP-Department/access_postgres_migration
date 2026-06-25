@@ -115,8 +115,13 @@ def main() -> int:
 
     try:
         refresh_mode = resolve_refresh_mode(args) if has_refresh_mode else None
+        migration_tables = [TABLE_NAME_MAP[table["name"]] for table in metadata["tables"]]
         if refresh_mode in (RefreshMode.DROP_DATABASE, RefreshMode.DROP_TABLE):
-            run_pre_migration_refresh(config["DATABASE_URL"], refresh_mode)
+            run_pre_migration_refresh(
+                config["DATABASE_URL"],
+                refresh_mode,
+                table_names=migration_tables,
+            )
 
         with closing(psycopg2.connect(config["DATABASE_URL"])) as pg_conn:
             if refresh_mode in (RefreshMode.DROP_DATABASE, RefreshMode.DROP_TABLE):

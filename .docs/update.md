@@ -2,6 +2,9 @@
 
 ## 2026-06-25
 
+- `--drop-table` の挙動を変更。`DROP SCHEMA public CASCADE` ではなく **Access 移行対象テーブルのみ** `DROP TABLE ... CASCADE` するよう `migration_common.run_pre_migration_refresh` を修正。移行後に手動追加したテーブル・索引は保持される。
+- 全移行スクリプト・`purchase_summary_migrate.py`・`production_progress/migrate_access_to_pg.py` から移行対象テーブル名を `run_pre_migration_refresh` に渡すよう更新。
+
 - `.docs/material_millsheet_manager` に `schema_app_patches.sql` / `schema_pg_english_v1.sql` を追加。Access 移行・データ投入後に incoming_material_inspection 向けの主キー（3本）・索引（3本）・BOOLEAN デフォルトを idempotent に適用する。
 - `migrate_access_to_postgres_material_millsheet_manager_db.py` が `--drop-table` / `--drop-database` / `--truncate` / `--append-missing` 実行後に上記パッチを自動適用するよう変更。incoming_material_inspection 側で `001_initial_schema.sql` を実行しなくてもアプリが動作する。
 

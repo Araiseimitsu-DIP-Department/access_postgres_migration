@@ -102,7 +102,12 @@ def main() -> int:
             results = append_missing_rows(env["DATABASE_URL"], access_db_path, mappings, args.schema, args.batch_size)
         else:
             refresh_mode = migration_common.resolve_refresh_mode(args)
-            migration_common.run_pre_migration_refresh(env["DATABASE_URL"], refresh_mode, args.schema)
+            migration_common.run_pre_migration_refresh(
+                env["DATABASE_URL"],
+                refresh_mode,
+                args.schema,
+                [mapping.postgres_name for mapping in mappings],
+            )
             results = migrate(
                 env["DATABASE_URL"],
                 access_db_path,
@@ -275,11 +280,8 @@ def migrate(
             create_schema_and_tables(postgres_connection, schema, mappings)
         for result in results:
             migrate_table(access_connection, postgres_connection, schema, result, batch_size)
-<<<<<<< HEAD
             sync_counter_sequences(postgres_connection.cursor(), schema, result.table)
-=======
         apply_app_schema_patches(postgres_connection, schema)
->>>>>>> efce91779b197f11688e172cb43c5caef9d902dd
         postgres_connection.commit()
     except Exception:
         postgres_connection.rollback()
@@ -620,7 +622,7 @@ def build_caution_lines(mappings: list[TableMapping]) -> list[str]:
         "- " + serial_columns_support.counter_caution_note(),
         "- `imp管理表` はExcel等から取り込んだ管理表データです（49列）。",
         "- `t_請求書Tmp` / `t_納品書データ` は帳票出力用の一時テーブルです。",
-        "- 誤って移行した `受注データApp.accdb` 由来のテーブルは `--drop-table` 実行時に削除されます。",
+        "- `--drop-table` は Access 移行対象テーブルのみ DROP します。移行後に手動追加したテーブルは保持されます。",
     ]
     zero_tables = [mapping.access_name for mapping in mappings if mapping.access_row_count == 0 and mapping.table_type != "VIEW"]
     if zero_tables:

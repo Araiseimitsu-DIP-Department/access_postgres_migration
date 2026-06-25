@@ -101,7 +101,12 @@ def main() -> int:
             results = append_missing_rows(env["DATABASE_URL"], access_db_path, mappings, args.schema, args.batch_size)
         else:
             refresh_mode = migration_common.resolve_refresh_mode(args)
-            migration_common.run_pre_migration_refresh(env["DATABASE_URL"], refresh_mode, args.schema)
+            migration_common.run_pre_migration_refresh(
+                env["DATABASE_URL"],
+                refresh_mode,
+                args.schema,
+                [mapping.postgres_name for mapping in mappings],
+            )
             results = migrate(env["DATABASE_URL"], access_db_path, mappings, args.schema, args.batch_size, refresh_mode)
 
         write_mapping(TARGET_DIR / MAPPING_FILE, env, meta, mappings, results)
@@ -266,11 +271,8 @@ def migrate(
             create_schema_and_tables(postgres_connection, schema, mappings)
         for result in results:
             migrate_table(access_connection, postgres_connection, schema, result, batch_size)
-<<<<<<< HEAD
             sync_counter_sequences(postgres_connection.cursor(), schema, result.table)
-=======
         apply_app_schema_patches(postgres_connection, schema)
->>>>>>> efce91779b197f11688e172cb43c5caef9d902dd
         postgres_connection.commit()
     except Exception:
         postgres_connection.rollback()

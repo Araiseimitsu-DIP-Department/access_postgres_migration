@@ -18,7 +18,7 @@ LOG_FORMAT = "%(asctime)s [%(levelname)s] %(message)s"
 REFRESH_MODE_HELP = (
     "更新モード（いずれか1つ必須）: "
     "--drop-database=DB削除後に再作成, "
-    "--drop-table=テーブル削除後に再作成, "
+    "--drop-table=移行対象テーブルのみDROP後に再作成, "
     "--truncate=データのみ更新"
 )
 
@@ -82,7 +82,7 @@ def add_refresh_mode_arguments(parser: argparse.ArgumentParser, *, required: boo
     group.add_argument(
         "--drop-table",
         action="store_true",
-        help="移行対象テーブルを DROP 後に再作成してから移行",
+        help="Access移行対象テーブルのみ DROP CASCADE 後に再作成してから移行（手動追加テーブルは保持）",
     )
     group.add_argument(
         "--truncate",
@@ -221,16 +221,23 @@ def truncate_tables(connection: psycopg2.extensions.connection, schema: str, tab
     logging.warning("TRUNCATE を実行しました: %s", ", ".join(table_names))
 
 
-def apply_refresh_mode_to_database(database_url: str, mode: RefreshMode, schema: str = "public") -> None:
-    """DB 全体に対する refresh（drop-database / drop-table のスキーマ DROP）。"""
+def run_pre_migration_refresh(
+    database_url: str,
+    mode: RefreshMode,
+    schema: str = "public",
+    table_names: list[str] | None = None,
+) -> None:
+    """移行スクリプト main() から呼び出す DB レベルの refresh。"""
 
     if mode == RefreshMode.DROP_DATABASE:
         drop_database(database_url)
-    elif mode == RefreshMode.DROP_TABLE:
-        drop_public_schema(database_url, schema=schema)
-
-
-def run_pre_migration_refresh(database_url: str, mode: RefreshMode, schema: str = "public") -> None:
-    """移行スクリプト main() から呼び出す DB レベルの refresh。"""
-
-    apply_refresh_mode_to_database(database_url, mode, schema)
+        return
+    if mode == RefreshMode.DROP_TABLE:
+        if not table_names:
+            raise ValueError("--drop-table では移行対象テーブル名 (table_names) の指定が必要です")
+        connection = psycopg2.connect(database_url)
+        try:
+            connection.autocommit = True
+            drop_tables_cascade(connection, schema, table_names)
+        finally:
+            connection.close()

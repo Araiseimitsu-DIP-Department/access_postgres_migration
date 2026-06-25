@@ -1,36 +1,36 @@
-2026-06-25 11:09:55,488 [INFO] 移行対象外のためスキップ: t_QR履歴(backup_260521)
-2026-06-25 11:09:55,488 [INFO] 移行対象外のためスキップ: t_QR履歴Tmp
-2026-06-25 11:09:55,492 [WARNING] DROP SCHEMA "public" CASCADE を実行します: postgresql://postgres:***@192.168.1.120:5432/delivery_label_db
-2026-06-25 11:09:56,315 [INFO] 移行開始: t_ExcelQR履歴 -> excel_qr_history
-2026-06-25 11:09:56,350 [INFO] 移行完了: t_ExcelQR履歴 Access=0 PostgreSQL=0
-2026-06-25 11:09:56,351 [INFO] 移行開始: t_Excel現品票履歴 -> excel_delivery_label_history
-2026-06-25 11:09:57,645 [INFO] 移行完了: t_Excel現品票履歴 Access=35817 PostgreSQL=35817
-2026-06-25 11:09:57,660 [INFO] 移行開始: t_ID番号 -> id_number
-2026-06-25 11:09:57,661 [INFO] 移行完了: t_ID番号 Access=1 PostgreSQL=1
-2026-06-25 11:09:57,687 [INFO] シーケンス同期: id_number.id (max=1)
-2026-06-25 11:09:57,687 [INFO] 移行開始: t_QR履歴 -> qr_history
-2026-06-25 11:10:04,477 [INFO] 移行完了: t_QR履歴 Access=115803 PostgreSQL=115803
-2026-06-25 11:10:04,494 [INFO] シーケンス同期: qr_history.id (max=115803)
-2026-06-25 11:10:04,494 [INFO] 移行開始: t_エラーログ -> error_logs
-2026-06-25 11:10:04,824 [INFO] 移行完了: t_エラーログ Access=16622 PostgreSQL=16622
-2026-06-25 11:10:04,834 [INFO] シーケンス同期: error_logs.id (max=18378)
-2026-06-25 11:10:04,834 [INFO] 移行開始: t_ロット完了理由 -> lot_completion_reasons
-2026-06-25 11:10:04,839 [INFO] 移行完了: t_ロット完了理由 Access=6 PostgreSQL=6
-2026-06-25 11:10:04,842 [INFO] 移行開始: t_作業履歴 -> work_history
-2026-06-25 11:10:04,853 [INFO] 移行完了: t_作業履歴 Access=1 PostgreSQL=1
-2026-06-25 11:10:04,863 [INFO] シーケンス同期: work_history.id (max=1)
-2026-06-25 11:10:04,863 [INFO] 移行開始: t_修正ログ -> correction_logs
-2026-06-25 11:10:05,093 [INFO] 移行完了: t_修正ログ Access=9992 PostgreSQL=9992
-2026-06-25 11:10:05,116 [INFO] シーケンス同期: correction_logs.id (max=10023)
-2026-06-25 11:10:05,116 [INFO] 移行開始: t_分割ロット -> split_lots
-2026-06-25 11:10:05,293 [INFO] 移行完了: t_分割ロット Access=7630 PostgreSQL=7630
-2026-06-25 11:10:05,315 [INFO] シーケンス同期: split_lots.id (max=7631)
-2026-06-25 11:10:05,316 [INFO] 移行開始: t_工程マスタ -> process_master
-2026-06-25 11:10:05,329 [INFO] 移行完了: t_工程マスタ Access=5 PostgreSQL=5
-2026-06-25 11:10:05,330 [INFO] 移行開始: t_数量差異 -> quantity_differences
-2026-06-25 11:10:08,395 [INFO] 移行完了: t_数量差異 Access=78357 PostgreSQL=78357
-2026-06-25 11:10:08,425 [INFO] シーケンス同期: quantity_differences.id (max=81086)
-2026-06-25 11:10:08,427 [INFO] 移行開始: t_現品票不具合内容 -> delivery_label_defect_details
-2026-06-25 11:10:08,444 [INFO] 移行完了: t_現品票不具合内容 Access=165 PostgreSQL=165
-2026-06-25 11:10:08,444 [INFO] 移行開始: t_現品票履歴 -> delivery_label_history
-2026-06-25 11:10:25,414 [INFO] 移行完了: t_現品票履歴 Access=136615 PostgreSQL=136615
+2026-06-25 13:44:12,488 [INFO] 移行対象外のためスキップ: t_QR履歴(backup_260521)
+2026-06-25 13:44:12,488 [INFO] 移行対象外のためスキップ: t_QR履歴Tmp
+2026-06-25 13:44:12,731 [WARNING] DROP TABLE を実行しました: excel_qr_history, excel_delivery_label_history, id_number, qr_history, error_logs, lot_completion_reasons, work_history, correction_logs, split_lots, process_master, quantity_differences, delivery_label_defect_details, delivery_label_history
+2026-06-25 13:44:13,956 [INFO] 移行開始: t_ExcelQR履歴 -> excel_qr_history
+2026-06-25 13:44:14,005 [INFO] 移行完了: t_ExcelQR履歴 Access=0 PostgreSQL=0
+2026-06-25 13:44:14,005 [INFO] 移行開始: t_Excel現品票履歴 -> excel_delivery_label_history
+2026-06-25 13:44:15,371 [INFO] 移行完了: t_Excel現品票履歴 Access=35817 PostgreSQL=35817
+2026-06-25 13:44:15,371 [INFO] 移行開始: t_ID番号 -> id_number
+2026-06-25 13:44:15,388 [INFO] 移行完了: t_ID番号 Access=1 PostgreSQL=1
+2026-06-25 13:44:15,411 [INFO] シーケンス同期: id_number.id (max=1)
+2026-06-25 13:44:15,411 [INFO] 移行開始: t_QR履歴 -> qr_history
+2026-06-25 13:44:20,807 [INFO] 移行完了: t_QR履歴 Access=115803 PostgreSQL=115803
+2026-06-25 13:44:20,825 [INFO] シーケンス同期: qr_history.id (max=115803)
+2026-06-25 13:44:20,825 [INFO] 移行開始: t_エラーログ -> error_logs
+2026-06-25 13:44:21,120 [INFO] 移行完了: t_エラーログ Access=16622 PostgreSQL=16622
+2026-06-25 13:44:21,122 [INFO] シーケンス同期: error_logs.id (max=18378)
+2026-06-25 13:44:21,122 [INFO] 移行開始: t_ロット完了理由 -> lot_completion_reasons
+2026-06-25 13:44:21,137 [INFO] 移行完了: t_ロット完了理由 Access=6 PostgreSQL=6
+2026-06-25 13:44:21,137 [INFO] 移行開始: t_作業履歴 -> work_history
+2026-06-25 13:44:21,144 [INFO] 移行完了: t_作業履歴 Access=1 PostgreSQL=1
+2026-06-25 13:44:21,153 [INFO] シーケンス同期: work_history.id (max=1)
+2026-06-25 13:44:21,154 [INFO] 移行開始: t_修正ログ -> correction_logs
+2026-06-25 13:44:21,364 [INFO] 移行完了: t_修正ログ Access=9992 PostgreSQL=9992
+2026-06-25 13:44:21,373 [INFO] シーケンス同期: correction_logs.id (max=10023)
+2026-06-25 13:44:21,373 [INFO] 移行開始: t_分割ロット -> split_lots
+2026-06-25 13:44:21,554 [INFO] 移行完了: t_分割ロット Access=7630 PostgreSQL=7630
+2026-06-25 13:44:21,570 [INFO] シーケンス同期: split_lots.id (max=7631)
+2026-06-25 13:44:21,570 [INFO] 移行開始: t_工程マスタ -> process_master
+2026-06-25 13:44:21,581 [INFO] 移行完了: t_工程マスタ Access=5 PostgreSQL=5
+2026-06-25 13:44:21,581 [INFO] 移行開始: t_数量差異 -> quantity_differences
+2026-06-25 13:44:24,665 [INFO] 移行完了: t_数量差異 Access=78357 PostgreSQL=78357
+2026-06-25 13:44:24,675 [INFO] シーケンス同期: quantity_differences.id (max=81086)
+2026-06-25 13:44:24,675 [INFO] 移行開始: t_現品票不具合内容 -> delivery_label_defect_details
+2026-06-25 13:44:24,687 [INFO] 移行完了: t_現品票不具合内容 Access=165 PostgreSQL=165
+2026-06-25 13:44:24,687 [INFO] 移行開始: t_現品票履歴 -> delivery_label_history
+2026-06-25 13:44:49,757 [INFO] 移行完了: t_現品票履歴 Access=136615 PostgreSQL=136615

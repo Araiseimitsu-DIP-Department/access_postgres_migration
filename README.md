@@ -103,7 +103,7 @@ Copy-Item db_all_recreate.env.example db_all_recreate.env
 | モード | 説明 |
 |--------|------|
 | `--drop-database` | PostgreSQL データベースを DROP 後に再作成してから移行 |
-| `--drop-table` | 移行対象テーブル（public スキーマ）を DROP 後に再作成してから移行 |
+| `--drop-table` | Access移行対象テーブルのみ DROP CASCADE 後に再作成してから移行（手動追加テーブルは保持） |
 | `--truncate` | テーブル構造を維持し、データのみ TRUNCATE して再投入 |
 
 ログ形式は全スクリプト共通です: `%(asctime)s [%(levelname)s] %(message)s`

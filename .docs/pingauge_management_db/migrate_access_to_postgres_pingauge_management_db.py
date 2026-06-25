@@ -131,7 +131,12 @@ def main() -> int:
             results = append_missing_rows(env["DATABASE_URL"], access_db_path, mappings, args.schema, args.batch_size)
         else:
             refresh_mode = migration_common.resolve_refresh_mode(args)
-            migration_common.run_pre_migration_refresh(env["DATABASE_URL"], refresh_mode, args.schema)
+            migration_common.run_pre_migration_refresh(
+                env["DATABASE_URL"],
+                refresh_mode,
+                args.schema,
+                [mapping.postgres_name for mapping in mappings],
+            )
             results = migrate(env["DATABASE_URL"], access_db_path, mappings, args.schema, args.batch_size, refresh_mode)
 
         write_mapping(TARGET_DIR / MAPPING_FILE, env, meta, mappings, results)

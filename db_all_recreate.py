@@ -5,7 +5,7 @@
 
 更新モード（いずれか1つ必須）:
   --drop-database  PostgreSQL データベースを DROP 後に再作成
-  --drop-table     移行対象テーブル（public スキーマ）を DROP 後に再作成（既定）
+  --drop-table     Access移行対象テーブルのみ DROP 後に再作成（手動追加テーブルは保持・既定）
   --truncate       テーブル構造を維持しデータのみ更新
 
 使用例:
