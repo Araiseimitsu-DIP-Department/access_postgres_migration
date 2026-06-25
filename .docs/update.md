@@ -2,6 +2,16 @@
 
 ## 2026-06-25
 
+- `.docs/material_millsheet_manager` に `schema_app_patches.sql` / `schema_pg_english_v1.sql` を追加。Access 移行・データ投入後に incoming_material_inspection 向けの主キー（3本）・索引（3本）・BOOLEAN デフォルトを idempotent に適用する。
+- `migrate_access_to_postgres_material_millsheet_manager_db.py` が `--drop-table` / `--drop-database` / `--truncate` / `--append-missing` 実行後に上記パッチを自動適用するよう変更。incoming_material_inspection 側で `001_initial_schema.sql` を実行しなくてもアプリが動作する。
+
+- `.docs/order_management` に `schema_app_patches.sql` を追加。Access 移行・データ投入後に jucyu_manager 向けの索引（17本）・ID シーケンス（8本）を idempotent に適用する。
+- `migrate_access_to_postgres_order_management_db.py` が `--drop-table` / `--drop-database` / `--truncate` / `--append-missing` 実行後に上記パッチを自動適用するよう変更。jucyu_manager 側で `001_schema.sql` を実行しなくてもアプリが動作する。
+
+- `.docs/material_scheduling` に `schema_app_patches.sql` を追加。Access 移行・データ投入後に material_management_system 向けの列拡張（`management_sheet_master` の VARCHAR(255)）、ID シーケンス、主キー、索引、BOOLEAN デフォルトを idempotent に適用する。
+- `migrate_access_to_postgres_material_scheduling_db.py` が `--drop-table` / `--drop-database` / `--truncate` / `--append-missing` 実行後に上記パッチを自動適用するよう変更。
+- `schema_pg_english_v1.sql` の `management_sheet_master.material_diameter` / `next_process` を VARCHAR(255) に更新（参照 DDL をアプリ運用定義に合わせる）。
+
 - 移行スクリプトの実行方法・CLI・ログ形式を統一。共通モジュール `src/access_migration/migration_common.py` を追加。
 - 更新モードを全スクリプトで共通化: `--drop-database`（DB 削除後に再作成）/ `--drop-table`（テーブル削除後に再作成）/ `--truncate`（データのみ更新）。
 - **一括更新**: プロジェクトルートで `python db_all_recreate.py` を実行し、`db_all_recreate.env` を参照。省略時は `--drop-table`。
