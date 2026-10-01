@@ -9,7 +9,7 @@ DEFAULT_ACCESS_DB_UNC = (
     r"\\192.168.1.200\共有\生産管理課\AccessDB\加工進行表DB.accdb"
 )
 DEFAULT_PG_DSN = (
-    "postgresql://postgres:Arai7786@192.168.1.120:5432/production_progress"
+    "postgresql://postgres:arai267786@192.168.1.121:5432/production_progress"
 )
 
 
