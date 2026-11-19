@@ -128,6 +128,47 @@ Access移行は完了済みのため、開発DBの現状を正として調べた
 
 印刷時点の記録のため、品名・客先・工程を製品マスタへの参照に置き換えると過去の現品票の内容が変わる。外部キーも旧品番があるため付けられない。2026-11-19 の合意により、現品票履歴は現状の構成（印刷時点の記録）を維持し、正規化の対象外とする。
 
+## 機械・仕入先の一本化（開発DB 2026-11-19）
+
+### 機械マスタ
+
+正は `arai_masters.machine_master`（61台、machine_id・machine_no・machine_sort・serial_no に一意制約）。
+
+| DB・表 | 件数 | 利用元 | 対応 |
+|---|---:|---|---|
+| arai_masters.machine_master | 61 | label_print、外観検査・現品票DBの外部テーブル | 正（変更なし） |
+| material_scheduling.machine_master | 59 | production_progress_sheet（機番一覧・存在確認） | arai の互換ビューに切替。旧表は `normalization_backup.machine_master_before_fdw`。`model_type` は機種末尾の数値で旧表と全件一致。arai のみの A-5・B-4 が機番一覧に加わり、D-12・F-14 の機種は arai の値（L20・L12(L16)）になった。 |
+| mass_production_management.machine | 61 | NAS配置のアプリなし | `master_ref` で arai の machine_id を参照済み。変更なし |
+| secondary_process_record_db.machine_master | 94 | なし（二次工程アプリは号機を現品票の文字として扱う） | `normalization_backup.machine_master_unused` へ退避（機械以外のコード34件を含む） |
+| material_scheduling.legacy_machine_ids | 96 | なし | 旧ID対応表のため残す |
+
+### 仕入先
+
+仕入先は用途ごとにコード体系が異なり、共通する会社は1社（購買529と委託加工H18のニッケイインスツルメンツ）のみ。1つの表に統合する対象ではないため、体系ごとの管理元を確定した。
+
+| 体系 | 管理元 | 対応 |
+|---|---|---|
+| 材料仕入先（01〜21） | material_millsheet_manager.suppliers（画面で登録・更新・削除） | material_scheduling.suppliers（13件の古い複製、参照なし）を `normalization_backup.suppliers_unused` へ退避 |
+| 委託加工先（G01〜） | subcon_manager.supplier_master | 変更なし |
+| 購買仕入先（101〜） | purchase_summary_db.suppliers | 購買アプリは正規化の対象外（2026-11-19 合意）。同じDBの旧表 `supplier_master` との二重管理もそのまま残す |
+
+検証：production_progress_sheet を開発DBに接続し、機番一覧61台・存在確認（A-5は有、未登録の機番は無）を確認。テスト54件成功。
+
+## 列の繰り返しの明細化（開発DB 2026-11-19）
+
+| 表 | 判断 |
+|---|---|
+| appearance_inspection_db.defect_information（164,574件。検査者1〜10、不具合種別31列） | 記録の形は維持し、集計用ビューを追加（合意済み）。 |
+| arai_masters.product_master の工程②〜⑨ | 管理表Excelで管理しているため、Excel運用の廃止時に扱う。 |
+| secondary_process_record_db.washing_process_daily_reports（作業コード1〜18） | NAS配置のアプリが使っていないため対象外。 |
+| 見積（cost_quote_*）・出荷検査（process_wip_quantities）・受注取込（import_management_sheet） | 繰り返しが少数、または取込・帳票用の一時的な形のため対象外。 |
+
+`defect_information` の対応：
+
+- 集計用ビュー `defect_information_inspectors`（検査者1人1行、291,611行）と `defect_information_counts`（種別ごとの件数1行）を追加。件数の合計は元の表と一致する。SQLは `sql/defect_information/`。
+- 不具合情報検索アプリが検査者1〜5しか読んでおらず、6人以上の記録（26件）で6人目以降が一覧・詳細に出なかったため、検査者10人まで表示するよう修正。集計Excelは既存書式の列位置を保つため検査者1〜5のまま（列は非表示）。
+- データの確認事項：不具合件数が -1 の値が3件（毟れ・メッキ・こすれ）。入力誤りとみられるが値は変更していない。総不具合数と種別合計の食い違いは3件（2023年）。
+
 ## アプリを開発で起動する前の注意
 
 - 本番のAccess・Excel・出力先フォルダはテスト環境へ変更済み。NASから再複製した場合や新しいアプリを追加した場合は、本番パスが残っていないことを起動前に再確認する。

@@ -112,3 +112,5 @@
 - 製品マスタを arai_masters に一本化（開発DB）。形式崩れ修復 `repair_arai_product_master.py`、適用・戻しSQL `access_postgres_normalization/sql/product_master/`、開発ホスト以外への接続を拒否する共通接続 `dev_db.py` を追加。
 - 製品マスタ生成スクリプト `.docs/arai_masters/create_product_master.py` の次工程を VARCHAR(255) に変更し、整数の数値セルを「42.0」ではなく「42」で取り込むよう修正。
 - 委託加工DBの製品マスタを arai_masters の互換ビューに切替（`04_subcon_manager_*.sql`）、二次工程DBの未使用の製品マスタを退避（`05_secondary_process_*.sql`）。現品票履歴の調査結果を `docs/app-db-inventory.md` に記録。
+- 材料手配DBの機械マスタを arai_masters の互換ビューに切替、未使用の仕入先表・二次工程DBの機械マスタを退避（`05`・`06` のSQL）。仕入先の管理元を体系ごとに整理し `docs/app-db-inventory.md` に記録。
+- 外観検査の不具合記録に集計用ビュー（`sql/defect_information/`）を追加。列の繰り返しの明細化の判断を `docs/app-db-inventory.md` に記録。

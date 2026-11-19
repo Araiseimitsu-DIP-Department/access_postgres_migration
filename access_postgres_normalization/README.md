@@ -63,15 +63,27 @@ python -m access_postgres_normalization.audit_delivery_labels
    psql -h 192.168.1.120 -U postgres -d subcon_manager -v devpw=<開発DBパスワード> -f access_postgres_normalization/sql/product_master/04_subcon_manager_up.sql
    ```
 
-6. 二次工程DBの未使用の製品マスタを `normalization_backup.product_master_unused` へ退避する（削除はしない）。
+6. 二次工程DBの未使用の製品マスタ・機械マスタを `normalization_backup.*_unused` へ退避する（削除はしない）。
 
    ```powershell
    psql -h 192.168.1.120 -U postgres -d secondary_process_record_db -f access_postgres_normalization/sql/product_master/05_secondary_process_up.sql
    ```
 
+7. 材料手配DBの機械マスタを arai_masters の互換ビューへ切り替え、未使用の仕入先表を退避する。旧表は `normalization_backup.machine_master_before_fdw`・`suppliers_unused` に残る。
+
+   ```powershell
+   psql -h 192.168.1.120 -U postgres -d material_scheduling -v devpw=<開発DBパスワード> -f access_postgres_normalization/sql/product_master/06_material_scheduling_up.sql
+   ```
+
 各SQLは `00_require_dev.sql` を読み込み、開発DB（192.168.1.120）以外では実行を中止する。
 
-戻す場合は番号の大きい順に `*_down.sql` を実行する（05 → 04 → 03 → 02 → 01）。修復した値は `normalization_backup.product_master_before_repair` から復元できる。
+戻す場合は番号の大きい順に `*_down.sql` を実行する（06 → 05 → 04 → 03 → 02 → 01）。修復した値は `normalization_backup.product_master_before_repair` から復元できる。
+
+外観検査の不具合記録には、検査者・不具合種別を1行ずつ読める集計用ビューを追加する（読み取り専用、アプリの動作は変わらない）。戻す場合は同じフォルダの `01_aggregate_views_down.sql`。
+
+```powershell
+psql -h 192.168.1.120 -U postgres -d appearance_inspection_db -f access_postgres_normalization/sql/defect_information/01_aggregate_views_up.sql
+```
 
 ## テスト
 
