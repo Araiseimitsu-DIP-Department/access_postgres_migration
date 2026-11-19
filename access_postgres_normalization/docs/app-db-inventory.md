@@ -94,8 +94,10 @@ Access移行は完了済みのため、開発DBの現状を正として調べた
 |---|---:|---|---|---|
 | arai_masters | 1,612 | `id`（主キー） | material_management_system（管理表Excelの未登録品番を追加） | label_print, QRreader, qr_management, shipping_inspection_list, work_in_process_search, defect_information_search, material_management_system, subcon-manager（同期元） |
 | order_management | 1,586 | なし（品番に索引のみ） | jucyu_manager（画面の登録・更新、管理表Excelからの取込） | jucyu_manager |
-| subcon_manager | 1,573 | `product_code`（主キー） | subcon-manager（arai_masters から同期、外注加工費は独自） | subcon-manager |
+| subcon_manager | 1,573 | `product_code`（主キー） | subcon-manager（arai_masters から同期。外注加工費も arai の `external_machining_cost` を同期） | subcon-manager |
 | secondary_process_record_db | 4,543 | なし | なし | なし（二次工程アプリは delivery_label_history から製品一覧を作る） |
+
+上表は切替前の状態。切替後は order_management・subcon_manager が arai の互換ビュー、secondary_process_record_db は退避済み（下記「実施結果」）。
 
 `arai_masters.product_master` が共通マスタとして最も多く参照されている。order_management と subcon_manager は品番・品名・客先が重複し、単価・締日・担当・外注加工費など業務固有の列を持つ。
 
@@ -111,9 +113,20 @@ Access移行は完了済みのため、開発DBの現状を正として調べた
 | 根本原因 | 移行用の生成スクリプト `.docs/arai_masters/create_product_master.py` の次工程を255文字に変更し、整数の数値セルを「42」と文字列化。切り詰めが起きた場合は警告を出す。 |
 | 受注管理アプリ | 画面からの新規登録は `J00001` 形式で採番。管理表取込は「ID」列で登録し、空き確保ID行を埋める。使用中品番・重複品番の保存は409で案内。 |
 | 管理表取込 | material_management_system の次工程上限を255文字に変更。受注管理と material_management_system は、どちらも管理表の「ID」列を共通製品マスタの主キーとして使う。取込ルールを変える場合は両方をそろえる。 |
-| 検証 | 受注管理APIを開発DBに接続して取込（追加0・既存1,585・除外1行は従来どおり）、使用中品番の変更拒否、新規採番を確認。テストは正規化ツール13件、受注管理238件（開発用パス変更による既定値テスト2件を除く）、material_management_system 77件、subcon-manager 37件が成功。 |
+| 検証 | 受注管理APIを開発DBに接続して取込（追加0・既存1,585・除外1行は従来どおり）、使用中品番の変更拒否、新規採番を確認。テストは正規化ツール13件、受注管理238件（開発用パス変更による既定値テスト2件を除く）、material_management_system 77件、subcon-manager 40件（委託加工の切替後）が成功。委託加工APIを開発DBに接続し、一覧1,586件・使用中品番の変更409・納期担当の更新と復元を確認。 |
+| 委託加工の切替 | subcon_manager.product_master を arai の互換ビューに置換（1,586件。旧表1,573件はすべて含まれ、arai のみの13件が追加）。外部委託加工費・品名・客先・担当は旧表と全件一致。食い違いは次工程9件・納期担当14件で、arai の値になった（旧表は `normalization_backup.product_master_before_fdw`）。委託加工の画面での更新は arai に保存され履歴に `subcon_manager_fdw` と記録される。使用中品番の変更は409で案内。同期ツールはビューを検出して何もしない。 |
+| 二次工程の製品マスタ | どのアプリ・ビュー・関数・他DBからも参照がないため `normalization_backup.product_master_unused` へ退避（削除はしていない）。現品票にあって arai にない旧品番1,298件のうち618件の情報を持つため、旧品番の参照資料として残すことを推奨。 |
 
-残りの対象：subcon_manager.product_master（同期コピー、外注加工費は業務固有）の互換ビュー化、secondary_process_record_db.product_master（未使用）の削除提案。
+## `delivery_label_history` の調査結果（開発DB 2026-11-19）
+
+| 観点 | 結果 |
+|---|---|
+| 品番の参照 | `product_code_id` は arai の `id`（A+5桁）。145,375件中 131,387件が arai の品番と一致、11,333件は arai にない ID、2,631件は同じ ID が別品番を指す（改番・枝番）。品番自体が arai にない行は13,975件（1,298品番、2009年からの旧品番）。 |
+| 品名・客先 | 印刷時点の値。arai と比べ品名409件、客先7,799件が異なる（客先名の変更履歴とみられる）。 |
+| 工程②〜⑨ | arai の製品マスタにも同じ列があり、label_print が印刷時に写す。qr_management・label_print・QRreader・work_in_process_search などが列名で読み書きする。 |
+| 値の揺れ | `issue_flag` に空文字と NULL が混在。`completion_flag` は 0〜4・9 と NULL。指示日が1年以上先の行が1件。 |
+
+印刷時点の記録のため、品名・客先・工程を製品マスタへの参照に置き換えると過去の現品票の内容が変わる。外部キーも旧品番があるため付けられない。2026-11-19 の合意により、現品票履歴は現状の構成（印刷時点の記録）を維持し、正規化の対象外とする。
 
 ## アプリを開発で起動する前の注意
 

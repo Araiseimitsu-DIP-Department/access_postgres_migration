@@ -57,9 +57,21 @@ python -m access_postgres_normalization.audit_delivery_labels
    psql -h 192.168.1.120 -U postgres -d delivery_label_db -f access_postgres_normalization/sql/product_master/03_reference_indexes_up.sql
    ```
 
+5. 委託加工DBの製品マスタ（arai からの同期コピー）を互換ビューへ切り替える。元の表は `normalization_backup.product_master_before_fdw` に残る。切替後、委託加工の同期ツールは自動で何もしない。
+
+   ```powershell
+   psql -h 192.168.1.120 -U postgres -d subcon_manager -v devpw=<開発DBパスワード> -f access_postgres_normalization/sql/product_master/04_subcon_manager_up.sql
+   ```
+
+6. 二次工程DBの未使用の製品マスタを `normalization_backup.product_master_unused` へ退避する（削除はしない）。
+
+   ```powershell
+   psql -h 192.168.1.120 -U postgres -d secondary_process_record_db -f access_postgres_normalization/sql/product_master/05_secondary_process_up.sql
+   ```
+
 各SQLは `00_require_dev.sql` を読み込み、開発DB（192.168.1.120）以外では実行を中止する。
 
-戻す場合は `03_reference_indexes_down.sql`、`02_order_management_down.sql`、`01_arai_masters_down.sql` の順に実行する。修復した値は `normalization_backup.product_master_before_repair` から復元できる。
+戻す場合は番号の大きい順に `*_down.sql` を実行する（05 → 04 → 03 → 02 → 01）。修復した値は `normalization_backup.product_master_before_repair` から復元できる。
 
 ## テスト
 

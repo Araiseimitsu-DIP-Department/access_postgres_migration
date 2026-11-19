@@ -26,7 +26,8 @@ TRUNCATED_NEXT_PROCESS_LENGTH = 10
 NEXT_PROCESS_LENGTH = 255
 BACKUP_SCHEMA = "normalization_backup"
 BACKUP_TABLE = "product_master_before_repair"
-ORDER_BACKUP_TABLE = "normalization_backup.product_master_before_fdw"
+# 受注管理・委託加工は切替後に arai の互換ビューになり、元の表はここへ退避される
+FDW_BACKUP_TABLE = "normalization_backup.product_master_before_fdw"
 NUMERIC_TEXT_RE = re.compile(r"^(\d+)\.0*$")
 
 LOGGER = logging.getLogger(__name__)
@@ -95,14 +96,11 @@ def _fetch(conn, query: str) -> list[tuple]:
         return cursor.fetchall()
 
 
-def _next_process_by_product(
-    settings: dict[str, str], database: str, product_column: str, preferred_table: str | None = None
-) -> dict:
+def _next_process_by_product(settings: dict[str, str], database: str, product_column: str) -> dict:
+    """切替前の元の表（退避済みならその表）から品番ごとの次工程を読む。"""
     with closing(connect_dev(settings, database)) as conn:
-        table = "public.product_master"
-        if preferred_table is not None:
-            table = _fetch(conn, f"SELECT coalesce(to_regclass('{preferred_table}'), "
-                                 f"'{table}'::regclass)::text")[0][0]
+        table = _fetch(conn, f"SELECT coalesce(to_regclass('{FDW_BACKUP_TABLE}'), "
+                             "'public.product_master'::regclass)::text")[0][0]
         rows = _fetch(conn, f"SELECT {product_column}, next_process FROM {table}")
     return {(code or "").strip(): value for code, value in rows if code}
 
@@ -146,8 +144,7 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         settings = dev_connection_settings()
-        # 受注管理は切替後に arai の互換ビューになるため、退避した元の表があればそちらを使う
-        order_next = _next_process_by_product(settings, ORDER_DB, "product_no", ORDER_BACKUP_TABLE)
+        order_next = _next_process_by_product(settings, ORDER_DB, "product_no")
         subcon_next = _next_process_by_product(settings, SUBCON_DB, "product_code")
         with closing(connect_dev(settings, ARAI_DB, readonly=not args.apply)) as conn:
             arai_rows = _fetch(
