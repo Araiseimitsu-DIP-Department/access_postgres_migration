@@ -114,3 +114,4 @@
 - 委託加工DBの製品マスタを arai_masters の互換ビューに切替（`04_subcon_manager_*.sql`）、二次工程DBの未使用の製品マスタを退避（`05_secondary_process_*.sql`）。現品票履歴の調査結果を `docs/app-db-inventory.md` に記録。
 - 材料手配DBの機械マスタを arai_masters の互換ビューに切替、未使用の仕入先表・二次工程DBの機械マスタを退避（`05`・`06` のSQL）。仕入先の管理元を体系ごとに整理し `docs/app-db-inventory.md` に記録。
 - 外観検査の不具合記録に集計用ビュー（`sql/defect_information/`）を追加。列の繰り返しの明細化の判断を `docs/app-db-inventory.md` に記録。
+- 受注・納品・委託加工の照合用ビュー（`sql/transactions/`）を追加。調査結果を `docs/app-db-inventory.md` に記録。

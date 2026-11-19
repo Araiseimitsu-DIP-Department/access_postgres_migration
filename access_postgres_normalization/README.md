@@ -85,6 +85,13 @@ python -m access_postgres_normalization.audit_delivery_labels
 psql -h 192.168.1.120 -U postgres -d appearance_inspection_db -f access_postgres_normalization/sql/defect_information/01_aggregate_views_up.sql
 ```
 
+受注・納品・委託加工の食い違いを確認する照合用ビューを追加する（読み取り専用、データとアプリの動作は変わらない）。戻す場合は同じフォルダの `*_down.sql`。
+
+```powershell
+psql -h 192.168.1.120 -U postgres -d order_performance_db -v devpw=<開発DBパスワード> -f access_postgres_normalization/sql/transactions/01_order_reconciliation_up.sql
+psql -h 192.168.1.120 -U postgres -d order_management -f access_postgres_normalization/sql/transactions/02_delivery_checks_up.sql
+```
+
 ## テスト
 
 ```powershell
