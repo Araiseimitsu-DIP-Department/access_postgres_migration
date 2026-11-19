@@ -115,3 +115,6 @@
 - 材料手配DBの機械マスタを arai_masters の互換ビューに切替、未使用の仕入先表・二次工程DBの機械マスタを退避（`05`・`06` のSQL）。仕入先の管理元を体系ごとに整理し `docs/app-db-inventory.md` に記録。
 - 外観検査の不具合記録に集計用ビュー（`sql/defect_information/`）を追加。列の繰り返しの明細化の判断を `docs/app-db-inventory.md` に記録。
 - 受注・納品・委託加工の照合用ビュー（`sql/transactions/`）を追加。調査結果を `docs/app-db-inventory.md` に記録。
+- 材料入庫・生産リリースの未使用のバックアップ表を退避し、入庫が見つからない材料検査の照合用ビュー（`sql/materials/`）を追加。調査結果を `docs/app-db-inventory.md` に記録。
+- 委託加工DBの空の表 `product_master_full` を退避（`sql/product_master/07_subcon_product_master_full_*.sql`）。
+- 開発DB専用の一括適用スクリプト `access_postgres_normalization/apply_all_dev.py` を追加（製品マスタの修復と全SQLを順に実行、失敗時は中止、`--down` で逆順に戻す）。

@@ -116,6 +116,7 @@ Access移行は完了済みのため、開発DBの現状を正として調べた
 | 検証 | 受注管理APIを開発DBに接続して取込（追加0・既存1,585・除外1行は従来どおり）、使用中品番の変更拒否、新規採番を確認。テストは正規化ツール13件、受注管理238件（開発用パス変更による既定値テスト2件を除く）、material_management_system 77件、subcon-manager 40件（委託加工の切替後）が成功。委託加工APIを開発DBに接続し、一覧1,586件・使用中品番の変更409・納期担当の更新と復元を確認。 |
 | 委託加工の切替 | subcon_manager.product_master を arai の互換ビューに置換（1,586件。旧表1,573件はすべて含まれ、arai のみの13件が追加）。外部委託加工費・品名・客先・担当は旧表と全件一致。食い違いは次工程9件・納期担当14件で、arai の値になった（旧表は `normalization_backup.product_master_before_fdw`）。委託加工の画面での更新は arai に保存され履歴に `subcon_manager_fdw` と記録される。使用中品番の変更は409で案内。同期ツールはビューを検出して何もしない。 |
 | 二次工程の製品マスタ | どのアプリ・ビュー・関数・他DBからも参照がないため `normalization_backup.product_master_unused` へ退避（削除はしていない）。現品票にあって arai にない旧品番1,298件のうち618件の情報を持つため、旧品番の参照資料として残すことを推奨。 |
+| 委託加工の `product_master_full` | Access「製品マスター」の移行対象外の写しで0件。アプリはモデル登録（起動時の `create_all`）のみで読み書きなし。モデル `SeihinMasterFull` を外し、`normalization_backup.product_master_full_unused` へ退避（`07_subcon_product_master_full_*.sql`）。 |
 
 ## `delivery_label_history` の調査結果（開発DB 2026-11-19）
 
@@ -184,6 +185,24 @@ Access移行は完了済みのため、開発DBの現状を正として調べた
 - 保存された納品数が実際の合計の約2倍になっている注文・発注がある（受注管理 C3110326・C3110079〈2026年〉、委託加工 18330・18721・18722〈2025年〉）。納品の二重計上が疑われるが、変更履歴・削除処理のコードからは原因を特定できていない。
 - 委託加工の「発注が見つからない納入」3,295件は、2017〜2018年の移行時の繰越データ（`deliveries_start` と同じ行）で、現在の運用では発生していない。
 - 「残」が「数量−済数」と合わない行は、完納時に残を0にする仕様によるもの。
+
+## 材料入庫・作業用データ・バックアップ（開発DB 2026-11-19）
+
+材料入庫の正は `material_millsheet_manager.material_delivery_history`（15,175件）。SQLは `sql/materials/`。
+
+| 対象 | 調査結果 | 対応 |
+|---|---|---|
+| 検査の `purchase_id` | `material_delivery_history.id` を指す。現行検査 `inspection_data` 1,535件は全件対応。旧検査 `legacy_inspection_data` 7,993件のうち24件は入庫が見つからない（入庫は削除済みで、変更前の写しにもない）。1入庫に検査は最大1件で、新旧の重複もない | 照合用ビュー `material_inspection_orphans` を追加。材料ミルシート管理アプリは入庫を削除できるため外部キーは付けない |
+| 量産管理の `material_receipt.source_ref` | `material_delivery_history.id`（文字列）を指す。1,037件すべて対応し重複なし | 変更なし |
+| `material_delivery_history_before_change` | 2018-04 時点の入庫の写し（2,677件）。2,669件は現行と同一、差は lot_no 6件・category_code 1件、現行にない行1件（id 2644）。アプリからの参照なし（診断スクリプトの一覧のみ） | `normalization_backup.material_delivery_history_before_change_unused` へ退避 |
+| `material_delivery_temp` | 材料ミルシート管理アプリの取込用の一時表（0件） | 変更なし |
+| `production_releases_backup` | 2022-09〜11 時点の生産リリースの写し（30,193件、全件が現行にある）。差は工程終了日の時刻22,823件（現行は日付のみ、日付は全件一致）、完了フラグ・完了日35件、号機1件。現行にない新しい行143件。アプリからの参照なし | `normalization_backup.production_releases_backup_unused` へ退避 |
+| 材料手配DBの `material_delivery_history` | 2019-11〜2024-07 の手配用の入庫（144件、本数・管理番号つき）。ロットの大半（132件中114件）はミルシートDBにもある。アプリからの参照なし | 列が異なり別用途のため変更なし |
+
+補足：
+
+- `production_releases` 自体もアプリからの参照がなく、最終データは2022-11。
+- 材料入荷検査アプリの `migrations/postgres/001_initial_schema.sql` は新規環境向けに `material_delivery_history_before_change` を作る。開発DBに再適用すると空の表が `public` に作られるため、再適用時は退避先と取り違えないよう注意する。
 
 ## アプリを開発で起動する前の注意
 

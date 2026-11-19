@@ -20,6 +20,24 @@ Access由来の複数DBについて、開発環境で重複や参照関係を検
 
 リポジトリ直下でモジュールとして実行する。
 
+### 一括適用（開発DB専用）
+
+製品マスタの修復と、下記の各節のSQL（12本）を README の順に一括で実行する。失敗した時点で中止し、以降の手順は実行しない。各手順は再実行しても結果が変わらない。
+
+```powershell
+$env:NORMALIZATION_DEV_USER = "postgres"
+# 一覧の表示のみ（何も変更しない）
+python -m access_postgres_normalization.apply_all_dev --password-file <パスワードを1行で書いたファイル>
+# 適用する
+python -m access_postgres_normalization.apply_all_dev --password-file <ファイル> --execute
+# 戻す（*_down.sql を逆順に実行。製品マスタの修復値は戻さない）
+python -m access_postgres_normalization.apply_all_dev --password-file <ファイル> --execute --down
+```
+
+- パスワードは `--password-file` か `NORMALIZATION_DEV_PASSWORD` で渡す。画面表示とログでは `***` に置き換える。
+- 接続先は `NORMALIZATION_DEV_HOST` が開発ホスト（192.168.1.120）のときだけ実行する。本番（121）への適用には使えない。
+- `psql` が PATH にない場合は `--psql <psql.exe のパス>` か環境変数 `PSQL` で指定する。
+
 ### 現品票履歴の照合（読み取りのみ）
 
 ```powershell
@@ -75,9 +93,15 @@ python -m access_postgres_normalization.audit_delivery_labels
    psql -h 192.168.1.120 -U postgres -d material_scheduling -v devpw=<開発DBパスワード> -f access_postgres_normalization/sql/product_master/06_material_scheduling_up.sql
    ```
 
+8. 委託加工DBの空の表 `product_master_full`（Access「製品マスター」の移行対象外の写し）を `normalization_backup.product_master_full_unused` へ退避する。委託加工アプリは起動時に `create_all` を実行するため、先にアプリのモデル `SeihinMasterFull` を外しておく。
+
+   ```powershell
+   psql -h 192.168.1.120 -U postgres -d subcon_manager -f access_postgres_normalization/sql/product_master/07_subcon_product_master_full_up.sql
+   ```
+
 各SQLは `00_require_dev.sql` を読み込み、開発DB（192.168.1.120）以外では実行を中止する。
 
-戻す場合は番号の大きい順に `*_down.sql` を実行する（06 → 05 → 04 → 03 → 02 → 01）。修復した値は `normalization_backup.product_master_before_repair` から復元できる。
+戻す場合は番号の大きい順に `*_down.sql` を実行する（07 → 06 → 05 → 04 → 03 → 02 → 01）。修復した値は `normalization_backup.product_master_before_repair` から復元できる。
 
 外観検査の不具合記録には、検査者・不具合種別を1行ずつ読める集計用ビューを追加する（読み取り専用、アプリの動作は変わらない）。戻す場合は同じフォルダの `01_aggregate_views_down.sql`。
 
@@ -90,6 +114,13 @@ psql -h 192.168.1.120 -U postgres -d appearance_inspection_db -f access_postgres
 ```powershell
 psql -h 192.168.1.120 -U postgres -d order_performance_db -v devpw=<開発DBパスワード> -f access_postgres_normalization/sql/transactions/01_order_reconciliation_up.sql
 psql -h 192.168.1.120 -U postgres -d order_management -f access_postgres_normalization/sql/transactions/02_delivery_checks_up.sql
+```
+
+材料入庫・生産リリースの未使用のバックアップ表を `normalization_backup.*_unused` へ退避し（削除はしない）、入庫が見つからない材料検査の照合用ビューを追加する。戻す場合は番号の大きい順に `*_down.sql`（02 → 01）。
+
+```powershell
+psql -h 192.168.1.120 -U postgres -d material_millsheet_manager -f access_postgres_normalization/sql/materials/01_unused_backups_up.sql
+psql -h 192.168.1.120 -U postgres -d material_millsheet_manager -f access_postgres_normalization/sql/materials/02_inspection_checks_up.sql
 ```
 
 ## テスト
