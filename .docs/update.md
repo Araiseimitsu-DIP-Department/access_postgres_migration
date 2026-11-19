@@ -107,3 +107,7 @@
 - `.docs/pingauge_management_db` のAccess DBをPostgreSQLへ移行。
 - ピンゲージ管理DB専用スクリプト `.docs/pingauge_management_db/migrate_access_to_postgres_pingauge_management_db.py` を追加。
 - ピンゲージ管理DBの移行成果物名に `pingauge_management_db` を含める命名で生成。
+- 正規化計画 `access_postgres_normalization/` を追加（計画書・開発DB棚卸し・現品票履歴の読み取り監査）。
+- NAS配置の21アプリとDBの対応、共有テーブル、開発DB外部サーバーの開発向け切替を `access_postgres_normalization/docs/app-db-inventory.md` に記録。
+- 製品マスタを arai_masters に一本化（開発DB）。形式崩れ修復 `repair_arai_product_master.py`、適用・戻しSQL `access_postgres_normalization/sql/product_master/`、開発ホスト以外への接続を拒否する共通接続 `dev_db.py` を追加。
+- 製品マスタ生成スクリプト `.docs/arai_masters/create_product_master.py` の次工程を VARCHAR(255) に変更し、整数の数値セルを「42.0」ではなく「42」で取り込むよう修正。

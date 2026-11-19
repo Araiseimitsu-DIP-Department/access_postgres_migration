@@ -59,7 +59,8 @@ COLUMN_DEFS: tuple[ColumnDef, ...] = (
     ColumnDef("B", "別管理番号", "alt_management_no", "varchar", 30),
     ColumnDef("C", "製品名", "product_name", "varchar", 30),
     ColumnDef("D", "客先名", "customer_name", "varchar", 30),
-    ColumnDef("E", "次工程", "next_process", "varchar", 10),
+    # 10文字では次工程が切り捨てられるため、material_management_system と同じ255文字にそろえる
+    ColumnDef("E", "次工程", "next_process", "varchar", 255),
     ColumnDef("F", "コード", "process_code", "varchar", 4),
     ColumnDef("G", "締日", "closing_day", "varchar", 2),
     ColumnDef("H", "営業　　　担当", "sales_staff", "varchar", 6),
@@ -246,6 +247,9 @@ def _cell_str(value: Any) -> str:
         return ""
     if isinstance(value, float) and math.isnan(value):
         return ""
+    # Excelの数値セルは 42.0 として読まれるため、整数値は「42」として文字列化する
+    if isinstance(value, float) and value.is_integer():
+        value = int(value)
     return str(value).strip()
 
 
@@ -261,6 +265,7 @@ def _coerce_value(value: Any, col: ColumnDef) -> Any:
         if not text:
             return None
         if col.varchar_len is not None and len(text) > col.varchar_len:
+            logging.warning("%s: %s を%d文字に切り詰めました: %s", TABLE_NAME, col.pg_col, col.varchar_len, text)
             text = text[: col.varchar_len]
         return text
     if col.pg_type == "float":

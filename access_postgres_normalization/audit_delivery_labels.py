@@ -1,18 +1,14 @@
 """開発環境の現品票履歴を読み取り専用で突合する。"""
 
 import logging
-import os
 from collections import Counter
 from contextlib import closing
 
 import psycopg2
 from psycopg2 import sql
 
-DEFAULT_DEV_HOST = "192.168.1.120"
-POSTGRES_PORT = 5432
-CONNECTION_TIMEOUT_SECONDS = 5
-STATEMENT_TIMEOUT = "15s"
-LOCK_TIMEOUT = "1s"
+from access_postgres_normalization.dev_db import DevConnectionError, connect_dev, dev_connection_settings
+
 HISTORY_COLUMNS = (
     "production_lot_id",
     "machine_no",
@@ -36,21 +32,8 @@ def fetch_counts(connection: dict[str, str], database: str, table: str) -> Histo
         sql.SQL(", ").join(map(sql.Identifier, HISTORY_COLUMNS)),
         sql.Identifier(table),
     )
-    connection_options = (
-        f"-c default_transaction_read_only=on -c statement_timeout={STATEMENT_TIMEOUT} "
-        f"-c lock_timeout={LOCK_TIMEOUT} -c TimeZone=UTC"
-    )
     try:
-        with closing(
-            psycopg2.connect(
-                **connection,
-                port=POSTGRES_PORT,
-                dbname=database,
-                connect_timeout=CONNECTION_TIMEOUT_SECONDS,
-                options=connection_options,
-            )
-        ) as conn:
-            conn.set_session(readonly=True)
+        with closing(connect_dev(connection, database)) as conn:
             with conn.cursor() as cursor:
                 cursor.execute(query)
                 return Counter(cursor)
@@ -79,18 +62,11 @@ def summarize(inspection: HistoryCounts, labels: HistoryCounts) -> dict[str, int
 
 def main() -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
-    user = os.environ.get("NORMALIZATION_DEV_USER")
-    if not user:
-        LOGGER.error("NORMALIZATION_DEV_USER を設定してください。")
+    try:
+        connection = dev_connection_settings()
+    except DevConnectionError as error:
+        LOGGER.error("%s", error)
         return 1
-
-    connection = {
-        "host": os.environ.get("NORMALIZATION_DEV_HOST", DEFAULT_DEV_HOST),
-        "user": user,
-    }
-    password = os.environ.get("NORMALIZATION_DEV_PASSWORD")
-    if password is not None:
-        connection["password"] = password
 
     try:
         inspection = fetch_counts(
