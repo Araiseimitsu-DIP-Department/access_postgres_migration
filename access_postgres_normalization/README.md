@@ -144,11 +144,14 @@ psql -h 192.168.1.120 -U postgres -d order_performance_db -v devpw=<開発DBパ�
 psql -h 192.168.1.120 -U postgres -d order_management -f access_postgres_normalization/sql/transactions/02_delivery_checks_up.sql
 ```
 
-材料入庫・生産リリースの未使用のバックアップ表を `normalization_backup.*_unused` へ退避し（削除はしない）、入庫が見つからない材料検査の照合用ビューを追加する。戻す場合は番号の大きい順に `*_down.sql`（02 → 01）。
+材料入庫・生産リリースの未使用のバックアップ表を `normalization_backup.*_unused` へ退避し（削除はしない）、入庫が見つからない材料検査の照合用ビューと、材質マスタと一致しない入庫の材質の照合用ビュー（表記揺れの対応表 `material_kind_aliases` つき）を追加し、入庫の材質欄の表記揺れを材質マスタの材質名に寄せる（変更前の値は `normalization_backup.material_kind_fix_before` に控える）。さらに未登録の材質を材質マスタへ登録し、入庫の区分記号をそろえる（`normalization_backup.material_category_fix_before`・`material_types_added` に控える）。戻す場合は番号の大きい順に `*_down.sql`（05 → 04 → 03 → 02 → 01）。
 
 ```powershell
 psql -h 192.168.1.120 -U postgres -d material_millsheet_manager -f access_postgres_normalization/sql/materials/01_unused_backups_up.sql
 psql -h 192.168.1.120 -U postgres -d material_millsheet_manager -f access_postgres_normalization/sql/materials/02_inspection_checks_up.sql
+psql -h 192.168.1.120 -U postgres -d material_millsheet_manager -f access_postgres_normalization/sql/materials/03_material_kind_checks_up.sql
+psql -h 192.168.1.120 -U postgres -d material_millsheet_manager -f access_postgres_normalization/sql/materials/04_material_kind_fix_up.sql
+psql -h 192.168.1.120 -U postgres -d material_millsheet_manager -f access_postgres_normalization/sql/materials/05_material_types_register_up.sql
 ```
 
 ## テスト
