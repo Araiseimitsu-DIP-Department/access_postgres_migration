@@ -122,3 +122,4 @@
 - 材質マスタと一致しない入庫の材質を確認する照合ビューと、表記揺れの対応表を追加（`sql/materials/03_material_kind_checks_*.sql`）。調査結果を `docs/app-db-inventory.md` に記録。
 - 入庫の材質欄の表記揺れ272件を材質マスタの材質名に寄せ、空の区分記号5件を埋める修正を追加（`sql/materials/04_material_kind_fix_*.sql`、変更前の値を退避して戻せる）。
 - 材質マスタへ未登録の材質28件を登録、表記揺れの対応表に4件追加し、入庫の `YST1` の区分記号を F にそろえ空の区分記号を埋める修正を追加（`sql/materials/05_material_types_register_*.sql`、54件を変更、戻せる）。
+- 主キーのないマスタ・台帳（9DB・36表）に主キーを追加するSQL（`access_postgres_normalization/sql/primary_keys/`）を追加し、一括適用に組み込み（追加前に空欄・重複を確認して中止、受注の制約名は受注管理アプリに合わせて維持）。分類と判断は `docs/app-db-inventory.md` に記録。

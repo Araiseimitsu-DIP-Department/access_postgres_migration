@@ -60,6 +60,7 @@ SQL_STEPS: tuple[SqlStep, ...] = (
     SqlStep("materials/03_material_kind_checks", "material_millsheet_manager"),
     SqlStep("materials/04_material_kind_fix", "material_millsheet_manager"),
     SqlStep("materials/05_material_types_register", "material_millsheet_manager"),
+    SqlStep("primary_keys/01_primary_keys", "appearance_inspection_db"),
 )
 
 

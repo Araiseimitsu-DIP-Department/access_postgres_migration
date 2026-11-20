@@ -219,6 +219,25 @@ Access移行は完了済みのため、開発DBの現状を正として調べた
 - `production_releases` 自体もアプリからの参照がなく、最終データは2022-11。
 - 材料入荷検査アプリの `migrations/postgres/001_initial_schema.sql` は新規環境向けに `material_delivery_history_before_change` を作る。開発DBに再適用すると空の表が `public` に作られるため、再適用時は退避先と取り違えないよう注意する。
 
+## 主キーの追加（開発DB 2026-11-20）
+
+開発DBを本番の構成から作り直して一括適用を流し、正規化9DBが一括スクリプトだけで差分なく再現できることを確認したうえで実施した。主キーのない表（`normalization_backup` と正規化対象外の `purchase_summary_db`・`arai_stock_*` を除く）を、候補キーの空欄・重複と、作業領域のアプリの書き込み方で分類した。
+
+| 区分 | 表 | 判断 |
+|---|---|---|
+| 主キーを追加（36表） | 各DBのコード系マスタ、`orders`・`customer_master`・`sales_months`、ピンゲージ・作業者・出荷検査の台帳など（一覧は `sql/primary_keys/01_targets.sql`） | 既存の列に空欄・重複がなく、アプリはその列で存在確認してから登録し、同じ列で更新・削除している |
+| 付けない（作業表・写し） | Excel履歴の写し2表、`excel_qr_history`、`qr_history_tmp`、`qr_history_backup_260521`（完全重複16行）、`advance_inspection_list`・`product_inspection_staff`・`db_updated_at`（毎回作り直す集計表）、`production_pauses`（空） | どのアプリも使わないか、毎回全削除して作り直すため効果がない |
+| 付けない（確認が必要） | `appearance_inspection_db.inspection_in_progress` | 書き込み元のアプリが作業領域にない |
+| 付けない（確認が必要） | `shipping_inspection_db.process_wip_quantities` | 集計元の `sql/shipping_inspection_query.sql` が作業領域にもNAS原本にもない（`出荷検査一覧.spec` は `sql` フォルダを同梱する前提）。このままでは出荷検査一覧の更新処理が失敗する |
+| 相談中 | `appearance_inspection_db.inspector_master` | 検査者IDが空欄の行が5件あり、主キーにできない |
+
+アプリとの調整：
+
+- `jucyu_manager` は受注IDの重複を制約名 `uq_orders_order_id` で判定するため、一意制約をこの名前の主キーに置き換えた。同じ列の索引 `idx_orders_order_id` は不要になったため外した。
+- `order_performance` のモデルは `customer_master.code`・`sales_months.sales_month` を主キーとして定義済みで、今回DBが定義に一致した。
+- `shipping_inspection_remaining_prev_day`・`shipping_data` は `shipping_inspection_remaining`（注文IDで更新・追加）からの写しのため、注文IDが一意になる。列は追加していないため `INSERT ... SELECT *` は従来どおり動く。
+- 検証：適用・再実行（変化なし）・戻し・再適用を開発DBで確認。空欄・重複がある表では何も変更せずに中止することを確認。作業領域のアプリのテスト（受注管理、委託加工、材料管理、ミルシート管理、加工進行表、受注実績、ピンゲージ管理、二次工程）が適用前と同じ結果（失敗は既定の保存先をテスト環境に変えたことによる3件のみ）。
+
 ## アプリを開発で起動する前の注意
 
 - 本番のAccess・Excel・出力先フォルダはテスト環境へ変更済み。NASから再複製した場合や新しいアプリを追加した場合は、本番パスが残っていないことを起動前に再確認する。

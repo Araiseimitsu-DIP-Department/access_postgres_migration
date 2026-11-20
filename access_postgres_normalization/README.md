@@ -22,7 +22,7 @@ Access由来の複数DBについて、開発環境で重複や参照関係を検
 
 ### 一括適用（開発DB専用）
 
-製品マスタの修復と、下記の各節のSQL（12本）を README の順に一括で実行する。失敗した時点で中止し、以降の手順は実行しない。各手順は再実行しても結果が変わらない。
+製品マスタの修復と、下記の各節のSQLを README の順に一括で実行する。失敗した時点で中止し、以降の手順は実行しない。各手順は再実行しても結果が変わらない。
 
 ```powershell
 $env:NORMALIZATION_DEV_USER = "postgres"
@@ -152,6 +152,12 @@ psql -h 192.168.1.120 -U postgres -d material_millsheet_manager -f access_postgr
 psql -h 192.168.1.120 -U postgres -d material_millsheet_manager -f access_postgres_normalization/sql/materials/03_material_kind_checks_up.sql
 psql -h 192.168.1.120 -U postgres -d material_millsheet_manager -f access_postgres_normalization/sql/materials/04_material_kind_fix_up.sql
 psql -h 192.168.1.120 -U postgres -d material_millsheet_manager -f access_postgres_normalization/sql/materials/05_material_types_register_up.sql
+```
+
+主キーのないマスタ・台帳（9DB・36表）に主キーを追加する。対象の表と列、付けない表とその理由は `sql/primary_keys/01_targets.sql`。各DBで先に空欄・重複を確認し、1件でもあれば何も変更せずに中止して表名と件数を表示する（本番データを移すときも同じ確認が働く）。`order_management.customer_master` の全列が空の行は `normalization_backup.customer_master_blank_rows` へ移す。`orders` の主キーは、受注管理アプリが重複エラーの判定に使う制約名 `uq_orders_order_id` のまま作る。戻す場合は `01_primary_keys_down.sql`。
+
+```powershell
+psql -h 192.168.1.120 -U postgres -d appearance_inspection_db -f access_postgres_normalization/sql/primary_keys/01_primary_keys_up.sql
 ```
 
 ## テスト
