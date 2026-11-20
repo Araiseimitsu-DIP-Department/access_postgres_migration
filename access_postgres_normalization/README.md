@@ -38,6 +38,34 @@ python -m access_postgres_normalization.apply_all_dev --password-file <ファイ
 - 接続先は `NORMALIZATION_DEV_HOST` が開発ホスト（192.168.1.120）のときだけ実行する。本番（121）への適用には使えない。
 - `psql` が PATH にない場合は `--psql <psql.exe のパス>` か環境変数 `PSQL` で指定する。
 
+### 本番の内容で開発DBを作り直して正規化する（開発DB専用）
+
+本番 `192.168.1.121` の最新の内容を開発 `192.168.1.120` に複製し、正規化済みの状態にする。毎日、最新のデータで開発DBを操作したいときに手動で実行する。
+
+```powershell
+$env:NORMALIZATION_DEV_USER = "postgres"
+# 対象の一覧表示のみ（何も変更しない）
+python -m access_postgres_normalization.refresh_dev_from_prod
+# 複製して正規化する
+python -m access_postgres_normalization.refresh_dev_from_prod --execute
+```
+
+開発DB・本番DBのパスワードは、実行時に画面で入力を求める（入力した文字は表示しない）。自動実行などで入力できない場合は、`--dev-password-file`・`--prod-password-file`（パスワードを1行で書いたファイル）か、環境変数 `NORMALIZATION_DEV_PASSWORD`・`NORMALIZATION_PROD_PASSWORD` で渡せる。その場合は入力を求めない。
+
+| 環境変数 | 用途 |
+|---|---|
+| `NORMALIZATION_PROD_USER` | 本番に接続するロール。省略時は `NORMALIZATION_DEV_USER` と同じ。 |
+| `NORMALIZATION_PROD_PASSWORD` | 本番のパスワード。設定すると入力を求めない（`--prod-password-file` でも可）。 |
+| `PG_BIN` | `pg_dump`・`pg_restore`・`psql` のフォルダ。PATH にない場合に指定する（`--pg-bin` と同じ）。 |
+
+- 対象は本番と開発の両方にあるDB（`postgres` を除く）。片方にしかないDBには触らない。
+- **開発の対象DBは毎回削除して作り直すため、開発で入力したデータや手作業の変更は消える。** 事前のバックアップは取らない。
+- 本番へは `pg_dump` とDB一覧の参照だけを、読み取り専用の接続で行う。全DBの取得に成功してから開発の作り直しを始めるため、取得に失敗した場合は開発DBは変わらない。
+- 開発のDBは開発側のロケール（C）で作り直す。本番のロールは開発にないため、所有者と権限は復元しない。
+- 本番の認証情報を含むユーザーマッピングは復元しない。DBごとに、本番を向く外部サーバーを開発に切り替えてから、開発の認証情報でユーザーマッピングを作り直す。
+- 復元のあとに一括適用（`apply_all_dev` と同じ13手順）を実行する。最後に、本番を向く外部サーバーが残っていないことを確認する。
+- 途中で失敗した場合は、失敗したDBと未処理のDBを表示して中止する。原因を直して再実行すれば、全体を最初からやり直す。
+
 ### 現品票履歴の照合（読み取りのみ）
 
 ```powershell

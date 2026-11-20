@@ -118,3 +118,4 @@
 - 材料入庫・生産リリースの未使用のバックアップ表を退避し、入庫が見つからない材料検査の照合用ビュー（`sql/materials/`）を追加。調査結果を `docs/app-db-inventory.md` に記録。
 - 委託加工DBの空の表 `product_master_full` を退避（`sql/product_master/07_subcon_product_master_full_*.sql`）。
 - 開発DB専用の一括適用スクリプト `access_postgres_normalization/apply_all_dev.py` を追加（製品マスタの修復と全SQLを順に実行、失敗時は中止、`--down` で逆順に戻す）。
+- 本番DBの内容で開発DBを作り直し、正規化まで行うスクリプト `access_postgres_normalization/refresh_dev_from_prod.py` を追加（本番は読み取り専用で取得し、ユーザーマッピングは開発の認証情報で作り直す。外部サーバーは開発向けに切り替える）。
